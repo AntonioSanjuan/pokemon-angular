@@ -1,0 +1,19 @@
+.MainLayout_Container {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+
+    height: 100vh;
+    .MainLayout_Header {
+        position:fixed;
+        width: 100%;
+        
+        height: 50px;
+    }
+    .MainLayout_Content {
+        height: 100%;
+
+        margin-top: 50px;
+    }
+    .MainLayout_Footer {}
+}
