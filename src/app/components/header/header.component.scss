@@ -1,6 +1,8 @@
 @use '../../../colors.scss';
 
 .Header_Container {
+    display: flex;
     height: 100%;
+    justify-content: center;
     // background-color: colors.$main-color;
 }
