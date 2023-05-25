@@ -5,7 +5,7 @@ import { map, switchMap } from 'rxjs/operators';
 import { Observable, forkJoin } from 'rxjs';
 import { PokemonDto } from 'src/app/models/dtos/pokemonDto.model';
 import { MinifiedPokemonDto } from 'src/app/models/dtos/pokemonMinified.model';
-import { Pokemon, Pokemons } from 'src/app/models/internals/pokemons.model';
+import { IPokemon, Pokemon, Pokemons } from 'src/app/models/internals/pokemons.model';
 
 @Injectable()
 export class PokemonAdapter {
@@ -42,12 +42,9 @@ export class PokemonAdapter {
                 nextPage,
                 prevPage,
                 currentPage: page,
-                data: rawPokemons.map((pokemon): Pokemon => {
-                    return {
-                        name: pokemon.name,
-                        image: pokemon.sprites.front_default
-                    } as Pokemon;
-                })
+                data: rawPokemons.map((pokemon): IPokemon => 
+                    new Pokemon(pokemon.name, pokemon.sprites.front_default)
+                )
             }
             return output;
         })
