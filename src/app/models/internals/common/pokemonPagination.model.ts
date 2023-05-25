@@ -6,7 +6,7 @@ export interface IPokemonPagination<T> {
     data: T[]
 }
 
-export class PokemonPagination<T> {
+export class PokemonPagination<T> implements IPokemonPagination<T> {
     public numberOfElements: number
     public currentPage: number
     public data: T[]

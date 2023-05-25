@@ -5,7 +5,8 @@ import { map, switchMap } from 'rxjs/operators';
 import { Observable, forkJoin } from 'rxjs';
 import { PokemonDto } from 'src/app/models/dtos/pokemonDto.model';
 import { MinifiedPokemonDto } from 'src/app/models/dtos/pokemonMinified.model';
-import { IPokemon, Pokemon, Pokemons } from 'src/app/models/internals/pokemons.model';
+import { IPokemon, Pokemon, IPokemons, Pokemons } from 'src/app/models/internals/pokemons.model';
+import { PokemonPaginationDto } from 'src/app/models/dtos/common/pokemonPaginationDto.model';
 
 @Injectable()
 export class PokemonAdapter {
@@ -14,20 +15,16 @@ export class PokemonAdapter {
 
   constructor(private pokemonService: PokemonService) {}
 
-  public getPokemons(page: number): Observable<Pokemons> {
+  public getPokemons(page: number): Observable<IPokemons> {
     this.isLoading = true;
     this.isError = false;
 
-    let nextPage!: string|undefined;
-    let prevPage!: string|undefined;
-    let numberOfElements!: number;
+    let rawPokemonsPaginationDto: PokemonPaginationDto<any>;
 
     return this.pokemonService.getPokemons(page).pipe(
         switchMap((pokemons: PokemonsDto) => {
 
-            nextPage = pokemons.next;
-            prevPage = pokemons.previous;
-            numberOfElements = pokemons.count;
+            rawPokemonsPaginationDto = pokemons;
 
             const requests = pokemons.results
                 .map((minifiedPokemon: MinifiedPokemonDto) => 
@@ -36,16 +33,14 @@ export class PokemonAdapter {
             return forkJoin(requests)
         }),
         map((rawPokemons: PokemonDto[]) => {
-            const output: Pokemons = {
-                // to-do
-                numberOfElements,
-                nextPage,
-                prevPage,
-                currentPage: page,
-                data: rawPokemons.map((pokemon): IPokemon => 
+            const output = new Pokemons(
+                rawPokemonsPaginationDto, 
+                page, 
+                rawPokemons.map((pokemon): IPokemon => 
                     new Pokemon(pokemon.name, pokemon.sprites.front_default)
                 )
-            }
+            )
+            
             return output;
         })
     )
