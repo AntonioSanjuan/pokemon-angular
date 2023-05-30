@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
-import { PokemonAdapterModule } from 'src/app/adapters/pokemon/pokemon.adapter.module';
+import { PokemonServiceModule } from 'src/app/services/pokemon/pokemon.service.module';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
@@ -11,7 +11,7 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
   providers: [],
   imports: [
     SharedModule,
-    PokemonAdapterModule,
+    PokemonServiceModule,
     RouterModule.forChild(routes),
   ],
   exports: [SharedModule],

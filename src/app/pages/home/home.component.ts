@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PokemonAdapter } from 'src/app/adapters/pokemon/pokemon.adapter';
+import { usePokemons } from 'src/app/hooks/pokemons/usePokemons';
 
 @Component({
   selector: 'app-home',
@@ -7,13 +7,15 @@ import { PokemonAdapter } from 'src/app/adapters/pokemon/pokemon.adapter';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
-  constructor(private pokemonAdapter: PokemonAdapter) {}
-
   private page: number = 0;
-
+  protected readonly pokemons = usePokemons()
+  
   async ngOnInit() {
-    this.pokemonAdapter.getPokemons(this.page).subscribe((pokemons) => {
-      console.log("🚀 ~ file: home.component.ts:16 ~ HomeComponent ~ this.pokemonAdapter.getPokemons ~ resp:", pokemons)
+    this.pokemons.pokemons$.subscribe((pokemons) => {
+      console.log("pokemons", pokemons)
     })
+
+    this.pokemons.fetchPokemons(this.page)
   }
+  
 }
