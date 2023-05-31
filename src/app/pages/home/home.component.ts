@@ -11,10 +11,6 @@ export class HomeComponent {
   protected readonly pokemons = usePokemons()
   
   async ngOnInit() {
-    this.pokemons.pokemons$.subscribe((pokemons) => {
-      console.log("pokemons", pokemons)
-    })
-
     this.pokemons.fetchPokemons(this.page)
   }
   
