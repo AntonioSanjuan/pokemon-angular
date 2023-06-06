@@ -7,15 +7,15 @@ import { PokemonDto } from 'src/app/models/dtos/pokemonDto.model';
 import { MinifiedPokemonDto } from 'src/app/models/dtos/pokemonMinified.model';
 import { IPokemon, IPokemons } from 'src/app/models/internals/pokemons.model';
 import { PokemonPaginationDto } from 'src/app/models/dtos/common/pokemonPaginationDto.model';
-import { PokemonAdapter, PokemonsAdapter } from 'src/app/adapters/pokemon/pokemon.adapter';
+import { PokeApiAdapter, PokemonsAdapter } from 'src/app/adapters/poke-api/poke-api.adapter';
 
 @Injectable()
-export class PokemonService {
+export class PokeApiService {
   private limit: number = 20;
 
   constructor(
     private http: HttpClient,
-    private pokemonAdapt: PokemonAdapter,
+    private pokemonAdapt: PokeApiAdapter,
     private pokemonsAdapt: PokemonsAdapter
     ) {}
 

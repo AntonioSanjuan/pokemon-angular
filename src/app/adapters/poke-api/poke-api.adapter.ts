@@ -3,7 +3,7 @@ import { PokemonDto } from "src/app/models/dtos/pokemonDto.model";
 import { IPokemon, IPokemons, Pokemon, Pokemons } from "src/app/models/internals/pokemons.model";
 import { Adapter } from "../common/adapter";
 
-export class PokemonAdapter implements Adapter<IPokemon> {
+export class PokeApiAdapter implements Adapter<IPokemon> {
     adapt(item: PokemonDto): IPokemon {
       return new Pokemon(item.name, item.sprites.front_default)
     }

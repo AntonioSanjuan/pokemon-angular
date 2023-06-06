@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { DataState } from 'src/app/store/data/models/data.state';
 import { Store } from '@ngrx/store';
-import { PokemonService } from '../pokemon/pokemon.service';
+import { PokeApiService } from '../poke-api/poke-api.service';
 import { IPokemons } from 'src/app/models/internals/pokemons.model';
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { setPokemonAction } from "src/app/store/data/data.actions";
@@ -21,7 +21,7 @@ export class PokemonManager {
 
   constructor(
     private store: Store<DataState>, 
-    private pokemonService: PokemonService
+    private pokemonService: PokeApiService
   ) {
     this.store.select(selectPokemons)
       .subscribe((storedPokemons) => {

@@ -1,11 +1,11 @@
 import { NgModule } from '@angular/core';
-import { PokemonService } from 'src/app/services/pokemon/pokemon.service';
+import { PokeApiService } from 'src/app/services/poke-api/poke-api.service';
 import { StoreModule } from '@ngrx/store';
 import { DataReducer, featureData } from 'src/app/store/data/data.reducer';
-import { PokemonAdapter, PokemonsAdapter } from 'src/app/adapters/pokemon/pokemon.adapter';
+import { PokeApiAdapter, PokemonsAdapter } from 'src/app/adapters/poke-api/poke-api.adapter';
 import { PokemonManager } from '../pokemonManager/pokemonManager.service';
 
-const adapters = [PokemonsAdapter, PokemonAdapter]
+const adapters = [PokemonsAdapter, PokeApiAdapter]
 
 @NgModule({
   declarations: [],
@@ -13,7 +13,7 @@ const adapters = [PokemonsAdapter, PokemonAdapter]
     StoreModule.forFeature(featureData, DataReducer),
   ],
   providers: [
-    PokemonService,
+    PokeApiService,
     PokemonManager,
     adapters
   ],
