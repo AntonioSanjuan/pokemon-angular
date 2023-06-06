@@ -22,7 +22,6 @@ export class HomeComponent {
 
   public goToOther() {
     this.router.navigate(['/about',]);
-
   }
 
   public goToHome() {
