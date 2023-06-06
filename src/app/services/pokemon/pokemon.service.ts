@@ -7,7 +7,7 @@ import { PokemonDto } from 'src/app/models/dtos/pokemonDto.model';
 import { MinifiedPokemonDto } from 'src/app/models/dtos/pokemonMinified.model';
 import { IPokemon, IPokemons } from 'src/app/models/internals/pokemons.model';
 import { PokemonPaginationDto } from 'src/app/models/dtos/common/pokemonPaginationDto.model';
-import { PokemonAdapter, PokemonsAdapter } from 'src/app/adapters/common/adapter';
+import { PokemonAdapter, PokemonsAdapter } from 'src/app/adapters/pokemon/pokemon.adapter';
 
 @Injectable()
 export class PokemonService {
@@ -15,8 +15,8 @@ export class PokemonService {
 
   constructor(
     private http: HttpClient,
-    private testPokemonAdapt: PokemonAdapter,
-    private testPokemonsAdapt: PokemonsAdapter
+    private pokemonAdapt: PokemonAdapter,
+    private pokemonsAdapt: PokemonsAdapter
     ) {}
 
   private getRawPokemons(page: number): Observable<PokemonsDto> {
@@ -31,6 +31,9 @@ export class PokemonService {
     let rawPokemonsPagination: PokemonPaginationDto<unknown>;
 
     return this.getRawPokemons(page).pipe(
+        map((data: any) => {
+          return data
+        }),
         switchMap((pokemons: PokemonsDto) => {
             rawPokemonsPagination = pokemons;
 
@@ -41,11 +44,11 @@ export class PokemonService {
             return forkJoin<PokemonDto[]>(requests)
         }),
         map((rawPokemons: PokemonDto[]) => {
-            const output = this.testPokemonsAdapt.adapt({
+            const output = this.pokemonsAdapt.adapt({
                 pagination: rawPokemonsPagination, 
                 page, 
                 data: rawPokemons.map((pokemon): IPokemon => 
-                    this.testPokemonAdapt.adapt(pokemon))
+                    this.pokemonAdapt.adapt(pokemon))
             })
             return output;
         })

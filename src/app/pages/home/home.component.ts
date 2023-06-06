@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { usePokemons } from 'src/app/hooks/pokemons/usePokemons';
+import { Router } from '@angular/router';
+import { PokemonManager } from 'src/app/services/pokemonManager/pokemonManager.service';
 
 @Component({
   selector: 'app-home',
@@ -7,11 +8,24 @@ import { usePokemons } from 'src/app/hooks/pokemons/usePokemons';
   styleUrls: ['./home.component.scss']
 })
 export class HomeComponent {
+
+  constructor(
+    public pokemonManager: PokemonManager,
+    private router: Router, 
+  ) {}
+
   private page: number = 0;
-  protected readonly pokemons = usePokemons()
   
   async ngOnInit() {
-    this.pokemons.fetchPokemons(this.page)
+    this.pokemonManager.fetchPokemons(this.page)
   }
-  
+
+  public goToOther() {
+    this.router.navigate(['/about',]);
+
+  }
+
+  public goToHome() {
+    this.router.navigate(['/home',]);
+  }
 }

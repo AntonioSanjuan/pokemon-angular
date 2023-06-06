@@ -7,7 +7,7 @@ export type IPokemons = IPokemonPagination<IPokemon>
 
 export class Pokemons extends PokemonPagination<IPokemon> {
     constructor(
-        pokemonPagination: PokemonPaginationDto<any>, 
+        pokemonPagination: PokemonPaginationDto<IPokemon>, 
         currentPage: number, 
         data: IPokemon[]
     ) {

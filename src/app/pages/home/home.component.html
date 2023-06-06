@@ -1,5 +1,8 @@
-<p>home works!</p>
+<p *ngIf="(pokemonManager.loading$ | async)">loading</p>
 
-<div *ngFor="let pokemon of pokemons.pokemons$| async">
+<div *ngFor="let pokemon of (pokemonManager.pokemons$ | async)?.data">
     {{pokemon.name}}
 </div>
+
+<button type="button" (click)="goToHome()">home</button>
+<button type="button" (click)="goToOther()">other</button>
