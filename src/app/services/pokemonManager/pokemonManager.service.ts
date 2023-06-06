@@ -10,12 +10,11 @@ import { selectPokemons } from 'src/app/store/data/data.selectors';
 
 @Injectable()
 export class PokemonManager {
-  private loadingTest = new BehaviorSubject<boolean>(false)
-  
-  public pokemons$ = new Observable<IPokemons>()
+  private loadingObj = new BehaviorSubject<boolean>(false)
 
+  public pokemons$ = new Observable<IPokemons|undefined>()
   public get loading$() {
-    return this.loadingTest.asObservable()
+    return this.loadingObj.asObservable()
   }
 
   private cachedPokemons!: IPokemons|undefined;
@@ -24,42 +23,42 @@ export class PokemonManager {
     private store: Store<DataState>, 
     private pokemonService: PokemonService
   ) {
-    this.store.select(selectPokemons).subscribe((storedPokemons) => {
-      this.cachedPokemons = storedPokemons;
-    })
+    this.store.select(selectPokemons)
+      .subscribe((storedPokemons) => {
+        this.cachedPokemons = storedPokemons;
+      })
+  }
+
+  private fetchFromStore(): Observable<IPokemons|undefined> {
+    return of(this.cachedPokemons).pipe(
+      catchError((error) => {
+        throw `POKEMONMANAGER SERVICE ERROR: ${error}`; 
+      }),
+      finalize(() => {
+        this.loadingObj.next(false);
+      })    
+    )
+  }
+  
+  private fetchFromService(page: number): Observable<IPokemons|undefined> {
+    return this.pokemonService.getPokemons(page).pipe(
+      tap((pokemons: IPokemons) => {
+        //save it into storage
+        this.store.dispatch(setPokemonAction(
+          pokemons
+        ));
+      }),
+      finalize(() => {
+        this.loadingObj.next(false);
+      })        
+    )
   }
 
   public fetchPokemons(page: number): void {
-    this.loadingTest.next(true)
+    this.loadingObj.next(true)
 
-    if(this.cachedPokemons?.currentPage === page){
-      this.pokemons$ = of(this.cachedPokemons).pipe(
-        catchError((error) => {
-          throw `POKEMONMANAGER SERVICE ERROR: ${error}`; 
-        }),
-        finalize(() => {
-          this.loadingTest.next(false); // Establecer a false al finalizar la llamada
-        })    
-      )
-    }else {
-      console.log("fetched")
-      this.pokemons$ = this.pokemonService.getPokemons(page).pipe(
-        tap((pokemons: IPokemons) => {
-            //save it into storage
-            this.store.dispatch(setPokemonAction(
-                  pokemons
-            ));
-        }),
-      
-        finalize(() => {
-          this.loadingTest.next(false); // Establecer a false al finalizar la llamada
-        })        
-      )
-    }
-}
-
-
-
-
-  
+    this.pokemons$ = (this.cachedPokemons?.currentPage === page) 
+    ? this.fetchFromStore() 
+    : this.fetchFromService(page)
+  }
 }
