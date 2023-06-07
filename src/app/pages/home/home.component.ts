@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { Router } from '@angular/router';
-import { PokemonManager } from 'src/app/services/pokemonManager/pokemonManager.service';
+import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 
 @Component({
   selector: 'app-home',
@@ -10,14 +10,14 @@ import { PokemonManager } from 'src/app/services/pokemonManager/pokemonManager.s
 export class HomeComponent {
 
   constructor(
-    public pokemonManager: PokemonManager,
+    public usePokemons: UsePokemons,
     private router: Router, 
   ) {}
 
   private page: number = 0;
   
   async ngOnInit() {
-    this.pokemonManager.fetchPokemons(this.page)
+    this.usePokemons.fetchPokemons(this.page)
   }
 
   public goToOther() {

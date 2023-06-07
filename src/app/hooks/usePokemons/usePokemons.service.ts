@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { DataState } from 'src/app/store/data/models/data.state';
 import { Store } from '@ngrx/store';
-import { PokeApiService } from '../poke-api/poke-api.service';
+import { PokeApiService } from '../../services/poke-api/poke-api.service';
 import { IPokemons } from 'src/app/models/internals/pokemons.model';
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { setPokemonAction } from "src/app/store/data/data.actions";
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { selectPokemons } from 'src/app/store/data/data.selectors';
 
-@Injectable()
-export class PokemonManager {
+@Injectable({
+  providedIn: 'any' // Indicando que el servicio no es singleton
+})
+export class UsePokemons {
   private loadingObj = new BehaviorSubject<boolean>(false)
 
   public pokemons$ = new Observable<IPokemons|undefined>()
