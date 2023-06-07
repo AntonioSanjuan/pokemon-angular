@@ -1,7 +1,5 @@
-import { Adapter } from "src/app/adapters/common/adapter"
 import { PokemonPaginationDto } from "../dtos/common/pokemonPaginationDto.model"
 import { IPokemonPagination, PokemonPagination } from "./common/pokemonPagination.model"
-import { PokemonDto } from "../dtos/pokemonDto.model"
 
 export type IPokemons = IPokemonPagination<IPokemon>
 
@@ -34,11 +32,5 @@ export class Pokemon implements IPokemon {
     constructor(name: string, image: string){
         this.name = name;
         this.image = image;
-    }
-
-    adapt(item: PokemonDto): Pokemon {
-        return new Pokemon(
-            item.name, item.sprites.front_default
-        )
     }
 }
