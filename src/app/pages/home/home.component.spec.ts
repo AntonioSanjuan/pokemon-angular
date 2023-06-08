@@ -24,6 +24,7 @@ describe('HomeComponent', () => {
     TestBed.configureTestingModule({
       imports: [HomeModule],
     }).compileComponents();
+    
     fixture = TestBed.createComponent(HomeComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();

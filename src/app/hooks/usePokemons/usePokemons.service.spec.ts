@@ -58,9 +58,6 @@ describe('UsePokemons', () => {
     })
   });
 
-
-
-
   it('pokemons should fetch from storage if exists & it has the requested page stored', (done) => {
     const sutPage = 0
     const sut = {
