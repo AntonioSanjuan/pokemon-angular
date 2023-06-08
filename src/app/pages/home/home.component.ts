@@ -17,7 +17,7 @@ export class HomeComponent {
 
   private page: number = 0;
   
-  async ngOnInit() {
+  ngOnInit() {
     this.usePokemons.fetchPokemons(this.page)
   }
 

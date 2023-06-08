@@ -15,7 +15,6 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
     SharedModule,
     PokemonServiceModule,
     RouterModule.forChild(routes),
-    StoreModule.forFeature(featureData, DataReducer),
   ],
   exports: [SharedModule],
 })
