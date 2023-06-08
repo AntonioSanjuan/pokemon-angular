@@ -6,8 +6,6 @@ import {
 
 import { PokeApiService } from './poke-api.service'
 import { PokemonServiceModule } from './poke-api.service.module';
-import { CoreModule } from 'src/app/modules/core/core.module';
-import { Store, StoreModule } from '@ngrx/store';
 import { of } from 'rxjs';
 
 export const StoreMock = {
