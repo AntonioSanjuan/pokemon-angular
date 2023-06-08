@@ -3,14 +3,12 @@ import { DataState } from 'src/app/store/data/models/data.state';
 import { Store } from '@ngrx/store';
 import { PokeApiService } from '../../services/poke-api/poke-api.service';
 import { IPokemons } from 'src/app/models/internals/pokemons.model';
-import { BehaviorSubject, Observable, of } from "rxjs";
+import { BehaviorSubject, Observable, of, delay } from "rxjs";
 import { setPokemonAction } from "src/app/store/data/data.actions";
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { selectPokemons } from 'src/app/store/data/data.selectors';
 
-@Injectable({
-  providedIn: 'any' // Indicando que el servicio no es singleton
-})
+@Injectable()
 export class UsePokemons {
   private loadingObj = new BehaviorSubject<boolean>(false)
 
@@ -36,6 +34,7 @@ export class UsePokemons {
       catchError((error) => {
         throw `POKEMONMANAGER SERVICE ERROR: ${error}`; 
       }),
+      delay(0),
       finalize(() => {
         this.loadingObj.next(false);
       })    
@@ -50,6 +49,7 @@ export class UsePokemons {
           pokemons
         ));
       }),
+      delay(0),
       finalize(() => {
         this.loadingObj.next(false);
       })        
