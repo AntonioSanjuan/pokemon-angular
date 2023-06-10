@@ -2,8 +2,8 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { HomeComponent } from './home.component';
 import { HomeModule } from './home.module';
-import { UsePokemonsMock } from 'src/app/hooks/usePokemons/usePokemons.service.mock';
-import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
+import { PokemonsDisplayer } from 'src/app/domain/pokemons-displayer/pokemons-displayer';
+import { PokemonsDisplayerMock } from 'src/app/domain/pokemons-displayer/pokemons-displayer.mock';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
@@ -14,8 +14,8 @@ describe('HomeComponent', () => {
       {
         set: {
           providers: [{
-            provide: UsePokemons,
-            useValue: UsePokemonsMock
+            provide: PokemonsDisplayer,
+            useValue: PokemonsDisplayerMock
           }]
         }
       }
@@ -34,14 +34,14 @@ describe('HomeComponent', () => {
     expect(component).toBeTruthy();
   });
   
-  // it('should request fetchPokemons', () => {
-  //   const fetchPokemonsSpy = jest.spyOn(UsePokemonsMock, 'fetchPokemons')
+  it('should request fetchPokemons', () => {
+    const fetchPokemonsSpy = jest.spyOn(PokemonsDisplayerMock, 'fetchPokemons')
 
-  //   component.ngOnInit()
-  //   fixture.detectChanges()
+    component.ngOnInit()
+    fixture.detectChanges()
 
-  //   expect(fetchPokemonsSpy).toHaveBeenCalledWith(0)
+    expect(fetchPokemonsSpy).toHaveBeenCalledWith(0)
 
-  // });
+  });
 
 });
