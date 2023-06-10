@@ -5,6 +5,7 @@ import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { PokemonServiceModule } from 'src/app/services/poke-api/poke-api.service.module';
 import { StoreModule } from '@ngrx/store';
 import { DataReducer, featureData } from 'src/app/store/data/data.reducer';
+import { UsePokemonsModule } from 'src/app/hooks/usePokemons/usePokemons.service.module';
 
 const routes: Routes = [{ path: '', component: HomeComponent }];
 
@@ -13,7 +14,7 @@ const routes: Routes = [{ path: '', component: HomeComponent }];
   providers: [],
   imports: [
     SharedModule,
-    PokemonServiceModule,
+    UsePokemonsModule,
     RouterModule.forChild(routes),
   ],
   exports: [SharedModule],
