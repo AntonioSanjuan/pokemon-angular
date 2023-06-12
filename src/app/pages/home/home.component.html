@@ -1,8 +1,8 @@
-<p *ngIf="(usePokemons.loading$ | async)">loading</p>
+<section>
+    <app-pokemon-list></app-pokemon-list>
+</section>
 
-<div *ngFor="let pokemon of (usePokemons.pokemons$ | async)?.data">
-    {{pokemon.name}}
-</div>
-
-<button type="button" (click)="goToHome()">home</button>
-<button type="button" (click)="goToOther()">other</button>
+<section>
+    <button type="button" (click)="goToHome()">home</button>
+    <button type="button" (click)="goToOther()">other</button>
+</section>

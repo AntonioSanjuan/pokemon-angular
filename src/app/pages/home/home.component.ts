@@ -10,15 +10,8 @@ import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 })
 export class HomeComponent {
   constructor(
-    public usePokemons: UsePokemons,
     private router: Router, 
   ) {}
-
-  private page: number = 0;
-  
-  ngOnInit() {
-    this.usePokemons.fetchPokemons(this.page)
-  }
 
   public goToOther() {
     this.router.navigate(['/about',]);

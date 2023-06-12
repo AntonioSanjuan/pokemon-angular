@@ -1,8 +1,10 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import {MatCardModule} from '@angular/material/card';
+import { MaterialModule } from '../material/material.module';
 
-const modules: any[] = [CommonModule, FormsModule, ReactiveFormsModule];
+const modules: any[] = [CommonModule, FormsModule, ReactiveFormsModule,MaterialModule];
 const sharedComponents: any[] = [];
 const sharedDirectives: any[] = [];
 

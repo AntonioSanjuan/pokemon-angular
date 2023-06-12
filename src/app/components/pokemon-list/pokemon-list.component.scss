@@ -1,0 +1,12 @@
+.PokemonList_MainContainer {
+    display: flex;
+    flex-direction: column;
+
+    height: 100%;
+    gap: 20px;
+    
+    .PokemonList_PokemonCardContainer{
+        display: flex;
+    }
+}
+
