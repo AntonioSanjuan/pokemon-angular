@@ -2,8 +2,10 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    min-height: 100vh;
 
-    height: 100vh;
+    background: #424242 url("https://assets.pokemon.com/static2/_ui/img/chrome/body_bg.png");
+
     .MainLayout_Header {
         position:fixed;
         width: 100%;
@@ -11,10 +13,15 @@
         height: 50px;
     }
     .MainLayout_Content {
+        display: flex;
         height: 100%;
-
+        width: 100%;
+        margin: 0 auto;
         margin-top: 50px;
-        padding: 0px 5%;
+
+        background: #fff  url("https://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png");
+        max-width: 1280px;
+        position: relative;
     }
     .MainLayout_Footer {}
 }
