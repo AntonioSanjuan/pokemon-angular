@@ -57,11 +57,10 @@ export class UsePokemons {
     )
   }
 
-  public fetchPokemons(page: number): void {
-    console.log("called", page)
+  public fetchPokemons(page: number): Observable<IPokemons | undefined> {
     this.loadingObj.next(true)
 
-    this.pokemons$ = (this.cachedPokemons?.currentPage === page) 
+    return this.pokemons$ = (this.cachedPokemons?.currentPage === page) 
     ? this.fetchFromStore() 
     : this.fetchFromService(page)
   }

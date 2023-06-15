@@ -10,6 +10,5 @@ export const pokemonsResolver: ResolveFn<any> =
         state: RouterStateSnapshot,
         usePokemons: UsePokemons = inject(UsePokemons),
     ): Observable<IPokemons | undefined> => {
-        usePokemons.fetchPokemons(0);
-        return usePokemons.pokemons$;
+        return usePokemons.fetchPokemons(0);
     };
