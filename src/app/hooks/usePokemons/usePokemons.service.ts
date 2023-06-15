@@ -12,10 +12,14 @@ import { Resolve } from '@angular/router';
 @Injectable()
 export class UsePokemons {
   private loadingObj = new BehaviorSubject<boolean>(false)
+  private pokemonsObj = new BehaviorSubject<IPokemons | undefined>(undefined)
 
-  public pokemons$ = new Observable<IPokemons|undefined>()
   public get loading$() {
     return this.loadingObj.asObservable()
+  }
+  public get pokemons$() {
+    return this.pokemonsObj.asObservable()
+
   }
 
   private cachedPokemons!: IPokemons|undefined;
@@ -27,11 +31,18 @@ export class UsePokemons {
     this.store.select(selectPokemons)
       .subscribe((storedPokemons) => {
         this.cachedPokemons = storedPokemons;
+        
+        if(!this.pokemonsObj.value) {
+          this.pokemonsObj.next(storedPokemons)
+        }
       })
   }
 
   private fetchFromStore(): Observable<IPokemons|undefined> {
     return of(this.cachedPokemons).pipe(
+      tap((pokemons: IPokemons |undefined) => {
+        this.pokemonsObj.next(pokemons)
+      }),
       catchError((error) => {
         throw `POKEMONMANAGER SERVICE ERROR: ${error}`; 
       }),
@@ -46,6 +57,7 @@ export class UsePokemons {
     return this.pokemonService.getPokemons(page).pipe(
       tap((pokemons: IPokemons) => {
         //save it into storage
+        this.pokemonsObj.next(pokemons)
         this.store.dispatch(setPokemonAction(
           pokemons
         ));
@@ -60,7 +72,7 @@ export class UsePokemons {
   public fetchPokemons(page: number): Observable<IPokemons | undefined> {
     this.loadingObj.next(true)
 
-    return this.pokemons$ = (this.cachedPokemons?.currentPage === page) 
+    return (this.cachedPokemons?.currentPage === page) 
     ? this.fetchFromStore() 
     : this.fetchFromService(page)
   }
