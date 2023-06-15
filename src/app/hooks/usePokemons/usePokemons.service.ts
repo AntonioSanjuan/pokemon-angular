@@ -7,6 +7,7 @@ import { BehaviorSubject, Observable, of, delay } from "rxjs";
 import { setPokemonAction } from "src/app/store/data/data.actions";
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { selectPokemons } from 'src/app/store/data/data.selectors';
+import { Resolve } from '@angular/router';
 
 @Injectable()
 export class UsePokemons {
@@ -57,6 +58,7 @@ export class UsePokemons {
   }
 
   public fetchPokemons(page: number): void {
+    console.log("called", page)
     this.loadingObj.next(true)
 
     this.pokemons$ = (this.cachedPokemons?.currentPage === page) 

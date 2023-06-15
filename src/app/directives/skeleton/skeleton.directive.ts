@@ -10,7 +10,6 @@ export class SkeletonDirective implements AfterViewInit  {
   @Input() active!: boolean;
   @Input() width: string = this.defaultWidth;
   @Input() height: string = this.defaultHeight;
-
   constructor(private el: ElementRef<HTMLElement>) { }
   
   ngAfterViewInit(): void {

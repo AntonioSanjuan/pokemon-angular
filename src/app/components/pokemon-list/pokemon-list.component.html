@@ -1,4 +1,3 @@
-<p *ngIf="(usePokemons.loading$ | async)">loading</p>
 <div class="PokemonList_MainContainer">
     <div class="PokemonList_Container">
         <div class="PokemonList_Header">
@@ -6,6 +5,8 @@
         </div>
 
         <div class="PokemonList_ContentContainer">
+            <p *ngIf="(usePokemons.loading$ | async)">loading</p>
+
             <div  class="PokemonList_List" *ngFor="let pokemon of (usePokemons.pokemons$ | async)?.data">
                 <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
             </div>

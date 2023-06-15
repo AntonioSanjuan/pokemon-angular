@@ -14,6 +14,6 @@ export class PokemonListComponent {
   private page: number = 0;
 
   ngOnInit() {
-    this.usePokemons.fetchPokemons(this.page)
+    // this.usePokemons.fetchPokemons(this.page)
   }
 }
