@@ -7,7 +7,7 @@ import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppRootState } from 'src/app/store/store';
 import { IPokemons } from 'src/app/models/internals/pokemons.model';
 import { selectPokemons } from 'src/app/store/data/data.selectors';
-import { first } from 'rxjs/operators';
+import { first, last, take } from 'rxjs/operators';
 
 @Component({})
 class DummyComponent {
@@ -100,11 +100,12 @@ describe('UsePokemons', () => {
 
     const getPokemonsSpy = jest.spyOn(PokeApiServiceMock, 'getPokemons')
     component.usePokemons.fetchPokemons(sutFetchedPage)
-
-    component.usePokemons.pokemons$.pipe(first()).subscribe((pokemons) => {
-      expect(pokemons).not.toBe(sut);
+    .pipe(take(1))
+    .subscribe((pokemons) => {
       expect(getPokemonsSpy).toHaveBeenCalled()
-      done();
+      expect(pokemons).not.toEqual(sut);
+
+      done()
     });
   });
 
@@ -113,8 +114,8 @@ describe('UsePokemons', () => {
 
     const getPokemonsSpy = jest.spyOn(PokeApiServiceMock, 'getPokemons')
     component.usePokemons.fetchPokemons(sutPage)
-
-    component.usePokemons.pokemons$.pipe(first()).subscribe((pokemons) => {
+    .pipe(take(1))
+    .subscribe((pokemons) => {
       expect(getPokemonsSpy).toHaveBeenCalled()
       done();
     });

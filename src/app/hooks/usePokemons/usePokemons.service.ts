@@ -7,7 +7,6 @@ import { BehaviorSubject, Observable, of, delay } from "rxjs";
 import { setPokemonAction } from "src/app/store/data/data.actions";
 import { catchError, finalize, tap } from 'rxjs/operators';
 import { selectPokemons } from 'src/app/store/data/data.selectors';
-import { Resolve } from '@angular/router';
 
 @Injectable()
 export class UsePokemons {
@@ -19,7 +18,6 @@ export class UsePokemons {
   }
   public get pokemons$() {
     return this.pokemonsObj.asObservable()
-
   }
 
   private cachedPokemons!: IPokemons|undefined;
@@ -46,7 +44,6 @@ export class UsePokemons {
       catchError((error) => {
         throw `POKEMONMANAGER SERVICE ERROR: ${error}`; 
       }),
-      delay(0),
       finalize(() => {
         this.loadingObj.next(false);
       })    
@@ -54,6 +51,7 @@ export class UsePokemons {
   }
   
   private fetchFromService(page: number): Observable<IPokemons|undefined> {
+
     return this.pokemonService.getPokemons(page).pipe(
       tap((pokemons: IPokemons) => {
         //save it into storage
@@ -62,7 +60,6 @@ export class UsePokemons {
           pokemons
         ));
       }),
-      delay(0),
       finalize(() => {
         this.loadingObj.next(false);
       })        

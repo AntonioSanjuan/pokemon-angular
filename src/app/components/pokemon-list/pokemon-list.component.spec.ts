@@ -33,12 +33,12 @@ describe('PokemonListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  it('should request fetchPokemons', () => {
-    const fetchPokemonsSpy = jest.spyOn(UsePokemonsMock, 'fetchPokemons')
+  // it('should request fetchPokemons', () => {
+  //   const fetchPokemonsSpy = jest.spyOn(UsePokemonsMock, 'fetchPokemons')
 
-    component.ngOnInit()
-    fixture.detectChanges()
+  //   component.ngOnInit()
+  //   fixture.detectChanges()
 
-    expect(fetchPokemonsSpy).toHaveBeenCalledWith(0)
-  });
+  //   expect(fetchPokemonsSpy).toHaveBeenCalledWith(0)
+  // });
 });

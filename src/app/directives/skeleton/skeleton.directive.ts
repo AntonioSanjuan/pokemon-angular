@@ -1,9 +1,9 @@
-import { Directive, ElementRef,Input, AfterViewInit  } from '@angular/core';
+import { Directive, ElementRef,Input, SimpleChanges, OnChanges  } from '@angular/core';
 
 @Directive({
   selector: '[appSkeleton]'
 })
-export class SkeletonDirective implements AfterViewInit  {
+export class SkeletonDirective implements OnChanges  {
   private defaultWidth = "100px"
   private defaultHeight = "20px"
 
@@ -12,7 +12,7 @@ export class SkeletonDirective implements AfterViewInit  {
   @Input() height: string = this.defaultHeight;
   constructor(private el: ElementRef<HTMLElement>) { }
   
-  ngAfterViewInit(): void {
+  ngOnChanges(changes: SimpleChanges) {
     if(this.active) {
       this.el.nativeElement.style.width = this.width;
       this.el.nativeElement.style.color = 'transparent';

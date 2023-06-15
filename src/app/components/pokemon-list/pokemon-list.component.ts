@@ -10,10 +10,4 @@ import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 })
 export class PokemonListComponent {
   constructor(public usePokemons: UsePokemons) {}
-
-  private page: number = 0;
-
-  ngOnInit() {
-    // this.usePokemons.fetchPokemons(this.page)
-  }
 }
