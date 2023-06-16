@@ -46,7 +46,6 @@ describe('SkeletonDirective', () => {
 
         expect(directive.styles['width']).toEqual(sutWidth);
         expect(directive.styles['userSelect']).toEqual('none');
-
     });
 
     it('shouldnt have skeleton if active is false', () => {
@@ -55,6 +54,5 @@ describe('SkeletonDirective', () => {
 
         expect(directive.styles['width']).not.toEqual(sutWidth);
         expect(directive.styles['userSelect']).not.toEqual('none');
-
     });
 });
