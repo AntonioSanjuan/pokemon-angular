@@ -4,8 +4,8 @@ import { Store } from '@ngrx/store';
 import { PokeApiService } from '../../services/poke-api/poke-api.service';
 import { IPokemons } from 'src/app/models/internals/pokemons.model';
 import { BehaviorSubject, Observable, of, delay } from "rxjs";
-import { setPokemonAction } from "src/app/store/data/data.actions";
-import { catchError, finalize, tap } from 'rxjs/operators';
+import { addPokemonsAction, setPokemonsAction } from "src/app/store/data/data.actions";
+import { finalize, take, tap } from 'rxjs/operators';
 import { selectPokemons } from 'src/app/store/data/data.selectors';
 
 @Injectable()
@@ -20,57 +20,67 @@ export class UsePokemons {
     return this.pokemonsObj.asObservable()
   }
 
-  private cachedPokemons!: IPokemons|undefined;
-
   constructor(
     private store: Store<DataState>, 
     private pokemonService: PokeApiService
   ) {
     this.store.select(selectPokemons)
       .subscribe((storedPokemons) => {
-        this.cachedPokemons = storedPokemons;
-        
-        if(!this.pokemonsObj.value) {
-          this.pokemonsObj.next(storedPokemons)
-        }
+        this.pokemonsObj.next(storedPokemons)
       })
   }
 
+  private getStoredPokemons(): IPokemons | undefined { return this.pokemonsObj.value}
+  private getNextPage(): number { return this.getStoredPokemons()?.currentPage ? this.getStoredPokemons()?.currentPage as number + 1 : 0}
+
   private fetchFromStore(): Observable<IPokemons|undefined> {
-    return of(this.cachedPokemons).pipe(
-      tap((pokemons: IPokemons |undefined) => {
-        this.pokemonsObj.next(pokemons)
-      }),
-      catchError((error) => {
-        throw `POKEMONMANAGER SERVICE ERROR: ${error}`; 
-      }),
-      finalize(() => {
-        this.loadingObj.next(false);
-      })    
+    return this.pokemons$.pipe(
+      take(1),
     )
   }
   
   private fetchFromService(page: number): Observable<IPokemons|undefined> {
-
     return this.pokemonService.getPokemons(page).pipe(
-      tap((pokemons: IPokemons) => {
-        //save it into storage
-        this.pokemonsObj.next(pokemons)
-        this.store.dispatch(setPokemonAction(
-          pokemons
-        ));
-      }),
-      finalize(() => {
-        this.loadingObj.next(false);
-      })        
+      take(1),
     )
   }
 
-  public fetchPokemons(page: number): Observable<IPokemons | undefined> {
+  public fetchNextPokemons(): void {
+    this.loadingObj.next(true);
+
+    this.fetchFromService(this.getNextPage()).pipe(
+        tap((pokemons: IPokemons|undefined) => {
+          //save it into storage
+          if(pokemons) {
+            this.store.dispatch(addPokemonsAction(
+              pokemons
+            ));
+          }
+      }),
+      finalize(() => {
+        this.loadingObj.next(false);
+      })  
+    ).subscribe()
+  }
+
+  public prefetchPokemons(): Observable<IPokemons | undefined> {
     this.loadingObj.next(true)
 
-    return (this.cachedPokemons?.currentPage === page) 
+    return (!!this.getStoredPokemons()
     ? this.fetchFromStore() 
-    : this.fetchFromService(page)
+    : this.fetchFromService(0).pipe(
+      tap((pokemons: IPokemons | undefined) => {
+        //save it into storage
+        if(pokemons) {
+          this.store.dispatch(setPokemonsAction(
+            pokemons
+          ));
+        }
+      }),
+    )).pipe(
+      finalize(() => {
+        this.loadingObj.next(false);
+      })  
+    )
   }
 }

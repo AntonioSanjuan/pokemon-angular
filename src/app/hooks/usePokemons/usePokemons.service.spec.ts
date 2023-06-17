@@ -8,6 +8,8 @@ import { AppRootState } from 'src/app/store/store';
 import { IPokemons } from 'src/app/models/internals/pokemons.model';
 import { selectPokemons } from 'src/app/store/data/data.selectors';
 import { first, last, take } from 'rxjs/operators';
+import { of } from 'rxjs';
+import { addPokemonsAction, setPokemonsAction } from 'src/app/store/data/data.actions';
 
 @Component({})
 class DummyComponent {
@@ -52,72 +54,110 @@ describe('UsePokemons', () => {
     expect(component).toBeTruthy();
   });
 
-  it('loading should be false by default', () => {
-    component.usePokemons.loading$.subscribe((loading) => {
+  it('loading$ should be false by default', () => {
+    component.usePokemons.loading$.pipe(take(1)).subscribe((loading) => {
       expect(loading).toBeFalsy()
     })
   });
 
-  it('pokemons should fetch from storage if exists & it has the requested page stored', (done) => {
-    const sutPage = 0
-    const sut = {
-      currentPage: sutPage,
+  it('pokemons$ should be undefined by default', () => {
+    component.usePokemons.pokemons$.pipe(take(1)).subscribe((pokemons) => {
+      expect(pokemons).toBeUndefined()
+    })
+  });
+
+  it('pokemons$ should has the last stored pokemons state', () => {
+    //set storage
+    const storedPokemons = {
+      currentPage: 1,
       data: [
         {}, {}
       ]
     } as IPokemons;
 
-    store.overrideSelector(selectPokemons, sut);
+    store.overrideSelector(selectPokemons, storedPokemons);
     store.refreshState();
     fixture.detectChanges()
-
-    const getPokemonsSpy = jest.spyOn(PokeApiServiceMock, 'getPokemons')
-    component.usePokemons.fetchPokemons(sutPage)
-
-    component.usePokemons.pokemons$.pipe(first()).subscribe((pokemons) => {
-      expect(pokemons).toBe(sut);
-      expect(getPokemonsSpy).not.toHaveBeenCalled()
-      done();
-    });
+    
+    component.usePokemons.pokemons$.pipe(take(1)).subscribe((pokemons) => {
+      expect(pokemons).toEqual(storedPokemons)
+    })
   });
 
-  it('pokemons should fetch from service if storage exists but has not the requested page stored', (done) => {
-    const sutStoredPage = 1
-    const sutFetchedPage = 0
-    const sut = {
-      currentPage: sutStoredPage,
+  it('prefetchPokemons should fetch from storage if it exists', (done) => {
+    //set storage
+    const storedPokemons = {
+      currentPage: 1,
       data: [
-        {
-          name: 'PokemonName_0',
-          image: 'PokemonImage_0'
-        }, {}
+        {}, {}
       ]
     } as IPokemons;
-    
-    store.overrideSelector(selectPokemons, sut);
+
+    const getPokemonsSpy = jest.spyOn(PokeApiServiceMock, 'getPokemons')
+
+    store.overrideSelector(selectPokemons, storedPokemons);
     store.refreshState();
     fixture.detectChanges()
 
-    const getPokemonsSpy = jest.spyOn(PokeApiServiceMock, 'getPokemons')
-    component.usePokemons.fetchPokemons(sutFetchedPage)
-    .pipe(take(1))
-    .subscribe((pokemons) => {
-      expect(getPokemonsSpy).toHaveBeenCalled()
-      expect(pokemons).not.toEqual(sut);
+    component.usePokemons.prefetchPokemons().pipe(take(1)).subscribe((pokemons: IPokemons | undefined) => {
+      expect(pokemons).toBe(storedPokemons);
+      expect(getPokemonsSpy).not.toHaveBeenCalled()
 
       done()
-    });
+    })
+
   });
 
-  it('pokemons should fetch from service if storage doesnt exists', (done) => {
-    const sutPage = 0
+  it('prefetchPokemons should fetch from service & store it, if doesnt exists stored pokemons', (done) => {
+    //set storage
+    const fetchedPokemons = {
+      currentPage: 0,
+      data: [
+        {}, {}
+      ]
+    } as IPokemons;
 
-    const getPokemonsSpy = jest.spyOn(PokeApiServiceMock, 'getPokemons')
-    component.usePokemons.fetchPokemons(sutPage)
-    .pipe(take(1))
-    .subscribe((pokemons) => {
-      expect(getPokemonsSpy).toHaveBeenCalled()
-      done();
-    });
+    const getPokemonsSpy = jest.spyOn(PokeApiServiceMock, 'getPokemons').mockReturnValue(of(fetchedPokemons))
+    const dispatchSpy = jest.spyOn(store, 'dispatch')
+
+    component.usePokemons.prefetchPokemons().pipe(take(1)).subscribe((pokemons: IPokemons | undefined) => {
+      expect(pokemons).toBe(fetchedPokemons);
+      expect(getPokemonsSpy).toHaveBeenCalledWith(0)
+      expect(dispatchSpy).toHaveBeenCalledWith(setPokemonsAction(fetchedPokemons))
+      done()
+    })
+  });
+
+  it('fetchNextPokemons should fetch from service the next page based on stored pokemons', (done) => {
+    //set storage
+    const sutStoredPokemonsPage = 2
+    const storedPokemons = {
+      currentPage: sutStoredPokemonsPage,
+      data: [
+        {}, {}
+      ]
+    } as IPokemons;
+
+    const fetchedPokemons = {
+      currentPage: sutStoredPokemonsPage + 1,
+      data: [
+        {}, {}
+      ]
+    } as IPokemons;
+
+    store.overrideSelector(selectPokemons, storedPokemons);
+    store.refreshState();
+    fixture.detectChanges()
+
+    const getPokemonsSpy = jest.spyOn(PokeApiServiceMock, 'getPokemons').mockReturnValue(of(fetchedPokemons))
+    const dispatchSpy = jest.spyOn(store, 'dispatch')
+    
+    component.usePokemons.fetchNextPokemons();
+
+    component.usePokemons.pokemons$.pipe(take(5)).subscribe((pokemons: IPokemons | undefined) => {
+      expect(getPokemonsSpy).toHaveBeenCalledWith(sutStoredPokemonsPage + 1)
+      expect(dispatchSpy).toHaveBeenCalledWith(addPokemonsAction(fetchedPokemons))
+      done()
+    })
   });
 });
