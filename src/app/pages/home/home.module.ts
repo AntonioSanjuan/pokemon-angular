@@ -8,9 +8,10 @@ import { PokemonCardComponent } from 'src/app/components/pokemon-card/pokemon-ca
 import { SkeletonDirective } from 'src/app/directives/skeleton/skeleton.directive';
 import { pokemonsResolver } from './home.component.resolver';
 import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
+import { IntersectionObserverDirective } from 'src/app/directives/intersectionObserver/intersectionObserver.directive';
 
 const routes: Routes = [{ path: '', component: HomeComponent, providers: [UsePokemons], resolve: {pokemonsResolver}}];
-const directives = [SkeletonDirective]
+const directives = [SkeletonDirective, IntersectionObserverDirective]
 
 @NgModule({
   declarations: [HomeComponent, PokemonListComponent, PokemonCardComponent, ...directives],

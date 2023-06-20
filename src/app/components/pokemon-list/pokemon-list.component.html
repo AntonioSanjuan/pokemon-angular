@@ -2,15 +2,22 @@
     <div class="PokemonList_Container">
         <div class="PokemonList_Header">
             <h2>List of pokemons</h2>
-            <button type="button" (click)="usePokemons.fetchNextPokemons()">next</button>
         </div>
 
-        <div class="PokemonList_ContentContainer">
+        <div class="PokemonList_ContentContainer" 
+            appIntersectionObserver 
+            (isIntersecting)="isIntersecting($event)"
+            [offset]="50"
+            [active]="!(usePokemons.loading$ | async)">
             <p *ngIf="(usePokemons.loading$ | async)">loading</p>
 
-            <div  class="PokemonList_List" *ngFor="let pokemon of (usePokemons.pokemons$ | async)?.data">
+            <div  class="PokemonList_List" 
+            *ngFor="let pokemon of (usePokemons.pokemons$ | async)?.data"
+            
+            >
                 <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
             </div>
+            
         </div>
     </div>
     

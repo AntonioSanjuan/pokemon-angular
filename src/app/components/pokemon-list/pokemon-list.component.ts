@@ -10,4 +10,10 @@ import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 })
 export class PokemonListComponent {
   constructor(public usePokemons: UsePokemons) {}
+
+  public isIntersecting(intersecting: boolean) {
+    if(intersecting) {
+      this.usePokemons.fetchNextPokemons()
+    }
+  }
 }

@@ -3,7 +3,7 @@ import { IPokemonPagination, PokemonPagination } from "./common/pokemonPaginatio
 
 export type IPokemons = IPokemonPagination<IPokemon>
 
-export class Pokemons extends PokemonPagination<IPokemon> {
+export class Pokemons extends PokemonPagination<IPokemon> implements IPokemons {
     constructor(
         pokemonPagination: PokemonPaginationDto<IPokemon>, 
         currentPage: number, 
@@ -26,11 +26,5 @@ export interface IPokemon {
 }
 
 export class Pokemon implements IPokemon {
-    public name: string
-    public image: string 
-
-    constructor(name: string, image: string){
-        this.name = name;
-        this.image = image;
-    }
+    constructor(public name: string, public image: string) {}
 }

@@ -3,7 +3,7 @@ import { DataState } from 'src/app/store/data/models/data.state';
 import { Store } from '@ngrx/store';
 import { PokeApiService } from '../../services/poke-api/poke-api.service';
 import { IPokemons } from 'src/app/models/internals/pokemons.model';
-import { BehaviorSubject, Observable, of, delay } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { addPokemonsAction, setPokemonsAction } from "src/app/store/data/data.actions";
 import { finalize, take, tap } from 'rxjs/operators';
 import { selectPokemons } from 'src/app/store/data/data.selectors';
@@ -31,7 +31,7 @@ export class UsePokemons {
   }
 
   private getStoredPokemons(): IPokemons | undefined { return this.pokemonsObj.value}
-  private getNextPage(): number { return this.getStoredPokemons()?.currentPage ? this.getStoredPokemons()?.currentPage as number + 1 : 0}
+  private getNextPage(): number { return this.getStoredPokemons() ? this.getStoredPokemons()?.currentPage as number + 1 : 0}
 
   private fetchFromStore(): Observable<IPokemons|undefined> {
     return this.pokemons$.pipe(

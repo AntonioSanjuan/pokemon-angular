@@ -31,7 +31,7 @@ export class PokeApiService {
     let rawPokemonsPagination: PokemonPaginationDto<unknown>;
 
     return this.getRawPokemons(page).pipe(
-        map((data: any) => {
+        map((data: PokemonsDto) => {
           return data
         }),
         switchMap((pokemons: PokemonsDto) => {
