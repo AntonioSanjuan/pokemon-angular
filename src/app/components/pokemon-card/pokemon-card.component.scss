@@ -18,7 +18,10 @@
         justify-content: center;
         background-color: #F2F2F2;
 
-        img {}
+        img {
+            width: 100%;
+            height: 100%;
+        }
     }
 
     .PokemonCard_Info {

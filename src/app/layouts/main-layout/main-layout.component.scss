@@ -2,23 +2,39 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+
     min-height: 100vh;
+    height: 100%;
 
     background: #424242 url("https://assets.pokemon.com/static2/_ui/img/chrome/body_bg.png");
 
     .MainLayout_Header {
-        position:fixed;
+        display: flex;
+        flex-direction: column;
+
         width: 100%;
-        
-        height: 50px;
     }
+
+    .MainLayout_Navbar {
+        display: flex;
+        flex-direction: column;
+
+        position: sticky;
+
+        top: 0;
+        z-index: 3;
+    }
+
     .MainLayout_Content {
         display: flex;
-        height: 100%;
-        width: 100%;
+        flex: 1;
+        
         margin: 0 auto;
-        margin-top: 50px;
+        margin-top: 150px;
 
+        width: 100%;
+        height: 100%;
+        
         background: #fff  url("https://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png");
         max-width: 1280px;
         position: relative;

@@ -10,13 +10,5 @@ import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 
 })
 export class AboutComponent {
-
-  constructor(
-    private router: Router, 
-  ) {}
-
-
-  public goToHome() {
-    this.router.navigate(['/home',]);
-  }
+  constructor() {}
 }
