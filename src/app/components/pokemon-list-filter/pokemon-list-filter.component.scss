@@ -1,0 +1,21 @@
+.PokemonListFilter_MainContainer {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    align-items: center;
+    background-color: #616161;
+    .PokemonListFilter_FilterContainer {
+        width: 80%;
+
+    }
+    .PokemonListFilter_ActionsContainer {
+        position: relative;
+    
+        button {
+            position: absolute;
+            bottom: -20px;
+            right: calc(50% - 20px);
+        }
+    
+    }
+}

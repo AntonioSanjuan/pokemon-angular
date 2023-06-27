@@ -10,12 +10,13 @@ import { homeResolver } from './home.component.resolver';
 import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 import { IntersectionObserverDirective } from 'src/app/directives/intersectionObserver/intersectionObserver.directive';
 import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service';
+import { PokemonListFilterComponent } from 'src/app/components/pokemon-list-filter/pokemon-list-filter.component';
 
 const routes: Routes = [{ path: '', component: HomeComponent, providers: [UsePokemons, UsePokemonTypes], resolve: {pokemonsResolver: homeResolver}}];
 const directives = [SkeletonDirective, IntersectionObserverDirective]
 
 @NgModule({
-  declarations: [HomeComponent, PokemonListComponent, PokemonCardComponent, ...directives],
+  declarations: [HomeComponent, PokemonListComponent, PokemonListFilterComponent, PokemonCardComponent, ...directives],
   providers: [],
   imports: [
     SharedModule,

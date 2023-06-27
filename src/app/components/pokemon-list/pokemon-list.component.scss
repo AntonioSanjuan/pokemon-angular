@@ -7,6 +7,9 @@
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
+    background: #fff  url("https://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png");
+
+    position: relative;
 
     .PokemonList_Container {
         display: flex;
@@ -15,12 +18,19 @@
         width: 100%;
 
         .PokemonList_Header {
-            background-color: #616161;
-            width: 100%;
             display: flex;
             justify-content: center;
+
+            background-color: #616161;
+            width: 100%;
+
             padding: 16px 0px;
             color: #ffff;
+        }
+
+        .PokemonList_Filter {
+            display: flex;
+            flex-direction: column;
         }
 
         .PokemonList_ContentContainer {
