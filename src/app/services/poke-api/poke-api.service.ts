@@ -7,7 +7,9 @@ import { PokemonDto } from 'src/app/models/dtos/pokemonDto.model';
 import { MinifiedPokemonDto } from 'src/app/models/dtos/pokemonMinified.model';
 import { IPokemon, IPokemons } from 'src/app/models/internals/pokemons.model';
 import { PokemonPaginationDto } from 'src/app/models/dtos/common/pokemonPaginationDto.model';
-import { PokeApiAdapter, PokemonsAdapter } from 'src/app/adapters/poke-api/poke-api.adapter';
+import { PokeApiAdapter, PokemonTypesAdapter, PokemonsAdapter } from 'src/app/adapters/poke-api/poke-api.adapter';
+import { PokemonTypesDto } from 'src/app/models/dtos/pokemonTypesDto.model';
+import { IPokemonTypes } from 'src/app/models/internals/pokemonTypes.model';
 
 @Injectable()
 export class PokeApiService {
@@ -16,7 +18,8 @@ export class PokeApiService {
   constructor(
     private http: HttpClient,
     private pokemonAdapt: PokeApiAdapter,
-    private pokemonsAdapt: PokemonsAdapter
+    private pokemonsAdapt: PokemonsAdapter,
+    private pokemonTypesAdapt: PokemonTypesAdapter,
     ) {}
 
   private getRawPokemons(page: number): Observable<PokemonsDto> {
@@ -25,6 +28,18 @@ export class PokeApiService {
 
   private getRawPokemon(PokemonName: string): Observable<PokemonDto> {
     return this.http.get<PokemonDto>(`https://pokeapi.co/api/v2/pokemon/${PokemonName.toLowerCase()}`)
+  }
+
+  private getRawPokemonTypes(): Observable<PokemonTypesDto> {
+    return this.http.get<PokemonTypesDto>(`https://pokeapi.co/api/v2/type`)
+  }
+
+  public getPokemonTypes(): Observable<IPokemonTypes> {
+    return this.getRawPokemonTypes().pipe(
+      map((pokemonTypes: PokemonTypesDto) => {
+        return this.pokemonTypesAdapt.adapt(pokemonTypes)
+      })
+    )
   }
 
   public getPokemons(page: number): Observable<IPokemons> {

@@ -1,6 +1,15 @@
 import { PokemonPaginationDto } from "../dtos/common/pokemonPaginationDto.model"
 import { IPokemonPagination, PokemonPagination } from "./common/pokemonPagination.model"
 
+export interface IPokemon {
+    name: string
+    image: string    
+}
+
+export class Pokemon implements IPokemon {
+    constructor(public name: string, public image: string) {}
+}
+
 export type IPokemons = IPokemonPagination<IPokemon>
 
 export class Pokemons extends PokemonPagination<IPokemon> implements IPokemons {
@@ -17,14 +26,4 @@ export class Pokemons extends PokemonPagination<IPokemon> implements IPokemons {
             pokemonPagination.previous
         )
     }
-}
-
-
-export interface IPokemon {
-    name: string
-    image: string    
-}
-
-export class Pokemon implements IPokemon {
-    constructor(public name: string, public image: string) {}
 }
