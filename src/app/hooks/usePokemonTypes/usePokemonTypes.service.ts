@@ -3,6 +3,9 @@ import { Store } from '@ngrx/store';
 import { PokeApiService } from '../../services/poke-api/poke-api.service';
 import { BehaviorSubject, Observable } from "rxjs";
 import { finalize, take, tap } from 'rxjs/operators';
+import { DataState } from 'src/app/store/data/models/data.state';
+import { setPokemonTypesAction } from 'src/app/store/data/data.actions';
+import { selectPokemonTypes } from 'src/app/store/data/data.selectors';
 
 @Injectable()
 export class UsePokemonTypes {
@@ -47,11 +50,11 @@ export class UsePokemonTypes {
     return (!!this.getStoredPokemonTypes()
     ? this.fetchFromStore() 
     : this.fetchFromService().pipe(
-      tap((pokemons: any | undefined) => {
+      tap((pokemonsTypes: any | undefined) => {
         //save it into storage
-        if(pokemons) {
+        if(pokemonsTypes) {
           this.store.dispatch(setPokemonTypesAction(
-            pokemons
+            pokemonsTypes
           ));
         }
       }),

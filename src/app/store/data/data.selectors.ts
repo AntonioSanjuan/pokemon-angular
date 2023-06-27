@@ -10,3 +10,8 @@ export const selectPokemons = createSelector(
   selectDataState,
   (state) => state.pokemons
 );
+
+export const selectPokemonTypes = createSelector(
+  selectDataState,
+  (state) => state.pokemonTypes
+);
