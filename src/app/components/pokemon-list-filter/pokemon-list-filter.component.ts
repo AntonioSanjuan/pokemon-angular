@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { collapseAnimation } from 'src/app/animations/collapse/collapse.animation';
+import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service';
 
 @Component({
   selector: 'app-pokemon-list-filter',
@@ -8,6 +9,7 @@ import { collapseAnimation } from 'src/app/animations/collapse/collapse.animatio
   animations: [collapseAnimation]
 })
 export class PokemonListFilterComponent {
+  constructor(public usePokemonTypes: UsePokemonTypes) {}
   collapsed = true;
 
   toggle() {

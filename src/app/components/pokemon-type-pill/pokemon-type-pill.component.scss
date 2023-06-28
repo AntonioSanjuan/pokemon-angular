@@ -1,0 +1,12 @@
+.PokemonTypePill_MainContainer {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
+    p {
+        padding: 2px 4px;
+        border: 2px solid #a4a4a4;
+        border-radius: 7px;
+        margin: 0;
+    }
+}

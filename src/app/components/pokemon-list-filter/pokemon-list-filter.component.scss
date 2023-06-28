@@ -5,6 +5,9 @@
     align-items: center;
     background-color: #616161;
     .PokemonListFilter_FilterContainer {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
         width: 80%;
 
     }
