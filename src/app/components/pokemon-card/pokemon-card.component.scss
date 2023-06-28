@@ -43,6 +43,18 @@
             font-size: 145%;
             margin-bottom: 5px;
         }
+
+        .PokemonCard_Types {
+            display: flex;
+            flex-direction: row;
+            gap: 10px;
+
+            p {
+                padding: 2px 4px;
+                border: 1px solid black;
+                border-radius: 7px;
+            }
+        }
     }
 }
 

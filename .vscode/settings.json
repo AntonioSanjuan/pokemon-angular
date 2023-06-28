@@ -1,0 +1,9 @@
+{
+    "files.eol": "\r\n",
+    "eslint.validate": ["javascript"],
+    "eslint.format.enable": true,
+    "editor.codeActionsOnSave": {
+      "source.fixAll.eslint": true
+    }
+}
+  

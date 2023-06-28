@@ -7,7 +7,7 @@ import { PokemonDto } from 'src/app/models/dtos/pokemonDto.model';
 import { MinifiedPokemonDto } from 'src/app/models/dtos/pokemonMinified.model';
 import { IPokemon, IPokemons } from 'src/app/models/internals/pokemons.model';
 import { PokemonPaginationDto } from 'src/app/models/dtos/common/pokemonPaginationDto.model';
-import { PokeApiAdapter, PokemonTypesAdapter, PokemonsAdapter } from 'src/app/adapters/poke-api/poke-api.adapter';
+import { PokemonAdapter, PokemonTypesAdapter, PokemonsAdapter } from 'src/app/adapters/poke-api/poke-api.adapter';
 import { PokemonTypesDto } from 'src/app/models/dtos/pokemonTypesDto.model';
 import { IPokemonTypes } from 'src/app/models/internals/pokemonTypes.model';
 
@@ -17,7 +17,7 @@ export class PokeApiService {
 
   constructor(
     private http: HttpClient,
-    private pokemonAdapt: PokeApiAdapter,
+    private pokemonAdapt: PokemonAdapter,
     private pokemonsAdapt: PokemonsAdapter,
     private pokemonTypesAdapt: PokemonTypesAdapter,
     ) {}

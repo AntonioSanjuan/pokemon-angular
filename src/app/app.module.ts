@@ -6,6 +6,7 @@ import { CoreModule } from './modules/core/core.module';
 import { SharedModule } from './modules/shared/shared.module';
 import { APP_ROUTES } from './modules/routing/routing.module';
 import { MainLayoutModule } from './layouts/main-layout/main-layout.module';
+import { PokemonTypePillDirective } from './directives/pokemonTypeColor/pokemon-type-pill.directive';
 
 @NgModule({
   declarations: [

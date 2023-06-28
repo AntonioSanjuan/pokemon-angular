@@ -6,6 +6,10 @@
   <div class="PokemonCard_Info">
     <p id="pokemonNumber" appSkeleton [active]="true" [width]="'70px'" [height]="'8px'">N* 0001</p>
     <p id="pokemonName" appSkeleton [active]="true" [width]="'90px'" [height]="'20px'">{{pokemon?.name}}</p>
+
+    <div class="PokemonCard_Types">
+      <p *ngFor="let type of pokemon?.types" appPokemonTypePill [color]="type.color" >{{type.name}}</p>
+    </div>
   </div>
 </div>
 
