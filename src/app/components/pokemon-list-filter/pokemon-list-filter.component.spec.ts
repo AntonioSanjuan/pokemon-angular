@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { PokemonListFilterComponent } from './pokemon-list-filter.component';
+import { SharedModule } from 'src/app/modules/shared/shared.module';
 
 describe('PokemonListFilterComponent', () => {
   let component: PokemonListFilterComponent;
@@ -8,7 +9,8 @@ describe('PokemonListFilterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PokemonListFilterComponent]
+      declarations: [PokemonListFilterComponent],
+      imports: [SharedModule],
     });
     fixture = TestBed.createComponent(PokemonListFilterComponent);
     component = fixture.componentInstance;

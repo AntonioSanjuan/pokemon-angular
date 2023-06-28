@@ -3,26 +3,23 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { PokemonListComponent } from './pokemon-list.component';
 import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 import { UsePokemonsMock } from 'src/app/hooks/usePokemons/usePokemons.service.mock';
+import { PokemonListFilterComponent } from '../pokemon-list-filter/pokemon-list-filter.component';
+import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { PokemonTypePillDirective } from 'src/app/directives/pokemonTypeColor/pokemon-type-pill.directive';
+import { IntersectionObserverDirective } from 'src/app/directives/intersectionObserver/intersectionObserver.directive';
 
 describe('PokemonListComponent', () => {
   let component: PokemonListComponent;
   let fixture: ComponentFixture<PokemonListComponent>;
 
   beforeEach(() => {
-    TestBed.overrideComponent(
-      PokemonListComponent,
-      {
-        set: {
-          providers: [{
-            provide: UsePokemons,
-            useValue: UsePokemonsMock
-          }]
-        }
-      }
-    );
-
     TestBed.configureTestingModule({
-      declarations: [PokemonListComponent]
+      declarations: [PokemonListComponent, PokemonListFilterComponent, PokemonTypePillDirective, IntersectionObserverDirective],
+      imports: [SharedModule],
+      providers: [{
+        provide: UsePokemons,
+        useValue: UsePokemonsMock
+      }]
     });
     fixture = TestBed.createComponent(PokemonListComponent);
     component = fixture.componentInstance;

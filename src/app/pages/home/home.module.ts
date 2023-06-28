@@ -18,7 +18,6 @@ const directives = [SkeletonDirective, IntersectionObserverDirective, PokemonTyp
 
 @NgModule({
   declarations: [HomeComponent, PokemonListComponent, PokemonListFilterComponent, PokemonCardComponent, ...directives],
-  providers: [],
   imports: [
     SharedModule,
     UsePokemonsModule,

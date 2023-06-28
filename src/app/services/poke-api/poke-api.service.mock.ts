@@ -18,23 +18,38 @@ const getPokemonsResponseMock: IPokemons = {
   data: [
     {
       name: 'pokemonName_1',
-      image: 'pokemonImage_1'
+      image: 'pokemonImage_1',
+      weight: 1,
+      height: 1,
+      types: []
     },
     {
       name: 'pokemonName_2',
-      image: 'pokemonImage_2'
+      image: 'pokemonImage_2',
+      weight: 2,
+      height: 2,
+      types: []
     },
     {
       name: 'pokemonName_3',
-      image: 'pokemonImage_3'
+      image: 'pokemonImage_3',
+      weight: 3,
+      height: 3,
+      types: []
     },
     {
       name: 'pokemonName_4',
-      image: 'pokemonImage_4'
+      image: 'pokemonImage_4',
+      weight: 4,
+      height: 4,
+      types: []
     },
     {
       name: 'pokemonName_5',
-      image: 'pokemonImage_5'
+      image: 'pokemonImage_5',
+      weight: 5,
+      height: 5,
+      types: []
     }
   ]
 }
