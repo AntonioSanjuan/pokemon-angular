@@ -6,11 +6,12 @@ import { finalize, take, tap } from 'rxjs/operators';
 import { DataState } from 'src/app/store/data/models/data.state';
 import { setPokemonTypesAction } from 'src/app/store/data/data.actions';
 import { selectPokemonTypes } from 'src/app/store/data/data.selectors';
+import { IPokemonTypes } from 'src/app/models/internals/pokemonTypes.model';
 
 @Injectable()
 export class UsePokemonTypes {
   private loadingObj = new BehaviorSubject<boolean>(false)
-  private pokemonTypesObj = new BehaviorSubject<any | undefined>(undefined)
+  private pokemonTypesObj = new BehaviorSubject<IPokemonTypes | undefined>(undefined)
 
   public get loading$() {
     return this.loadingObj.asObservable()
@@ -29,28 +30,28 @@ export class UsePokemonTypes {
       })
   }
 
-  private getStoredPokemonTypes(): any | undefined { return this.pokemonTypesObj.value}
+  private getStoredPokemonTypes(): IPokemonTypes | undefined { return this.pokemonTypesObj.value}
 
-  private fetchFromStore(): Observable<any|undefined> {
+  private fetchFromStore(): Observable<IPokemonTypes | undefined> {
     return this.pokemonTypes$.pipe(
       take(1),
     )
   }
   
-  private fetchFromService(): Observable<any|undefined> {
+  private fetchFromService(): Observable<IPokemonTypes | undefined> {
     return this.pokemonService.getPokemonTypes().pipe(
       take(1),
     )
   }
 
 
-  public prefetchPokemonTypes(): Observable<any | undefined> {
+  public prefetchPokemonTypes(): Observable<IPokemonTypes | undefined> {
     this.loadingObj.next(true)
 
     return (!!this.getStoredPokemonTypes()
     ? this.fetchFromStore() 
     : this.fetchFromService().pipe(
-      tap((pokemonsTypes: any | undefined) => {
+      tap((pokemonsTypes: IPokemonTypes | undefined) => {
         //save it into storage
         if(pokemonsTypes) {
           this.store.dispatch(setPokemonTypesAction(

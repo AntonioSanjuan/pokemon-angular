@@ -12,12 +12,13 @@ import { IntersectionObserverDirective } from 'src/app/directives/intersectionOb
 import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service';
 import { PokemonListFilterComponent } from 'src/app/components/pokemon-list-filter/pokemon-list-filter.component';
 import { PokemonTypePillDirective } from 'src/app/directives/pokemonTypeColor/pokemon-type-pill.directive';
+import { PokemonTypePillComponent } from 'src/app/components/pokemon-type-pill/pokemon-type-pill.component';
 
 const routes: Routes = [{ path: '', component: HomeComponent, providers: [UsePokemons, UsePokemonTypes], resolve: {pokemonsResolver: homeResolver}}];
 const directives = [SkeletonDirective, IntersectionObserverDirective, PokemonTypePillDirective]
 
 @NgModule({
-  declarations: [HomeComponent, PokemonListComponent, PokemonListFilterComponent, PokemonCardComponent, ...directives],
+  declarations: [HomeComponent, PokemonListComponent, PokemonListFilterComponent, PokemonCardComponent, PokemonTypePillComponent, ...directives],
   imports: [
     SharedModule,
     UsePokemonsModule,

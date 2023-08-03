@@ -7,5 +7,5 @@ import { IPokemonType } from 'src/app/models/internals/pokemonTypes.model';
   styleUrls: ['./pokemon-type-pill.component.scss']
 })
 export class PokemonTypePillComponent {
-  @Input() public pokemonType!: IPokemonType |undefined;
+  @Input() public pokemonType!: IPokemonType | undefined;
 }
