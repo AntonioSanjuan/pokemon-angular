@@ -1,7 +1,23 @@
 <div class="PokemonListFilter_MainContainer">
+
     <div class="PokemonListFilter_FilterContainer" [@collapse]="collapsed">
-        <div *ngFor="let pokemonType of (usePokemonTypes.pokemonTypes$ | async)?.data">
-            <app-pokemon-type-pill [pokemonType]="pokemonType"></app-pokemon-type-pill>
+        <div class="PokemonListFilter_Filter">
+            <div class="PokemonListFilter_FilterHeader">
+                <p>Filtra por tipo</p>
+            </div>
+            <div class="PokemonListFilter_FilterContent">
+                <div *ngFor="let pokemonType of (usePokemonTypes.pokemonTypes$ | async)?.data">
+                    <app-pokemon-type-pill [pokemonType]="pokemonType"></app-pokemon-type-pill>
+                </div>
+            </div>
+        </div>
+        <div class="PokemonListFilter_Filter">
+            <div>
+                <p>Filtra por nombre</p>
+            </div>
+            <div>
+                <input>
+            </div>
         </div>
     </div>
     <div class="PokemonListFilter_ActionsContainer">
