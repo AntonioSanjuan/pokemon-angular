@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { collapseAnimation } from 'src/app/animations/collapse/collapse.animation';
+import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
 import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service';
 
 @Component({
@@ -9,9 +10,14 @@ import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.s
   animations: [collapseAnimation]
 })
 export class PokemonListFilterComponent {
-  constructor(public usePokemonTypes: UsePokemonTypes) {}
-  collapsed = true;
+  constructor(
+    public usePokemonTypes: UsePokemonTypes, 
+    public useFilteredPokemons: UseFilterPokemons
+  ) {}
 
+  collapsed = true;
+  filterByName!: string;
+  
   toggle() {
     this.collapsed = !this.collapsed;
   }

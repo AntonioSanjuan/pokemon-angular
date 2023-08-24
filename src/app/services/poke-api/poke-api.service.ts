@@ -1,15 +1,17 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { PokemonsDto } from 'src/app/models/dtos/pokemonsDto.model';
-import { map, switchMap } from 'rxjs/operators';
-import { Observable, forkJoin } from 'rxjs';
+import { catchError, map, switchMap } from 'rxjs/operators';
+import { Observable, forkJoin, defaultIfEmpty, of } from 'rxjs';
 import { PokemonDto } from 'src/app/models/dtos/pokemonDto.model';
 import { MinifiedPokemonDto } from 'src/app/models/dtos/pokemonMinified.model';
-import { IPokemon, IPokemons } from 'src/app/models/internals/pokemons.model';
+import { IPokemon, IPokemons, Pokemon } from 'src/app/models/internals/pokemons.model';
 import { PokemonPaginationDto } from 'src/app/models/dtos/common/pokemonPaginationDto.model';
-import { PokemonAdapter, PokemonTypesAdapter, PokemonsAdapter } from 'src/app/adapters/poke-api/poke-api.adapter';
+import { FilteredPokemonsAdapter, PokemonAdapter, PokemonTypesAdapter, PokemonsAdapter } from 'src/app/adapters/poke-api/poke-api.adapter';
 import { PokemonTypesDto } from 'src/app/models/dtos/pokemonTypesDto.model';
 import { IPokemonTypes } from 'src/app/models/internals/pokemonTypes.model';
+import { PokemonByTypeDto, PokemonsByTypeDto } from 'src/app/models/dtos/pokemonsByTypeDto.model';
+import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
 
 @Injectable()
 export class PokeApiService {
@@ -20,10 +22,19 @@ export class PokeApiService {
     private pokemonAdapt: PokemonAdapter,
     private pokemonsAdapt: PokemonsAdapter,
     private pokemonTypesAdapt: PokemonTypesAdapter,
+    private filteredPokemonsAdapt: FilteredPokemonsAdapter,
     ) {}
 
   private getRawPokemons(page: number): Observable<PokemonsDto> {
     return this.http.get<PokemonsDto>(`https://pokeapi.co/api/v2/pokemon?limit=${this.limit}&offset=${page * this.limit}`)
+  }
+
+  private getRawPokemonsByType(type: string): Observable<PokemonsByTypeDto> {
+    return this.http.get<PokemonsByTypeDto>(`https://pokeapi.co/api/v2/type/${type}`)
+  }
+
+  private getRawPokemonsByName(name: string): Observable<PokemonDto> {
+    return this.http.get<PokemonDto>(`https://pokeapi.co/api/v2/pokemon/${name}`)
   }
 
   private getRawPokemon(PokemonName: string): Observable<PokemonDto> {
@@ -64,6 +75,47 @@ export class PokeApiService {
                 page, 
                 data: rawPokemons.map((pokemon): IPokemon => 
                     this.pokemonAdapt.adapt(pokemon))
+            })
+            return output;
+        })
+    )
+  }
+
+  public getFilteredPokemonsByType(pokemonType: string): Observable<IFilteredPokemons> {
+    
+    return this.getRawPokemonsByType(pokemonType).pipe(
+        switchMap((pokemons: PokemonsByTypeDto) => {
+            const requests = pokemons.pokemon
+                .map((pokemonByType: PokemonByTypeDto) => 
+                    this.getRawPokemon(pokemonByType.pokemon.name)
+                )
+            return forkJoin<PokemonDto[]>(requests).pipe(
+              defaultIfEmpty([])
+            )
+        }),
+        map((rawPokemons: PokemonDto[]) => {
+            const output = this.filteredPokemonsAdapt.adapt({
+                byName: undefined,
+                byType: pokemonType,
+                data: rawPokemons.map((pokemon): IPokemon => 
+                    this.pokemonAdapt.adapt(pokemon))
+            })
+            return output;
+        })
+    )
+  }
+
+  public getFilteredPokemonsByName(pokemonName: string): Observable<IFilteredPokemons> {
+    
+    return this.getRawPokemonsByName(pokemonName).pipe(
+        catchError(() => {
+          return of<PokemonDto>({} as PokemonDto)
+        }),
+        map((rawPokemon: PokemonDto) => {
+            const output = this.filteredPokemonsAdapt.adapt({
+                byName: pokemonName,
+                byType: undefined,
+                data: [this.pokemonAdapt.adapt(rawPokemon)]
             })
             return output;
         })

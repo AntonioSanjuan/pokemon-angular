@@ -6,7 +6,7 @@
                 <p>Filtra por tipo</p>
             </div>
             <div class="PokemonListFilter_FilterContent">
-                <div *ngFor="let pokemonType of (usePokemonTypes.pokemonTypes$ | async)?.data">
+                <div class="PokemonListFilter_FilterType"  *ngFor="let pokemonType of (usePokemonTypes.pokemonTypes$ | async)?.data" (click)="useFilteredPokemons.getByTypePokemons(pokemonType.name)">
                     <app-pokemon-type-pill [pokemonType]="pokemonType"></app-pokemon-type-pill>
                 </div>
             </div>
@@ -16,7 +16,10 @@
                 <p>Filtra por nombre</p>
             </div>
             <div>
-                <input>
+                <input type="text" [(ngModel)]="filterByName">
+            </div>
+            <div>
+                <button [disabled]="!filterByName" (click)="useFilteredPokemons.getByNamePokemons(filterByName)">Filtrar por nombre</button>
             </div>
         </div>
     </div>

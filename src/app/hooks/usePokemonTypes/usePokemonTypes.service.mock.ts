@@ -1,9 +1,9 @@
-// import { of } from "rxjs"
-// import { IPokemons } from "src/app/models/internals/pokemons.model"
-// import { UsePokemons } from "./usePokemons.service"
+import { of } from "rxjs"
+import { UsePokemonTypes } from "./usePokemonTypes.service"
+import { IPokemonTypes } from "src/app/models/internals/pokemonTypes.model"
 
-// export const UsePokemonsMock: Partial<UsePokemons> = {
-//   fetchNextPokemons: jest.fn(() => of(undefined)),
-//   pokemons$: of<IPokemons | undefined>(undefined),
-//   loading$: of<boolean>(false)
-// }
+export const UsePokemonTypesMock: Partial<UsePokemonTypes> = {
+  prefetchPokemonTypes: jest.fn(() => of(undefined)),
+  pokemonTypes$: of<IPokemonTypes | undefined>(undefined),
+  loading$: of<boolean>(false)
+}

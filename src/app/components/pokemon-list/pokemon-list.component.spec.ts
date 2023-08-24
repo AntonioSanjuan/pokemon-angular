@@ -7,6 +7,10 @@ import { PokemonListFilterComponent } from '../pokemon-list-filter/pokemon-list-
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { PokemonTypePillDirective } from 'src/app/directives/pokemonTypeColor/pokemon-type-pill.directive';
 import { IntersectionObserverDirective } from 'src/app/directives/intersectionObserver/intersectionObserver.directive';
+import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service';
+import { UsePokemonTypesMock } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service.mock';
+import { UseFilterPokemonsMock } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service.mock';
+import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
 
 describe('PokemonListComponent', () => {
   let component: PokemonListComponent;
@@ -16,10 +20,20 @@ describe('PokemonListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [PokemonListComponent, PokemonListFilterComponent, PokemonTypePillDirective, IntersectionObserverDirective],
       imports: [SharedModule],
-      providers: [{
-        provide: UsePokemons,
-        useValue: UsePokemonsMock
-      }]
+      providers: [
+        {
+          provide: UseFilterPokemons,
+          useValue: UseFilterPokemonsMock
+        },
+        {
+          provide: UsePokemons,
+          useValue: UsePokemonsMock
+        },
+        {
+          provide: UsePokemonTypes,
+          useValue: UsePokemonTypesMock
+        },
+      ]
     });
     fixture = TestBed.createComponent(PokemonListComponent);
     component = fixture.componentInstance;
@@ -30,12 +44,4 @@ describe('PokemonListComponent', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('should request fetchPokemons', () => {
-  //   const fetchPokemonsSpy = jest.spyOn(UsePokemonsMock, 'fetchPokemons')
-
-  //   component.ngOnInit()
-  //   fixture.detectChanges()
-
-  //   expect(fetchPokemonsSpy).toHaveBeenCalledWith(0)
-  // });
 });

@@ -26,6 +26,10 @@
                 width: 80%;
                 flex-wrap: wrap;
                 justify-content: center;
+
+                .PokemonListFilter_FilterType {
+                    cursor: pointer;
+                }
             }
         }
     }

@@ -2,6 +2,7 @@ import { Observable, of } from "rxjs"
 import { IPokemons } from "src/app/models/internals/pokemons.model"
 import { PokeApiService } from "./poke-api.service"
 import { IPokemonTypes } from "src/app/models/internals/pokemonTypes.model"
+import { IFilteredPokemons } from "src/app/models/internals/filteredPokemons.model"
 
 export const PokeApiServiceMock: Partial<PokeApiService> = {
   getPokemons: jest.fn((): Observable<IPokemons> => {
@@ -9,6 +10,12 @@ export const PokeApiServiceMock: Partial<PokeApiService> = {
   }),
   getPokemonTypes: jest.fn((): Observable<IPokemonTypes> => {
     return of(getPokemonTypesResponseMock)
+  }),
+  getFilteredPokemonsByType: jest.fn((): Observable<IFilteredPokemons> => {
+    return of(getFilteredPokemonsResponseMock)
+  }),
+  getFilteredPokemonsByName: jest.fn((): Observable<IFilteredPokemons> => {
+    return of(getFilteredPokemonsResponseMock)
   })
 }
 
@@ -73,6 +80,34 @@ const getPokemonTypesResponseMock: IPokemonTypes = {
     },
     {
       name: 'type5'
+    },
+  ]
+}
+
+const getFilteredPokemonsResponseMock: IFilteredPokemons = {
+  byName: 'byNameTestFilter',
+  byType: 'byTypeTestFilter',
+  data: [
+    {
+      name: 'pokemonName_1',
+      image: 'pokemonImage_1',
+      weight: 1,
+      height: 1,
+      types: []
+    },
+    {
+      name: 'pokemonName_2',
+      image: 'pokemonImage_2',
+      weight: 2,
+      height: 2,
+      types: []
+    },
+    {
+      name: 'pokemonName_3',
+      image: 'pokemonImage_3',
+      weight: 3,
+      height: 3,
+      types: []
     },
   ]
 }
