@@ -1,0 +1,21 @@
+<div class="PokemonSection_MainContainer">
+    <div class="PokemonSection_Container">
+        <div class="PokemonSection_Header">
+            <div *ngIf="useFilterPokemons.existsFilteredPokemons">
+                <h3>filtro actual: {{(useFilterPokemons.filteredPokemons$ | async)?.byName || (useFilterPokemons.filteredPokemons$ | async)?.byType}}</h3>
+                <button (click)="useFilterPokemons.deleteFilters()">Borrar filtros</button>
+            </div>
+        </div>
+        <div class="PokemonSection_Filter">
+            <app-pokemon-list-filter></app-pokemon-list-filter>
+        </div>
+
+        <div class="PokemonSection_List">
+            <app-pokemon-list 
+                [pokemons]="(useFilterPokemons.filteredPokemons$| async)?.data || (usePokemons.pokemons$ | async)?.data"
+                [infiniteListScroll]="!(useFilterPokemons.filteredPokemons$ | async)"
+                [loading]="!!(useFilterPokemons.loading$ | async)">
+            </app-pokemon-list>
+        </div>
+    </div>
+</div>

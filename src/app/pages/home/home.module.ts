@@ -15,6 +15,7 @@ import { PokemonTypePillDirective } from 'src/app/directives/pokemonTypeColor/po
 import { PokemonTypePillComponent } from 'src/app/components/pokemon-type-pill/pokemon-type-pill.component';
 import { UseFilteredPokemonsModule } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service.module';
 import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
+import { PokemonSection } from 'src/app/components/pokemon-section/pokemon-section.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent, providers: [UsePokemons, UsePokemonTypes, UseFilterPokemons], resolve: {pokemonsResolver: homeResolver}}
@@ -23,7 +24,7 @@ const routes: Routes = [
 const directives = [SkeletonDirective, IntersectionObserverDirective, PokemonTypePillDirective]
 
 @NgModule({
-  declarations: [HomeComponent, PokemonListComponent, PokemonListFilterComponent, PokemonCardComponent, PokemonTypePillComponent, ...directives],
+  declarations: [HomeComponent, PokemonSection, PokemonListComponent, PokemonListFilterComponent, PokemonCardComponent, PokemonTypePillComponent, ...directives],
   imports: [
     SharedModule,
     UsePokemonsModule,

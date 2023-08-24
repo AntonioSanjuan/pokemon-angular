@@ -1,22 +1,14 @@
 <div class="PokemonList_MainContainer">
     <div class="PokemonList_Container">
-        <div class="PokemonList_Header">
-        </div>
-        <div class="PokemonList_Filter">
-            <app-pokemon-list-filter></app-pokemon-list-filter>
-        </div>
-
         <div class="PokemonList_ContentContainer" 
             appIntersectionObserver 
             (isIntersecting)="isIntersecting($event)"
             [offset]="50"
-            [active]="!(usePokemons.loading$ | async)">
-            <p *ngIf="(usePokemons.loading$ | async)">loading</p>
-
+            [active]="infiniteListScroll">
             <div  class="PokemonList_List" 
-                *ngFor="let pokemon of (usePokemons.pokemons$ | async)?.data"
+                *ngFor="let pokemon of pokemons"
             >
-                <app-pokemon-card [pokemon]="pokemon"></app-pokemon-card>
+                <app-pokemon-card [pokemon]="pokemon" [isLoading]="loading"></app-pokemon-card>
             </div>
         </div>
     </div>

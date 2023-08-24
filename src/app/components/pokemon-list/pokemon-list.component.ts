@@ -1,5 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
+import { IPokemon } from 'src/app/models/internals/pokemons.model';
 
 @Component({
   selector: 'app-pokemon-list',
@@ -8,9 +9,13 @@ import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 })
 export class PokemonListComponent {
   constructor(public usePokemons: UsePokemons) {}
+  
+  @Input() public pokemons!: IPokemon[] | undefined;
+  @Input() public infiniteListScroll: boolean = false;
+  @Input() public loading: boolean = false;
 
   public isIntersecting(intersecting: boolean) {
-    if(intersecting) {
+    if(this.infiniteListScroll && intersecting ) {
       this.usePokemons.fetchNextPokemons()
     }
   }

@@ -1,9 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { DataState } from './models/data.state';
 import { appDataInitialState } from './models/data.initialState';
-import { addPokemonsAction, setFilteredPokemonsAction, setPokemonTypesAction, setPokemonsAction } from './data.actions';
-import { IPokemon } from 'src/app/models/internals/pokemons.model';
-import { IPokemonTypes } from 'src/app/models/internals/pokemonTypes.model';
+import { addPokemonsAction, deleteFilteredPokemonsAction, setFilteredPokemonsAction, setPokemonTypesAction, setPokemonsAction } from './data.actions';
 
 export const featureData = 'data';
 
@@ -19,6 +17,12 @@ export const DataReducer = createReducer<DataState>(
     return {
       ...state,
       filteredPokemons: action,
+    };
+  }),
+  on(deleteFilteredPokemonsAction, (state): DataState => {
+    return {
+      ...state,
+      filteredPokemons: undefined,
     };
   }),
   on(addPokemonsAction, (state, action): DataState => {

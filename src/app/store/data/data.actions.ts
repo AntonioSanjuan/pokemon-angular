@@ -8,7 +8,7 @@ export enum DataActionTypes {
   AddPokemons = '[Data] Add Pokemons Data',
   SetPokemonTypes = '[Data] Set PokemonTypes Data',
   SetFilteredPokemons = '[Data] Set Filtered Pokemons Data',
-
+  DeleteFilteredPokemons = '[Data] Delete Filtered Pokemons Data',
 }
 
 export const setPokemonsAction = createAction(
@@ -19,6 +19,10 @@ export const setPokemonsAction = createAction(
 export const setFilteredPokemonsAction = createAction(
   DataActionTypes.SetFilteredPokemons,
   props<IFilteredPokemons>()
+);
+
+export const deleteFilteredPokemonsAction = createAction(
+  DataActionTypes.DeleteFilteredPokemons
 );
 
 export const addPokemonsAction = createAction(

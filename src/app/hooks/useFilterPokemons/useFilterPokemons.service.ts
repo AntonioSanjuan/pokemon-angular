@@ -3,8 +3,8 @@ import { DataState } from 'src/app/store/data/models/data.state';
 import { Store } from '@ngrx/store';
 import { PokeApiService } from '../../services/poke-api/poke-api.service';
 import { BehaviorSubject, Observable, of } from "rxjs";
-import { setFilteredPokemonsAction } from "src/app/store/data/data.actions";
-import { catchError, finalize, take, tap } from 'rxjs/operators';
+import { deleteFilteredPokemonsAction, setFilteredPokemonsAction } from "src/app/store/data/data.actions";
+import { finalize, take, tap } from 'rxjs/operators';
 import { selectFilteredPokemon } from 'src/app/store/data/data.selectors';
 import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
 
@@ -18,6 +18,10 @@ export class UseFilterPokemons {
   }
   public get filteredPokemons$() {
     return this.filterPokemonsObj.asObservable()
+  }
+
+  public get existsFilteredPokemons(): boolean {
+    return !!this.filterPokemonsObj.value
   }
 
   constructor(
@@ -58,6 +62,10 @@ export class UseFilterPokemons {
     return this.pokemonService.getFilteredPokemonsByName(pokemonName).pipe(
       take(1),
     )
+  }
+
+  public deleteFilters(): void {
+    this.store.dispatch(deleteFilteredPokemonsAction());
   }
 
   public getByTypePokemons(pokemonType: string): void {

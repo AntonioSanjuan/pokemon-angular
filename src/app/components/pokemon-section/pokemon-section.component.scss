@@ -2,7 +2,7 @@
     width: 100%;
 }
 
-.PokemonList_MainContainer {
+.PokemonSection_MainContainer {
     display: flex;
     flex-direction: column;
     justify-content: flex-start;
@@ -11,13 +11,30 @@
 
     position: relative;
 
-    .PokemonList_Container {
+    .PokemonSection_Container {
         display: flex;
         flex-direction: column;
         align-items: center;
         width: 100%;
 
-        .PokemonList_ContentContainer {
+        .PokemonSection_Header {
+            display: flex;
+            justify-content: center;
+
+            background-color: #616161;
+            width: 100%;
+
+            padding: 20px 0px;
+            color: #ffff;
+        }
+
+        .PokemonSection_Filter {
+            display: flex;
+            flex-direction: column;
+            width: 100%;
+        }
+
+        .PokemonSection_ContentContainer {
             display: flex;
             flex-direction: row;
             flex-wrap: wrap;
