@@ -10,6 +10,7 @@ export class SkeletonDirective implements OnChanges  {
   @Input() active!: boolean;
   @Input() width: string = this.defaultWidth;
   @Input() height: string = this.defaultHeight;
+  @Input() isImage: boolean = false
   constructor(private el: ElementRef<HTMLElement>) { }
   
   ngOnChanges(changes: SimpleChanges) {
@@ -21,6 +22,10 @@ export class SkeletonDirective implements OnChanges  {
       this.el.nativeElement.style.userSelect= 'none'; /* Standard syntax */
       this.el.nativeElement.style.borderRadius = '10px'
       this.el.nativeElement.style.animation = '1.5s shine linear infinite';
+      
+      if(this.isImage) {
+        this.el.nativeElement.style.filter= "opacity(0)"
+      }
 
     }
    }	

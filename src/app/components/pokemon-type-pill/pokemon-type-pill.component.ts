@@ -8,4 +8,5 @@ import { IPokemonType } from 'src/app/models/internals/pokemonTypes.model';
 })
 export class PokemonTypePillComponent {
   @Input() public pokemonType!: IPokemonType | undefined;
+  @Input() public loading: boolean = false;
 }

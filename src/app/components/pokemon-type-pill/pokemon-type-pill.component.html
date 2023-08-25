@@ -1,3 +1,3 @@
 <div class="PokemonTypePill_MainContainer">
-    <p appPokemonTypePill [typeName]="pokemonType?.name">{{pokemonType?.name}}</p>
+    <p appPokemonTypePill [typeName]="pokemonType?.name" appSkeleton [active]="loading" [width]="'60px'" [height]="'28px'">{{pokemonType?.name}}</p>
 </div>

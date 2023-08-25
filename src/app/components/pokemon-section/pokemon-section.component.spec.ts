@@ -1,6 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PokemonListComponent } from './pokemon-section.component';
 import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 import { UsePokemonsMock } from 'src/app/hooks/usePokemons/usePokemons.service.mock';
 import { PokemonListFilterComponent } from '../pokemon-list-filter/pokemon-list-filter.component';
@@ -11,14 +10,16 @@ import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.s
 import { UsePokemonTypesMock } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service.mock';
 import { UseFilterPokemonsMock } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service.mock';
 import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
+import { PokemonListComponent } from '../pokemon-list/pokemon-list.component';
+import { PokemonSection } from './pokemon-section.component';
 
 describe('PokemonListComponent', () => {
-  let component: PokemonListComponent;
-  let fixture: ComponentFixture<PokemonListComponent>;
+  let component: PokemonSection;
+  let fixture: ComponentFixture<PokemonSection>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PokemonListComponent, PokemonListFilterComponent, PokemonTypePillDirective, IntersectionObserverDirective],
+      declarations: [PokemonSection, PokemonListComponent, PokemonListFilterComponent, PokemonTypePillDirective, IntersectionObserverDirective],
       imports: [SharedModule],
       providers: [
         {
@@ -35,7 +36,7 @@ describe('PokemonListComponent', () => {
         },
       ]
     });
-    fixture = TestBed.createComponent(PokemonListComponent);
+    fixture = TestBed.createComponent(PokemonSection);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
