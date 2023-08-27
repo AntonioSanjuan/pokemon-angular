@@ -1,11 +1,24 @@
 import { of } from "rxjs"
-import { IPokemons } from "src/app/models/internals/pokemons.model"
 import { UseFilterPokemons } from "./useFilterPokemons.service"
+import { mockGetter } from "src/app/utils/tests/commonMocks";
+
+const getByTypePokemonsSpy = jest.fn()
+const getByNamePokemonsSpy = jest.fn()
+const deleteFiltersSpy = jest.fn()
 
 export const UseFilterPokemonsMock: Partial<UseFilterPokemons> = {
-  getByTypePokemons: jest.fn(),
-  getByNamePokemons: jest.fn(),
-  filteredPokemons$: of<IPokemons | undefined>(undefined),
-  loading$: of<boolean>(false),
-  existsFilteredPokemons: false
+  getByTypePokemons: getByTypePokemonsSpy,
+  getByNamePokemons: getByNamePokemonsSpy,
+  deleteFilters: deleteFiltersSpy,
+  filteredPokemons$: of(undefined),
+  loading$: of(false),
+}
+
+export const UseFilterPokemonsMockReset = () => {
+  getByTypePokemonsSpy.mockReset()
+  getByNamePokemonsSpy.mockReset()
+  deleteFiltersSpy.mockReset()
+
+  mockGetter(UseFilterPokemonsMock, "filteredPokemons$", of(undefined))
+  mockGetter(UseFilterPokemonsMock, "loading$", of(false))
 }

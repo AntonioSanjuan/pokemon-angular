@@ -9,7 +9,4 @@ import { IPokemon } from 'src/app/models/internals/pokemons.model';
 export class PokemonCardComponent {
   @Input() public pokemon!: IPokemon |undefined;
   @Input() public isLoading!: boolean;
-
-  
-
 }

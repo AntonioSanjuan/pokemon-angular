@@ -18,7 +18,7 @@ export class PokemonListFilterComponent {
   collapsed = true;
   filterByName!: string;
   
-  toggle() {
+  public toggle(): void {
     this.collapsed = !this.collapsed;
   }
 }

@@ -16,10 +16,18 @@
                 <p>Filtra por nombre</p>
             </div>
             <div>
-                <input type="text" [(ngModel)]="filterByName">
+                <input
+                    id="filterByNameInput"
+                    type="text" 
+                    [(ngModel)]="filterByName">
             </div>
             <div>
-                <button [disabled]="!filterByName" (click)="useFilteredPokemons.getByNamePokemons(filterByName)">Filtrar por nombre</button>
+                <button 
+                    id="filterByNameButton"
+                    [disabled]="!filterByName" 
+                    (click)="useFilteredPokemons.getByNamePokemons(filterByName)">
+                        Filtrar por nombre
+                </button>
             </div>
         </div>
     </div>

@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { UsePokemons } from './usePokemons.service';
 import { PokeApiService } from 'src/app/services/poke-api/poke-api.service';
-import { PokeApiServiceMock } from 'src/app/services/poke-api/poke-api.service.mock';
+import { PokeApiServiceMock, PokeApiServiceMockInitialize } from 'src/app/services/poke-api/poke-api.service.mock';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppRootState } from 'src/app/store/store';
 import { IPokemons } from 'src/app/models/internals/pokemons.model';
@@ -35,7 +35,10 @@ describe('UsePokemons', () => {
             }
           ]
         }),
-        { provide: PokeApiService, useValue: PokeApiServiceMock },
+        { 
+          provide: PokeApiService, 
+          useValue: PokeApiServiceMock 
+        },
       ],
       imports: []
     }).compileComponents();
@@ -44,6 +47,8 @@ describe('UsePokemons', () => {
     component = fixture.componentInstance;
     store = TestBed.inject(MockStore);
     fixture.detectChanges();
+
+    PokeApiServiceMockInitialize()
   });
 
   afterEach(() => {

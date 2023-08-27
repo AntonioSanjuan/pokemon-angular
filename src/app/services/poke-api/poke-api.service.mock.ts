@@ -4,19 +4,31 @@ import { PokeApiService } from "./poke-api.service"
 import { IPokemonTypes } from "src/app/models/internals/pokemonTypes.model"
 import { IFilteredPokemons } from "src/app/models/internals/filteredPokemons.model"
 
+const getPokemonsSpy = jest.fn((): Observable<IPokemons> => {
+  return of(getPokemonsResponseMock)
+})
+const getPokemonTypesSpy = jest.fn((): Observable<IPokemonTypes> => {
+  return of(getPokemonTypesResponseMock)
+})
+const getFilteredPokemonsByTypeSpy = jest.fn((): Observable<IFilteredPokemons> => {
+  return of(getFilteredPokemonsResponseMock)
+})
+const getFilteredPokemonsByNameSpy = jest.fn((): Observable<IFilteredPokemons> => {
+  return of(getFilteredPokemonsResponseMock)
+})
+
 export const PokeApiServiceMock: Partial<PokeApiService> = {
-  getPokemons: jest.fn((): Observable<IPokemons> => {
-    return of(getPokemonsResponseMock)
-  }),
-  getPokemonTypes: jest.fn((): Observable<IPokemonTypes> => {
-    return of(getPokemonTypesResponseMock)
-  }),
-  getFilteredPokemonsByType: jest.fn((): Observable<IFilteredPokemons> => {
-    return of(getFilteredPokemonsResponseMock)
-  }),
-  getFilteredPokemonsByName: jest.fn((): Observable<IFilteredPokemons> => {
-    return of(getFilteredPokemonsResponseMock)
-  })
+  getPokemons: getPokemonsSpy,
+  getPokemonTypes: getPokemonTypesSpy,
+  getFilteredPokemonsByType: getFilteredPokemonsByTypeSpy,
+  getFilteredPokemonsByName: getFilteredPokemonsByNameSpy
+}
+
+export const PokeApiServiceMockInitialize = () => {
+  getPokemonsSpy.mockReturnValue(of(getPokemonsResponseMock))
+  getPokemonTypesSpy.mockReturnValue(of(getPokemonTypesResponseMock))
+  getFilteredPokemonsByTypeSpy.mockReturnValue(of(getFilteredPokemonsResponseMock))
+  getFilteredPokemonsByNameSpy.mockReturnValue(of(getFilteredPokemonsResponseMock))
 }
 
 const getPokemonsResponseMock: IPokemons = {

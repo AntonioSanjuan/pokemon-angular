@@ -20,10 +20,6 @@ export class UseFilterPokemons {
     return this.filterPokemonsObj.asObservable()
   }
 
-  public get existsFilteredPokemons(): boolean {
-    return !!this.filterPokemonsObj.value
-  }
-
   constructor(
     private store: Store<DataState>, 
     private pokemonService: PokeApiService
