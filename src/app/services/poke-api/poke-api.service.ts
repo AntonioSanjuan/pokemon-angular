@@ -109,13 +109,13 @@ export class PokeApiService {
     
     return this.getRawPokemonsByName(pokemonName).pipe(
         catchError(() => {
-          return of<PokemonDto>({} as PokemonDto)
+          return of<PokemonDto | undefined>(undefined)
         }),
-        map((rawPokemon: PokemonDto) => {
+        map((rawPokemon: PokemonDto | undefined) => {
             const output = this.filteredPokemonsAdapt.adapt({
                 byName: pokemonName,
                 byType: undefined,
-                data: [this.pokemonAdapt.adapt(rawPokemon)]
+                data: rawPokemon ? [this.pokemonAdapt.adapt(rawPokemon)] : []
             })
             return output;
         })

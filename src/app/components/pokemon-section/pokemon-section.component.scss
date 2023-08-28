@@ -26,6 +26,12 @@
 
             padding: 20px 0px;
             color: #ffff;
+
+            .PokemonSection_FilterInfo {
+                display: flex;
+                justify-content:center;
+                flex-direction: column;
+            }
         }
 
         .PokemonSection_Filter {

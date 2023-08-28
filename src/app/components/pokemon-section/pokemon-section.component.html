@@ -1,7 +1,7 @@
 <div class="PokemonSection_MainContainer">
     <div class="PokemonSection_Container">
         <div class="PokemonSection_Header">
-            <div *ngIf="!!(useFilterPokemons.filteredPokemons$ | async)">
+            <div class="PokemonSection_FilterInfo" *ngIf="!!(useFilterPokemons.filteredPokemons$ | async)">
                 <h3>filtro actual: {{(useFilterPokemons.filteredPokemons$ | async)?.byName || (useFilterPokemons.filteredPokemons$ | async)?.byType}}</h3>
                 <button
                     id="deleteFiltersButton"

@@ -12,7 +12,7 @@
             </div>
         </div>
         <div class="PokemonListFilter_Filter">
-            <div>
+            <div class="PokemonListFilter_FilterHeader">
                 <p>Filtra por nombre</p>
             </div>
             <div>
@@ -21,7 +21,7 @@
                     type="text" 
                     [(ngModel)]="filterByName">
             </div>
-            <div>
+            <div class="PokemonListFilter_FilterContent">
                 <button 
                     id="filterByNameButton"
                     [disabled]="!filterByName" 
