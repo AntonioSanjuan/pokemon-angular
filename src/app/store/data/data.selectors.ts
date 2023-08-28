@@ -8,25 +8,26 @@ export const selectDataState = createFeatureSelector<DataState>(featureData);
 // child selector
 export const selectPokemons = createSelector(
   selectDataState,
-  (state) => state.pokemonList?.pokemons
+  (state: DataState) => state.pokemonList?.pokemons
 );
 
 export const selectPokemonTypes = createSelector(
   selectDataState,
-  (state) => state.pokemonList?.filters?.pokemonTypes
+  (state: DataState) => state.pokemonList?.filters?.pokemonTypes
 );
 
 export const selectFilteredPokemons = createSelector(
   selectDataState,
-  (state) => state.pokemonList?.filteredPokemons
+  (state: DataState) => state.pokemonList?.filteredPokemons
 );
 
 export const selectDetailedPokemons = createSelector(
   selectDataState,
-  (state) => state.detailedPokemons
+  (state: DataState) => state.detailedPokemons
 );
 
 export const selectDetailedPokemon = (pokemonName: string) => createSelector(
   selectDataState,
-  (state) => state.detailedPokemons.data.find((detailedPokemon) => { return detailedPokemon.name === pokemonName})
+  (state: DataState) => {state.detailedPokemons}
+  
 );

@@ -8,6 +8,7 @@ import { selectDetailedPokemon, selectDetailedPokemons } from 'src/app/store/dat
 import { IDetailedPokemons } from 'src/app/models/internals/detailedPokemons.model';
 import { IPokemon } from 'src/app/models/internals/pokemons.model';
 import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
+import { addDetailedPokemonAction } from 'src/app/store/data/data.actions';
 
 @Injectable()
 export class UseDetailedPokemons {
@@ -34,15 +35,15 @@ export class UseDetailedPokemons {
     })
   }
 
-  private fetchFromStoreDetailedPokemons(pokemonName: string): Observable<IPokemon|undefined> {
+  private fetchFromStoreDetailedPokemons(pokemonName: string): Observable<IDetailedPokemons|undefined> {
     return this.store.select(selectDetailedPokemon(pokemonName))
   }
 
-  private fetchFromServiceDetailedPokemon(pokemonName: string): Observable<IPokemon|undefined> {
+  private fetchFromServiceDetailedPokemon(pokemonName: string): Observable<IDetailedPokemons|undefined> {
     return this.pokemonService.getDetailedPokemon(pokemonName).pipe(
       take(1),
-      map((pokemonByName: IFilteredPokemons) => {
-        return pokemonByName.data[0]
+      map((detailedPokemons: IDetailedPokemons) => {
+        return detailedPokemons
       })
     )
   }
@@ -56,9 +57,9 @@ export class UseDetailedPokemons {
       tap((detailedPokemons: IPokemon  | undefined) => {
         //save it into storage
         if(detailedPokemons) {
-          // this.store.dispatch(setFilteredPokemonsAction(
-          //   filteredPokemons
-          // ));
+          this.store.dispatch(addDetailedPokemonAction(
+            detailedPokemons
+          ));
         }
       }),
     ).pipe(
