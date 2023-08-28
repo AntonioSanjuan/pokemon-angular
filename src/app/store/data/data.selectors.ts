@@ -8,15 +8,15 @@ export const selectDataState = createFeatureSelector<DataState>(featureData);
 // child selector
 export const selectPokemons = createSelector(
   selectDataState,
-  (state) => state.pokemons
+  (state) => state.pokemonList?.pokemons
 );
 
 export const selectPokemonTypes = createSelector(
   selectDataState,
-  (state) => state.pokemonTypes
+  (state) => state.pokemonList?.filters?.pokemonTypes
 );
 
 export const selectFilteredPokemon = createSelector(
   selectDataState,
-  (state) => state.filteredPokemons
+  (state) => state.pokemonList?.filteredPokemons
 );

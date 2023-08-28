@@ -11,7 +11,7 @@ interface IHomeResolver {
     pokemonTypes: IPokemonTypes | undefined
 }
 
-export const homeResolver: ResolveFn<any> =
+export const pokemonSectionResolver: ResolveFn<any> =
     (
         route: ActivatedRouteSnapshot, 
         state: RouterStateSnapshot,
@@ -29,3 +29,13 @@ export const homeResolver: ResolveFn<any> =
             })
         )
     };
+
+export const pokemonSectionDetailsResolver: ResolveFn<any> =
+    (
+        route: ActivatedRouteSnapshot, 
+        state: RouterStateSnapshot,
+        usePokemons: UsePokemons = inject(UsePokemons),
+    ): void => {
+        console.log(route.params['id'])
+        
+};

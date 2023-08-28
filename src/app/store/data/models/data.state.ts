@@ -3,7 +3,13 @@ import { IPokemonTypes } from "src/app/models/internals/pokemonTypes.model";
 import { IPokemons } from "src/app/models/internals/pokemons.model";
 
 export interface DataState {
+  pokemonList?: DataPokemonListState
+}
+
+export interface DataPokemonListState {
   pokemons?: IPokemons;
-  pokemonTypes?: IPokemonTypes
-  filteredPokemons?: IFilteredPokemons
+  filteredPokemons?: IFilteredPokemons;
+  filters?: {
+    pokemonTypes?: IPokemonTypes;
+  }
 }

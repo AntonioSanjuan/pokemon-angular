@@ -1,4 +1,6 @@
-<div class="PokemonCard_MainContainer">
+<div class="PokemonCard_MainContainer"
+  [routerLink]="['/home', pokemon?.name]"
+>
 
   <div class="PokemonCard_Image">
     <img appSkeleton [active]="isLoading" [isImage]="true" [width]="'100%'" [height]="'100%'" mat-card-image src={{pokemon?.image}} alt="Photo of a Shiba Inu">

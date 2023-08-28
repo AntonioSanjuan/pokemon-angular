@@ -6,7 +6,7 @@ import { UsePokemonsModule } from 'src/app/hooks/usePokemons/usePokemons.service
 import { PokemonListComponent } from 'src/app/components/pokemon-list/pokemon-list.component';
 import { PokemonCardComponent } from 'src/app/components/pokemon-card/pokemon-card.component';
 import { SkeletonDirective } from 'src/app/directives/skeleton/skeleton.directive';
-import { homeResolver } from './home.component.resolver';
+import { pokemonSectionDetailsResolver, pokemonSectionResolver } from './home.component.resolvers';
 import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 import { IntersectionObserverDirective } from 'src/app/directives/intersectionObserver/intersectionObserver.directive';
 import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service';
@@ -16,10 +16,17 @@ import { PokemonTypePillComponent } from 'src/app/components/pokemon-type-pill/p
 import { UseFilteredPokemonsModule } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service.module';
 import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
 import { PokemonSection } from 'src/app/components/pokemon-section/pokemon-section.component';
+import { PokemonSectionDetails } from 'src/app/components/pokemon-section-details/pokemon-section-details.component';
 
 const routes: Routes = [
-  { path: '', component: HomeComponent, providers: [UsePokemons, UsePokemonTypes, UseFilterPokemons], resolve: {pokemonsResolver: homeResolver}}
-  // { path: '/:id', component:, providers: [UsePokemons, UsePokemonTypes], resolve: {pokemonsResolver: homeResolver}}
+  {
+    path: '',
+    component: HomeComponent,
+    children: [
+      { path: '', component: PokemonSection, providers: [UsePokemons, UsePokemonTypes, UseFilterPokemons], resolve: {pokemonsSectionResolver: pokemonSectionResolver}},
+      { path: ':id', component: PokemonSectionDetails, providers: [UsePokemons, UsePokemonTypes, UseFilterPokemons], resolve: {pokemonsDeailsResolver: pokemonSectionDetailsResolver}, data: { }}
+    ],
+  },
 ];
 const directives = [SkeletonDirective, IntersectionObserverDirective, PokemonTypePillDirective]
 
