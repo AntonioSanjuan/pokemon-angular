@@ -7,11 +7,12 @@ import { PokemonDto } from 'src/app/models/dtos/pokemonDto.model';
 import { MinifiedPokemonDto } from 'src/app/models/dtos/pokemonMinified.model';
 import { IPokemon, IPokemons, Pokemon } from 'src/app/models/internals/pokemons.model';
 import { PokemonPaginationDto } from 'src/app/models/dtos/common/pokemonPaginationDto.model';
-import { FilteredPokemonsAdapter, PokemonAdapter, PokemonTypesAdapter, PokemonsAdapter } from 'src/app/adapters/poke-api/poke-api.adapter';
+import { DetailedPokemonsAdapter, FilteredPokemonsAdapter, PokemonAdapter, PokemonTypesAdapter, PokemonsAdapter } from 'src/app/adapters/poke-api/poke-api.adapter';
 import { PokemonTypesDto } from 'src/app/models/dtos/pokemonTypesDto.model';
 import { IPokemonTypes } from 'src/app/models/internals/pokemonTypes.model';
 import { PokemonByTypeDto, PokemonsByTypeDto } from 'src/app/models/dtos/pokemonsByTypeDto.model';
 import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
+import { IDetailedPokemons } from 'src/app/models/internals/detailedPokemons.model';
 
 @Injectable()
 export class PokeApiService {
@@ -23,6 +24,7 @@ export class PokeApiService {
     private pokemonsAdapt: PokemonsAdapter,
     private pokemonTypesAdapt: PokemonTypesAdapter,
     private filteredPokemonsAdapt: FilteredPokemonsAdapter,
+    private detailedPokemonsAdapt: DetailedPokemonsAdapter,
     ) {}
 
   private getRawPokemons(page: number): Observable<PokemonsDto> {
@@ -115,6 +117,21 @@ export class PokeApiService {
             const output = this.filteredPokemonsAdapt.adapt({
                 byName: pokemonName,
                 byType: undefined,
+                data: rawPokemon ? [this.pokemonAdapt.adapt(rawPokemon)] : []
+            })
+            return output;
+        })
+    )
+  }
+
+  public getDetailedPokemon(pokemonName: string): Observable<IDetailedPokemons> {
+    
+    return this.getRawPokemonsByName(pokemonName).pipe(
+        catchError(() => {
+          return of<PokemonDto | undefined>(undefined)
+        }),
+        map((rawPokemon: PokemonDto | undefined) => {
+            const output = this.detailedPokemonsAdapt.adapt({
                 data: rawPokemon ? [this.pokemonAdapt.adapt(rawPokemon)] : []
             })
             return output;

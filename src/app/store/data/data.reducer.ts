@@ -1,7 +1,7 @@
 import { createReducer, on } from '@ngrx/store';
 import { DataState } from './models/data.state';
 import { appDataInitialState } from './models/data.initialState';
-import { addPokemonsAction, deleteFilteredPokemonsAction, setFilteredPokemonsAction, setPokemonTypesAction, setPokemonsAction } from './data.actions';
+import { addDetailedPokemonAction, addPokemonsAction, deleteFilteredPokemonsAction, setFilteredPokemonsAction, setPokemonTypesAction, setPokemonsAction } from './data.actions';
 
 export const featureData = 'data';
 
@@ -62,5 +62,16 @@ export const DataReducer = createReducer<DataState>(
         }
       }
     }
-  })
+  }),
+  on(addDetailedPokemonAction, (state, action): DataState => {
+    return {
+      ...state,
+      detailedPokemons: {
+        ...state.detailedPokemons,
+        data: state.detailedPokemons?.data
+        ? [...state.detailedPokemons?.data, ...action.data]
+        : [...action.data]
+      }
+    };
+  }),
 );

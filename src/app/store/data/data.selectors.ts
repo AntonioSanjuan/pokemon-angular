@@ -16,7 +16,17 @@ export const selectPokemonTypes = createSelector(
   (state) => state.pokemonList?.filters?.pokemonTypes
 );
 
-export const selectFilteredPokemon = createSelector(
+export const selectFilteredPokemons = createSelector(
   selectDataState,
   (state) => state.pokemonList?.filteredPokemons
+);
+
+export const selectDetailedPokemons = createSelector(
+  selectDataState,
+  (state) => state.detailedPokemons
+);
+
+export const selectDetailedPokemon = (pokemonName: string) => createSelector(
+  selectDataState,
+  (state) => state.detailedPokemons.data.find((detailedPokemon) => { return detailedPokemon.name === pokemonName})
 );

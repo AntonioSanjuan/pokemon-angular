@@ -1,4 +1,5 @@
 import { createAction, props } from '@ngrx/store';
+import { IDetailedPokemons } from 'src/app/models/internals/detailedPokemons.model';
 import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
 import { IPokemonTypes } from 'src/app/models/internals/pokemonTypes.model';
 import { IPokemons } from 'src/app/models/internals/pokemons.model';
@@ -9,6 +10,7 @@ export enum DataActionTypes {
   SetPokemonTypes = '[Data] Set PokemonTypes Data',
   SetFilteredPokemons = '[Data] Set Filtered Pokemons Data',
   DeleteFilteredPokemons = '[Data] Delete Filtered Pokemons Data',
+  AddDetailedPokemon = '[Data] Delete Detailed Pokemons Data',
 }
 
 export const setPokemonsAction = createAction(
@@ -28,6 +30,11 @@ export const deleteFilteredPokemonsAction = createAction(
 export const addPokemonsAction = createAction(
   DataActionTypes.AddPokemons,
   props<IPokemons>()
+)
+
+export const addDetailedPokemonAction = createAction(
+  DataActionTypes.AddDetailedPokemon,
+  props<IDetailedPokemons>()
 )
 
 export const setPokemonTypesAction = createAction(

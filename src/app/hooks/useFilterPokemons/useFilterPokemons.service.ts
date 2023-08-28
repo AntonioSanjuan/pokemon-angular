@@ -5,7 +5,7 @@ import { PokeApiService } from '../../services/poke-api/poke-api.service';
 import { BehaviorSubject, Observable, of } from "rxjs";
 import { deleteFilteredPokemonsAction, setFilteredPokemonsAction } from "src/app/store/data/data.actions";
 import { finalize, take, tap } from 'rxjs/operators';
-import { selectFilteredPokemon } from 'src/app/store/data/data.selectors';
+import { selectFilteredPokemons } from 'src/app/store/data/data.selectors';
 import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
 
 @Injectable()
@@ -24,7 +24,7 @@ export class UseFilterPokemons {
     private store: Store<DataState>, 
     private pokemonService: PokeApiService
   ) {
-    this.store.select(selectFilteredPokemon)
+    this.store.select(selectFilteredPokemons)
       .subscribe((storedFilteredPokemons) => {
         this.filterPokemonsObj.next(storedFilteredPokemons)
       })
@@ -49,13 +49,13 @@ export class UseFilterPokemons {
   }
   
   private fetchFromServiceFilteredPokemonsByType(pokemonType: string): Observable<IFilteredPokemons|undefined> {
-    return this.pokemonService.getFilteredPokemonsByType(pokemonType).pipe(
+    return this.pokemonService.getPokemonsByType(pokemonType).pipe(
       take(1),
     )
   }
 
   private fetchFromServiceFilteredPokemonsByName(pokemonName: string): Observable<IFilteredPokemons|undefined> {
-    return this.pokemonService.getFilteredPokemonsByName(pokemonName).pipe(
+    return this.pokemonService.getPokemonByName(pokemonName).pipe(
       take(1),
     )
   }

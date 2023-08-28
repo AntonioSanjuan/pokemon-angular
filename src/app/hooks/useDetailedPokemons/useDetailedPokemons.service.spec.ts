@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UseFilterPokemons } from './useFilterPokemons.service';
+import { UseDetailedPokemons } from './useDetailedPokemons.service';
 import { PokeApiService } from 'src/app/services/poke-api/poke-api.service';
 import { PokeApiServiceMock, PokeApiServiceMockInitialize } from 'src/app/services/poke-api/poke-api.service.mock';
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
@@ -14,7 +14,7 @@ import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.mod
 
 @Component({})
 class DummyComponent {
-  constructor(public useFilterPokemons: UseFilterPokemons) {}
+  constructor(public useFilterPokemons: UseDetailedPokemons) {}
 }
 
 describe('UsePokemons', () => {
@@ -26,7 +26,7 @@ describe('UsePokemons', () => {
     TestBed.configureTestingModule({
       declarations: [DummyComponent],
       providers: [
-        UseFilterPokemons,
+        UseDetailedPokemons,
         provideMockStore<AppRootState>({
           initialState: undefined,
           selectors: [
@@ -67,7 +67,7 @@ describe('UsePokemons', () => {
   });
 
   it('filteredPokemons$ should be undefined by default', () => {
-    component.useFilterPokemons.filteredPokemons$.pipe(take(1)).subscribe((filteredPokemons) => {
+    component.useFilterPokemons.detailedPokemons$.pipe(take(1)).subscribe((filteredPokemons) => {
       expect(filteredPokemons).toBeUndefined()
     })
   });
@@ -85,7 +85,7 @@ describe('UsePokemons', () => {
     store.refreshState();
     fixture.detectChanges()
     
-    component.useFilterPokemons.filteredPokemons$.pipe(take(1)).subscribe((filteredPokemons) => {
+    component.useFilterPokemons.detailedPokemons$.pipe(take(1)).subscribe((filteredPokemons) => {
       expect(filteredPokemons).toEqual(storedFilteredPokemons)
     })
   });
@@ -107,7 +107,7 @@ describe('UsePokemons', () => {
     store.refreshState();
     fixture.detectChanges()
 
-    component.useFilterPokemons.filteredPokemons$.pipe(take(1)).subscribe((filteredPokemons: IFilteredPokemons | undefined) => {
+    component.useFilterPokemons.detailedPokemons$.pipe(take(1)).subscribe((filteredPokemons: IFilteredPokemons | undefined) => {
       expect(filteredPokemons).toEqual(storedFilteredPokemons)
       done()
     })
@@ -131,9 +131,9 @@ describe('UsePokemons', () => {
     store.refreshState();
     fixture.detectChanges()
 
-    component.useFilterPokemons.getByNamePokemons(byNameFilterSut);
+    component.useFilterPokemons.getDetailedPokemon(byNameFilterSut);
 
-    component.useFilterPokemons.filteredPokemons$.pipe(take(5)).subscribe((filteredPokemons: IFilteredPokemons | undefined) => {
+    component.useFilterPokemons.detailedPokemons$.pipe(take(5)).subscribe((filteredPokemons: IFilteredPokemons | undefined) => {
       expect(getFilteredPokemonsByNameSpy).toHaveBeenCalledWith(byNameFilterSut)
       done()
     })

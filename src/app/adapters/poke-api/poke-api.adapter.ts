@@ -6,6 +6,7 @@ import { IPokemonTypes, PokemonType, PokemonTypes } from "src/app/models/interna
 import { PokemonTypeDto } from "src/app/models/dtos/pokemonType.model";
 import { PokemonTypesDto } from "src/app/models/dtos/pokemonTypesDto.model";
 import { FilteredPokemons, IFilteredPokemons } from "src/app/models/internals/filteredPokemons.model";
+import { DetailedPokemons, IDetailedPokemons } from "src/app/models/internals/detailedPokemons.model";
 
 export class PokemonAdapter implements Adapter<IPokemon> {
     adapt(pokemon: PokemonDto): IPokemon {
@@ -34,6 +35,12 @@ export class FilteredPokemonsAdapter implements Adapter<IFilteredPokemons> {
         {byName?: string, byType?: string, data: IPokemon[]}
     ): IFilteredPokemons {
         return new FilteredPokemons(data, byName, byType)
+    }
+}
+
+export class DetailedPokemonsAdapter implements Adapter<IFilteredPokemons> {
+    adapt({data}: {data: IPokemon[]}): IDetailedPokemons {
+        return new DetailedPokemons(data)
     }
 }
 
