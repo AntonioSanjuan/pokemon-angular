@@ -17,14 +17,17 @@ import { UseFilteredPokemonsModule } from 'src/app/hooks/useFilterPokemons/useFi
 import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
 import { PokemonSection } from 'src/app/components/pokemon-section/pokemon-section.component';
 import { PokemonSectionDetails } from 'src/app/components/pokemon-section-details/pokemon-section-details.component';
+import { UseDetailedPokemons } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service';
+import { UsePokemonTypesModule } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service.module';
+import { UseDetailedPokemonsModule } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service.module';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     children: [
-      { path: '', component: PokemonSection, providers: [UsePokemons, UsePokemonTypes, UseFilterPokemons], resolve: {pokemonsSectionResolver: pokemonSectionResolver}},
-      { path: ':id', component: PokemonSectionDetails, providers: [UsePokemons, UsePokemonTypes, UseFilterPokemons], resolve: {pokemonsDeailsResolver: pokemonSectionDetailsResolver}, data: { }}
+      { path: '', component: PokemonSection, providers: [UsePokemons, UsePokemonTypes, UseFilterPokemons, UseDetailedPokemons], resolve: {pokemonsSectionResolver: pokemonSectionResolver}},
+      { path: ':pokemonName', component: PokemonSectionDetails, providers: [UsePokemons, UsePokemonTypes, UseFilterPokemons, UseDetailedPokemons], resolve: {pokemonsDeailsResolver: pokemonSectionDetailsResolver}}
     ],
   },
 ];
@@ -36,6 +39,8 @@ const directives = [SkeletonDirective, IntersectionObserverDirective, PokemonTyp
     SharedModule,
     UsePokemonsModule,
     UseFilteredPokemonsModule,
+    UseDetailedPokemonsModule,
+    UsePokemonTypesModule,
     RouterModule.forChild(routes),
   ],
   exports: [SharedModule, ...directives],

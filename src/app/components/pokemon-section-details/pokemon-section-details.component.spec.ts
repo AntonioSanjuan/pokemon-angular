@@ -16,8 +16,10 @@ import { By } from '@angular/platform-browser';
 import { of } from 'rxjs';
 import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
 import { mockGetter } from 'src/app/utils/tests/commonMocks';
+import { UseDetailedPokemons } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service';
+import { UseDetailedPokemonsMock } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service.mock';
 
-describe('PokemonListComponent', () => {
+describe('PokemonSectionDetails', () => {
   let component: PokemonSectionDetails;
   let fixture: ComponentFixture<PokemonSectionDetails>;
 
@@ -27,16 +29,8 @@ describe('PokemonListComponent', () => {
       imports: [SharedModule],
       providers: [
         {
-          provide: UseFilterPokemons,
-          useValue: UseFilterPokemonsMock
-        },
-        {
-          provide: UsePokemons,
-          useValue: UsePokemonsMock
-        },
-        {
-          provide: UsePokemonTypes,
-          useValue: UsePokemonTypesMock
+          provide: UseDetailedPokemons,
+          useValue: UseDetailedPokemonsMock
         },
       ]
     });
@@ -51,32 +45,5 @@ describe('PokemonListComponent', () => {
 
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('deleteFiltersButton should exists if filteredPokemons', () => {
-    mockGetter(UseFilterPokemonsMock, "filteredPokemons$", of({} as IFilteredPokemons))
-    fixture.detectChanges();
-    const btn = fixture.debugElement.query(By.css('#deleteFiltersButton'));
-    expect(btn).not.toBeNull()
-  });
-
-  it('deleteFiltersButton should not exists if !filteredPokemons', () => {
-    // mockGetter(UseFilterPokemonsMock, "filteredPokemons$", of(undefined))
-    fixture.detectChanges();
-
-    const btn = fixture.debugElement.query(By.css('#deleteFiltersButton'));
-    fixture.detectChanges();
-
-    expect(btn).toBeNull()
-  });
-
-  it('filterByNameButton click should request deleteFilters', () => {
-    const btn = fixture.debugElement.query(By.css('#filterByNameButton'));
-    btn.triggerEventHandler('click', null);
-
-    fixture.whenStable().then(() => {
-      fixture.detectChanges();
-      expect(UseFilterPokemonsMock.deleteFilters).toHaveBeenCalled()
-    })
   });
 });

@@ -8,5 +8,5 @@ export const appDataInitialState: DataState = {
       pokemonTypes: undefined,
     }
   },
-
+  detailedPokemons: undefined
 };

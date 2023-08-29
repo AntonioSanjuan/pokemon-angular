@@ -49,13 +49,13 @@ export class UseFilterPokemons {
   }
   
   private fetchFromServiceFilteredPokemonsByType(pokemonType: string): Observable<IFilteredPokemons|undefined> {
-    return this.pokemonService.getPokemonsByType(pokemonType).pipe(
+    return this.pokemonService.getFilteredPokemonsByType(pokemonType).pipe(
       take(1),
     )
   }
 
   private fetchFromServiceFilteredPokemonsByName(pokemonName: string): Observable<IFilteredPokemons|undefined> {
-    return this.pokemonService.getPokemonByName(pokemonName).pipe(
+    return this.pokemonService.getFilteredPokemonsByName(pokemonName).pipe(
       take(1),
     )
   }

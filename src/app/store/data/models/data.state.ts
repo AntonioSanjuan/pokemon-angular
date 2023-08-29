@@ -5,7 +5,7 @@ import { IPokemons } from "src/app/models/internals/pokemons.model";
 
 export interface DataState {
   pokemonList?: DataPokemonListState,
-  detailedPokemons: IDetailedPokemons
+  detailedPokemons?: IDetailedPokemons
 }
 
 export interface DataPokemonListState {

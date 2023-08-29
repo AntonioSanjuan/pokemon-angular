@@ -9,4 +9,4 @@ import { DataReducer, featureData } from 'src/app/store/data/data.reducer';
     PokemonServiceModule
   ],
 })
-export class UsePokemonsModule { }
+export class UsePokemonTypesModule { }

@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
-import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
-
+import { UseDetailedPokemons } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service';
 @Component({
   selector: 'app-pokemon-section-details',
   templateUrl: './pokemon-section-details.component.html',
@@ -9,6 +7,6 @@ import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 })
 export class PokemonSectionDetails {
   constructor(
-    public usePokemons: UsePokemons, 
+    public useDetailedPokemons: UseDetailedPokemons, 
   ) {}
 }

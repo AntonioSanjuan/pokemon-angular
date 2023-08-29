@@ -2,58 +2,25 @@
     width: 100%;
 }
 
-.PokemonSectionDetails_MainContainer {
+.PokemonSectionDetails_Maincontainer{
     display: flex;
     flex-direction: column;
-    justify-content: flex-start;
     align-items: center;
-    background: #fff url("https://assets.pokemon.com/static2/_ui/img/chrome/container_bg.png");
-
-    position: relative;
-
-    .PokemonSectionDetails_Container {
+    height: 100%;
+    
+    .PokemonSectionDetails_Contentcontainer {
         display: flex;
-        flex-direction: column;
-        align-items: center;
-        width: 100%;
-
-        .PokemonSectionDetails_Header {
-            display: flex;
-            justify-content: center;
-
-            background-color: #616161;
-            width: 100%;
-
-            padding: 20px 0px;
-            color: #ffff;
-
-            .PokemonSectionDetails_FilterInfo {
-                display: flex;
-                justify-content:center;
-                flex-direction: column;
-            }
-        }
-
-        .PokemonSectionDetails_Filter {
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            width: 100%;
-        }
-
-        .PokemonSectionDetails_ContentContainer {
-            display: flex;
-            flex-direction: row;
-            flex-wrap: wrap;
-            justify-content: center;
-            align-items: flex-start;
-            justify-content: space-around;
-            padding: 60px 20px;
-            background-color: #ffff;
-            height: 100%;
-            gap: 20px;
-            width: 80%;
-        }
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        justify-content: space-around;
+        padding: 60px 20px;
+        background-color: white;
+        height: 100%;
+        gap: 20px;
+        width: 80%;
     }
+
 }
 

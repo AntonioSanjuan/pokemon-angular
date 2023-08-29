@@ -35,11 +35,11 @@ export class UseDetailedPokemons {
     })
   }
 
-  private fetchFromStoreDetailedPokemons(pokemonName: string): Observable<IDetailedPokemons|undefined> {
+  private fetchFromStoreDetailedPokemons(pokemonName: string): Observable<IDetailedPokemons | undefined> {
     return this.store.select(selectDetailedPokemon(pokemonName))
   }
 
-  private fetchFromServiceDetailedPokemon(pokemonName: string): Observable<IDetailedPokemons|undefined> {
+  private fetchFromServiceDetailedPokemon(pokemonName: string): Observable<IDetailedPokemons | undefined> {
     return this.pokemonService.getDetailedPokemon(pokemonName).pipe(
       take(1),
       map((detailedPokemons: IDetailedPokemons) => {
@@ -48,13 +48,13 @@ export class UseDetailedPokemons {
     )
   }
 
-  public getDetailedPokemon(pokemonName: string): void {
+  public getDetailedPokemon(pokemonName: string): Observable<IDetailedPokemons | undefined> {
     this.loadingObj.next(true)
 
-    !!this.getStoredDetailedPokemon(pokemonName)
-    ? this.fetchFromStoreDetailedPokemons(pokemonName).subscribe() 
+    return (!!this.getStoredDetailedPokemon(pokemonName)
+    ? this.fetchFromStoreDetailedPokemons(pokemonName)
     : this.fetchFromServiceDetailedPokemon(pokemonName).pipe(
-      tap((detailedPokemons: IPokemon  | undefined) => {
+      tap((detailedPokemons: IDetailedPokemons  | undefined) => {
         //save it into storage
         if(detailedPokemons) {
           this.store.dispatch(addDetailedPokemonAction(
@@ -62,10 +62,10 @@ export class UseDetailedPokemons {
           ));
         }
       }),
-    ).pipe(
+    )).pipe(
       finalize(() => {
         this.loadingObj.next(false);
       })  
-    ).subscribe()
+    )
   }
 }
