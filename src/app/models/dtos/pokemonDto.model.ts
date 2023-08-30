@@ -1,3 +1,5 @@
+type StatNames = "hp" | "attack" | "defense" | "special-attack" | "special-defense" | "speed"
+
 export interface PokemonDto {
     abilities: Ability[]
     base_experience: number
@@ -338,11 +340,11 @@ export interface PokemonDto {
   export interface Stat {
     base_stat: number
     effort: number
-    stat: Stat2
+    stat: StatInfo
   }
   
-  export interface Stat2 {
-    name: string
+  export interface StatInfo {
+    name: StatNames
     url: string
   }
   

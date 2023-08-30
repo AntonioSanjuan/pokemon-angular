@@ -25,11 +25,8 @@ export class PokemonListFilterComponent implements OnInit, OnDestroy {
     this.subscriptions.push(this.useFilteredPokemons.filteredPokemons$.subscribe((filteredPokemons) => {
       if(filteredPokemons) {
         this.collapsed = false;
-
-        if(filteredPokemons?.byName) {
-          this.filterByName = filteredPokemons?.byName
-        }
       }
+      this.filterByName = filteredPokemons?.byName ||''
 
     }))
   }

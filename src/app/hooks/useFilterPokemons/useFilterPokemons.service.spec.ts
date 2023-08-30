@@ -131,7 +131,7 @@ describe('UsePokemons', () => {
     store.refreshState();
     fixture.detectChanges()
 
-    component.useFilterPokemons.getByNamePokemons(byNameFilterSut);
+    component.useFilterPokemons.getByNameOrIdPokemons(byNameFilterSut);
 
     component.useFilterPokemons.filteredPokemons$.pipe(take(5)).subscribe((filteredPokemons: IFilteredPokemons | undefined) => {
       expect(getFilteredPokemonsByNameSpy).toHaveBeenCalledWith(byNameFilterSut)

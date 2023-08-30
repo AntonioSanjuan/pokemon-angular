@@ -8,7 +8,7 @@ const deleteFiltersSpy = jest.fn()
 
 export const UseFilterPokemonsMock: Partial<UseFilterPokemons> = {
   getByTypePokemons: getByTypePokemonsSpy,
-  getByNamePokemons: getByNamePokemonsSpy,
+  getByNameOrIdPokemons: getByNamePokemonsSpy,
   deleteFilters: deleteFiltersSpy,
   filteredPokemons$: of(undefined),
   loading$: of(false),

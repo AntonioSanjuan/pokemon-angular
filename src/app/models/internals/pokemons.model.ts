@@ -1,23 +1,28 @@
 import { PokemonPaginationDto } from "../dtos/common/pokemonPaginationDto.model"
 import { IPokemonPagination, PokemonPagination } from "./common/pokemonPagination.model"
-import { PokemonType } from "./pokemonTypes.model";
+import { IPokemonStats, PokemonStats } from "./pokemonStats.model";
+import { IPokemonType, PokemonType } from "./pokemonTypes.model";
 
 export interface IPokemon {
+    id: number;
     name: string
     image: string  
     
     weight: number;
     height: number;
-    types: PokemonType[]
+    types: IPokemonType[]
+    stats: IPokemonStats
 }
 
 export class Pokemon implements IPokemon {
     constructor(
+        public id: number,
         public name: string, 
         public image: string,
         public weight: number,
         public height: number,
-        public types: PokemonType[],
+        public types: IPokemonType[],
+        public stats: IPokemonStats
     ) {}
 }
 

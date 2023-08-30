@@ -7,15 +7,25 @@ import { PokemonTypeDto } from "src/app/models/dtos/pokemonType.model";
 import { PokemonTypesDto } from "src/app/models/dtos/pokemonTypesDto.model";
 import { FilteredPokemons, IFilteredPokemons } from "src/app/models/internals/filteredPokemons.model";
 import { DetailedPokemons, IDetailedPokemons } from "src/app/models/internals/detailedPokemons.model";
+import { PokemonStats } from "src/app/models/internals/pokemonStats.model";
 
 export class PokemonAdapter implements Adapter<IPokemon> {
     adapt(pokemon: PokemonDto): IPokemon {
-      return new Pokemon(
-        pokemon.name, 
-        pokemon.sprites.front_default,
-        pokemon.weight,
-        pokemon.height,
-        pokemon.types.map((pokemonType) => new PokemonType(pokemonType.type.name))
+        return new Pokemon(
+            pokemon.id,
+            pokemon.name, 
+            pokemon.sprites.front_default,
+            pokemon.weight,
+            pokemon.height,
+            pokemon.types.map((pokemonType) => new PokemonType(pokemonType.type.name)),
+            new PokemonStats(
+                pokemon.stats.find((stat) => { return stat.stat.name === "hp"})?.base_stat ?? 0,
+                pokemon.stats.find((stat) => { return stat.stat.name === "attack"})?.base_stat ?? 0,
+                pokemon.stats.find((stat) => { return stat.stat.name === "defense"})?.base_stat ?? 0,
+                pokemon.stats.find((stat) => { return stat.stat.name === "special-attack"})?.base_stat ?? 0,
+                pokemon.stats.find((stat) => { return stat.stat.name === "special-defense"})?.base_stat ?? 0,
+                pokemon.stats.find((stat) => { return stat.stat.name === "speed"})?.base_stat ?? 0,
+            )
         )
     }
 }

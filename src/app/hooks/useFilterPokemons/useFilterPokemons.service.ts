@@ -36,8 +36,8 @@ export class UseFilterPokemons {
       undefined
   }
 
-  private getStoredFilteredPokemonsByName(pokemonName: string): IFilteredPokemons | undefined { 
-    return this.filteredPokemonsObj.value?.byName === pokemonName ? 
+  private getStoredFilteredPokemonsByNameOrId(pokemonNameOrId: string): IFilteredPokemons | undefined { 
+    return this.filteredPokemonsObj.value?.byName === pokemonNameOrId ? 
       this.filteredPokemonsObj.value :
       undefined
   }
@@ -54,8 +54,8 @@ export class UseFilterPokemons {
     )
   }
 
-  private fetchFromServiceFilteredPokemonsByName(pokemonName: string): Observable<IFilteredPokemons|undefined> {
-    return this.pokemonService.getFilteredPokemonsByName(pokemonName).pipe(
+  private fetchFromServiceFilteredPokemonsByName(pokemonNameOrId: string): Observable<IFilteredPokemons|undefined> {
+    return this.pokemonService.getFilteredPokemonsByName(pokemonNameOrId).pipe(
       take(1),
     )
   }
@@ -67,8 +67,8 @@ export class UseFilterPokemons {
   public getByTypePokemons(pokemonType: string): void {
     this.loadingObj.next(true)
 
-    !!this.getStoredFilteredPokemonsByType(pokemonType)
-    ? this.fetchFromStoreFilteredPokemons().subscribe() 
+    const filteredPokemonsObs = !!this.getStoredFilteredPokemonsByType(pokemonType)
+    ? this.fetchFromStoreFilteredPokemons()
     : this.fetchFromServiceFilteredPokemonsByType(pokemonType).pipe(
       tap((filteredPokemons: IFilteredPokemons | undefined) => {
         //save it into storage
@@ -78,19 +78,23 @@ export class UseFilterPokemons {
           ));
         }
       }),
-    ).pipe(
+    )
+
+    filteredPokemonsObs.pipe(
       finalize(() => {
         this.loadingObj.next(false);
       })  
     ).subscribe()
   }
 
-  public getByNamePokemons(pokemonName: string): void {
+  public getByNameOrIdPokemons(pokemonNameOrId: string): void {
     this.loadingObj.next(true)
 
-    !!this.getStoredFilteredPokemonsByName(pokemonName)
-    ? this.fetchFromStoreFilteredPokemons().subscribe() 
-    : this.fetchFromServiceFilteredPokemonsByName(pokemonName).pipe(
+    const formattedNameOrId = pokemonNameOrId.replace(/^0+/, '')
+    
+    const filteredPokemonsObs = !!this.getStoredFilteredPokemonsByNameOrId(formattedNameOrId)
+    ? this.fetchFromStoreFilteredPokemons()
+    : this.fetchFromServiceFilteredPokemonsByName(formattedNameOrId).pipe(
       tap((filteredPokemons: IFilteredPokemons | undefined) => {
         //save it into storage
         if(filteredPokemons) {
@@ -99,10 +103,12 @@ export class UseFilterPokemons {
           ));
         }
       }),
-    ).pipe(
+    )
+
+    filteredPokemonsObs.pipe(
       finalize(() => {
         this.loadingObj.next(false);
-      })  
+      })
     ).subscribe()
   }
 }

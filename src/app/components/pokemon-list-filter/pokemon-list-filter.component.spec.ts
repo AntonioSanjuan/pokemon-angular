@@ -73,7 +73,7 @@ describe('PokemonListFilterComponent', () => {
 
       fixture.whenStable().then(() => {
         fixture.detectChanges();
-        expect(UseFilterPokemonsMock.getByNamePokemons).toHaveBeenCalledWith(inputValueSut)
+        expect(UseFilterPokemonsMock.getByNameOrIdPokemons).toHaveBeenCalledWith(inputValueSut)
       })
     });
   });

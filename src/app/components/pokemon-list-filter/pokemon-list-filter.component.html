@@ -13,12 +13,12 @@
         </div>
         <div class="PokemonListFilter_Filter">
             <div class="PokemonListFilter_FilterHeader">
-                <h2>Filtra por nombre</h2>
+                <h2>Filtra por nombre o id</h2>
             </div>
             <div class="PokemonListFilter_FilterContent">
                 <div class="PokemonListFilter_FilterName">
                     <mat-form-field class="example-full-width">
-                        <mat-label>Pokemon name</mat-label>
+                        <mat-label>Pokemon name/id</mat-label>
                             <input matInput 
                                 id="filterByNameInput"
                                 type="text" 
@@ -29,7 +29,7 @@
                         color="primary" 
                         id="filterByNameButton"
                         [disabled]="!filterByName" 
-                        (click)="useFilteredPokemons.getByNamePokemons(filterByName)">
+                        (click)="useFilteredPokemons.getByNameOrIdPokemons(filterByName)">
                             Filtrar por nombre
                     </button>
                 </div>

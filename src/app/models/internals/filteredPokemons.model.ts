@@ -7,12 +7,12 @@ export type IFilteredPokemons = IPokemonFilter<IPokemon>
 export class FilteredPokemons extends PokemonFilter<IPokemon> implements IFilteredPokemons {
     constructor(
         data: IPokemon[],
-        byName?: string, 
+        byNameOrId?: string, 
         byType?: string, 
     ) {
         super(
             data,
-            byName,
+            byNameOrId,
             byType,
         )
     }

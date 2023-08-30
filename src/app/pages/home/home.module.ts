@@ -20,6 +20,7 @@ import { PokemonSectionDetails } from 'src/app/components/pokemon-section-detail
 import { UseDetailedPokemons } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service';
 import { UsePokemonTypesModule } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service.module';
 import { UseDetailedPokemonsModule } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service.module';
+import { PokemonIdDirective } from 'src/app/directives/pokemonId/pokemon-id.directive';
 
 const routes: Routes = [
   {
@@ -31,7 +32,7 @@ const routes: Routes = [
     ],
   },
 ];
-const directives = [SkeletonDirective, IntersectionObserverDirective, PokemonTypePillDirective]
+const directives = [SkeletonDirective, IntersectionObserverDirective, PokemonTypePillDirective, PokemonIdDirective]
 
 @NgModule({
   declarations: [HomeComponent, PokemonSection, PokemonSectionDetails, PokemonListComponent, PokemonListFilterComponent, PokemonCardComponent, PokemonTypePillComponent, ...directives],

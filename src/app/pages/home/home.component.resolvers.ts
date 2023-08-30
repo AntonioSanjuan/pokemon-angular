@@ -26,8 +26,6 @@ export const pokemonSectionResolver: ResolveFn<any> =
         }).pipe(
             catchError((error) => {
                 return of({} as IHomeResolver)
-                console.log(error)
-                throw error;
             })
         )
     };
@@ -38,7 +36,6 @@ export const pokemonSectionDetailsResolver: ResolveFn<any> =
         state: RouterStateSnapshot,
         useDetailedPokemons: UseDetailedPokemons = inject(UseDetailedPokemons)
     ): Observable<IDetailedPokemons|undefined> => {
-        console.log(route.params['pokemonName'])
         return useDetailedPokemons.getDetailedPokemon(route.params['pokemonName']).pipe(
             catchError((error) => {
                 return of(undefined)
