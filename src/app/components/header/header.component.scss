@@ -1,6 +1,7 @@
 @use '../../../colors.scss';
 
 .Header_MainContainer {
+    position: relative;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -8,4 +9,7 @@
 
     background-color: #ffff;
     height: 60px;
+    z-index: 7;
+
+    box-shadow: #424242 0px -10px 20px 0px
 }

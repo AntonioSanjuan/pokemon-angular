@@ -1,4 +1,7 @@
 <div class="PokemonCard_MainContainer"
+  [@shake]="animationActive"
+  (mouseenter)="toggle()"
+  (mouseleave)="toggle()"
   [routerLink]="['/home', pokemon?.name]"
 >
 

@@ -34,7 +34,7 @@ const routes: Routes = [
 const directives = [SkeletonDirective, IntersectionObserverDirective, PokemonTypePillDirective]
 
 @NgModule({
-  declarations: [HomeComponent, PokemonSection, PokemonListComponent, PokemonListFilterComponent, PokemonCardComponent, PokemonTypePillComponent, ...directives],
+  declarations: [HomeComponent, PokemonSection, PokemonSectionDetails, PokemonListComponent, PokemonListFilterComponent, PokemonCardComponent, PokemonTypePillComponent, ...directives],
   imports: [
     SharedModule,
     UsePokemonsModule,

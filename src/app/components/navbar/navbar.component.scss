@@ -23,10 +23,8 @@
 
             width: 100%;
 
-            background-color: red;
-            border-left: 1px solid green;
-            border-right: 1px solid green;
-    
+            background-color: #ffff ;
+            border-bottom: 2px solid #424242;
             a {
                 display: flex;
                 align-items: center;
@@ -36,6 +34,12 @@
                 height: 100%;
                 
                 text-decoration: none;
+                color: black
+            }
+
+            .is-active {
+                background-color: #E3350D;
+                color:white
             }
         }
     }

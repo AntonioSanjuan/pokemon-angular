@@ -11,13 +11,13 @@ import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.mod
 @Injectable()
 export class UseFilterPokemons {
   private loadingObj = new BehaviorSubject<boolean>(false)
-  private filterPokemonsObj = new BehaviorSubject<IFilteredPokemons | undefined>(undefined)
+  private filteredPokemonsObj = new BehaviorSubject<IFilteredPokemons | undefined>(undefined)
 
   public get loading$() {
     return this.loadingObj.asObservable()
   }
   public get filteredPokemons$() {
-    return this.filterPokemonsObj.asObservable()
+    return this.filteredPokemonsObj.asObservable()
   }
 
   constructor(
@@ -26,19 +26,19 @@ export class UseFilterPokemons {
   ) {
     this.store.select(selectFilteredPokemons)
       .subscribe((storedFilteredPokemons) => {
-        this.filterPokemonsObj.next(storedFilteredPokemons)
+        this.filteredPokemonsObj.next(storedFilteredPokemons)
       })
   }
 
-  private getStoredFilterPokemonsByType(pokemonType: string): IFilteredPokemons | undefined { 
-    return this.filterPokemonsObj.value?.byType === pokemonType ? 
-      this.filterPokemonsObj.value :
+  private getStoredFilteredPokemonsByType(pokemonType: string): IFilteredPokemons | undefined { 
+    return this.filteredPokemonsObj.value?.byType === pokemonType ? 
+      this.filteredPokemonsObj.value :
       undefined
   }
 
-  private getStoredFilterPokemonsByName(pokemonName: string): IFilteredPokemons | undefined { 
-    return this.filterPokemonsObj.value?.byName === pokemonName ? 
-      this.filterPokemonsObj.value :
+  private getStoredFilteredPokemonsByName(pokemonName: string): IFilteredPokemons | undefined { 
+    return this.filteredPokemonsObj.value?.byName === pokemonName ? 
+      this.filteredPokemonsObj.value :
       undefined
   }
 
@@ -67,7 +67,7 @@ export class UseFilterPokemons {
   public getByTypePokemons(pokemonType: string): void {
     this.loadingObj.next(true)
 
-    !!this.getStoredFilterPokemonsByType(pokemonType)
+    !!this.getStoredFilteredPokemonsByType(pokemonType)
     ? this.fetchFromStoreFilteredPokemons().subscribe() 
     : this.fetchFromServiceFilteredPokemonsByType(pokemonType).pipe(
       tap((filteredPokemons: IFilteredPokemons | undefined) => {
@@ -88,7 +88,7 @@ export class UseFilterPokemons {
   public getByNamePokemons(pokemonName: string): void {
     this.loadingObj.next(true)
 
-    !!this.getStoredFilterPokemonsByName(pokemonName)
+    !!this.getStoredFilteredPokemonsByName(pokemonName)
     ? this.fetchFromStoreFilteredPokemons().subscribe() 
     : this.fetchFromServiceFilteredPokemonsByName(pokemonName).pipe(
       tap((filteredPokemons: IFilteredPokemons | undefined) => {

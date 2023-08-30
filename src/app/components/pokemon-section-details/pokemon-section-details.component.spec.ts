@@ -18,6 +18,8 @@ import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.mod
 import { mockGetter } from 'src/app/utils/tests/commonMocks';
 import { UseDetailedPokemons } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service';
 import { UseDetailedPokemonsMock } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service.mock';
+import { RouterTestingModule } from '@angular/router/testing';
+import { routesMock } from 'src/app/modules/routing/routing.mock';
 
 describe('PokemonSectionDetails', () => {
   let component: PokemonSectionDetails;
@@ -26,13 +28,16 @@ describe('PokemonSectionDetails', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [PokemonSectionDetails, PokemonListComponent, PokemonListFilterComponent, PokemonTypePillDirective, IntersectionObserverDirective],
-      imports: [SharedModule],
+      imports: [
+        SharedModule,
+        RouterTestingModule.withRoutes(routesMock)
+      ],
       providers: [
         {
           provide: UseDetailedPokemons,
           useValue: UseDetailedPokemonsMock
         },
-      ]
+      ],
     });
     fixture = TestBed.createComponent(PokemonSectionDetails);
     component = fixture.componentInstance;

@@ -39,5 +39,9 @@ export const pokemonSectionDetailsResolver: ResolveFn<any> =
         useDetailedPokemons: UseDetailedPokemons = inject(UseDetailedPokemons)
     ): Observable<IDetailedPokemons|undefined> => {
         console.log(route.params['pokemonName'])
-        return useDetailedPokemons.getDetailedPokemon(route.params['pokemonName'])
+        return useDetailedPokemons.getDetailedPokemon(route.params['pokemonName']).pipe(
+            catchError((error) => {
+                return of(undefined)
+            }) 
+        )
 };

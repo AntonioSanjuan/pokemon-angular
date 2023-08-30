@@ -4,6 +4,8 @@
             <div class="PokemonSection_FilterInfo" *ngIf="!!(useFilterPokemons.filteredPokemons$ | async)">
                 <h3>filtro actual: {{(useFilterPokemons.filteredPokemons$ | async)?.byName || (useFilterPokemons.filteredPokemons$ | async)?.byType}}</h3>
                 <button
+                    mat-raised-button 
+                    color="warn"
                     id="deleteFiltersButton"
                     (click)="useFilterPokemons.deleteFilters()">
                         Borrar filtros

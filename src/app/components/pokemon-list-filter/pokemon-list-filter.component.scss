@@ -4,12 +4,14 @@
     width: 100%;
     align-items: center;
     background-color: #616161;
+    
     .PokemonListFilter_FilterContainer {
         display: flex;
         flex-direction: column;
         gap: 10px;
         width: 80%;
         justify-content: flex-start;
+        overflow: hidden;
         
         .PokemonListFilter_Filter {
             display: flex;
@@ -17,8 +19,9 @@
             align-items: center;
 
             .PokemonListFilter_FilterHeader {
-
+                color: #ffff
             }
+
             .PokemonListFilter_FilterContent {
                 display: flex;
                 flex-direction: row;
@@ -30,9 +33,14 @@
                 .PokemonListFilter_FilterType {
                     cursor: pointer;
                 }
-
-                button {
-                    margin-bottom: 35px;  
+                .PokemonListFilter_FilterName {
+                    display: flex;
+                    flex-direction: column;
+                    gap: 10px;
+                    
+                    button {
+                        margin-bottom: 30px;
+                    }
                 }
             }
         }
@@ -45,6 +53,7 @@
             bottom: -20px;
             right: calc(50% - 20px);
             z-index: 3;
+            background-color: #E3350D;
         }
     
     }

@@ -1,5 +1,16 @@
 <div class="PokemonSectionDetails_Maincontainer">
     <div class="PokemonSectionDetails_Contentcontainer">
-        <p>hola</p>
+        <div *ngIf="(pokemonDetails$ | async)?.data as pokemonDetails2">
+            <div *ngIf="pokemonDetails2[0] as pokemon; else showEmptyPokemon">
+                <p>{{pokemon.name}}</p>
+                <p>{{pokemon.height}}</p>
+                <p>{{pokemon.weight}}</p>
+            </div>
+
+        </div>
     </div>
 </div>
+
+<ng-template #showEmptyPokemon>
+    <p>NO POKEMON</p>
+</ng-template>
