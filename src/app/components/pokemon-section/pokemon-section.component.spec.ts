@@ -17,7 +17,7 @@ import { of } from 'rxjs';
 import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
 import { mockGetter } from 'src/app/utils/tests/commonMocks';
 
-describe('PokemonListComponent', () => {
+describe('PokemonSection', () => {
   let component: PokemonSection;
   let fixture: ComponentFixture<PokemonSection>;
 

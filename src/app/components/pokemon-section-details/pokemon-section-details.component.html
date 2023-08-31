@@ -1,12 +1,57 @@
 <div class="PokemonSectionDetails_Maincontainer">
-    <div class="PokemonSectionDetails_Contentcontainer">
-        <div *ngIf="(pokemonDetails$ | async)?.data as pokemonDetails2">
-            <div *ngIf="pokemonDetails2[0] as pokemon; else showEmptyPokemon">
-                <p>{{pokemon.name}}</p>
-                <p>{{pokemon.height}}</p>
-                <p>{{pokemon.weight}}</p>
-            </div>
+    <div class="PokemonSectionDetails_ContentContainer">
+        <div class="PokemonSectionDetails_GoBack">
+            <button
+                mat-raised-button
+                color="warn"
+                [routerLink]="['/home']"
+                >
+                    <mat-icon>arrow_back</mat-icon>
+            </button>
+        </div>
+        <div class="PokemonSectionDetails_PokemonContainer" *ngIf="(pokemonDetails$ | async)?.data as pokemonDetailsAlias">
+            <div class="PokemonSectionDetails_PokemonDetails" *ngIf="pokemonDetailsAlias[0] as pokemon; else showEmptyPokemon">
+                <div class="PokemonSectionDetails_PokemonHeader">
+                    <h2>Name: {{pokemon.name}}</h2>
+                </div>
+                <div class="PokemonSectionDetails_PokemonBasicInfo">
+                    <img 
+                        mat-card-image 
+                        src={{pokemon?.images?.normal}} 
+                        alt="Photo of a Shiba Inu"
+                    >
+                    <app-pokemon-stats [data]="pokemon"></app-pokemon-stats>
+                </div>
+                <div class="PokemonSectionDetails_PokemonExtraInfo">
+                    <div class="PokemonSectionDetails_PokemonTypes">
+                        <h2>Types:</h2>
+                        <div class="PokemonSectionDetails_InfoCard">
+                            <app-pokemon-type-pill 
+                                [pokemonType]="type" 
+                                *ngFor="let type of pokemon?.types"
+                            ></app-pokemon-type-pill>
+                        </div>
 
+                    </div>
+                    <div class="PokemonSectionDetails_PokemonData">
+                        <h2>Data:</h2>
+                        <p>Height: {{pokemon.height}}</p>
+                        <p>Weight: {{pokemon.weight}}</p>
+                    </div>
+                    <div class="PokemonSectionDetails_PokemonMoves">
+                        <h2>Moves:</h2>
+                        <div class="PokemonSectionDetails_InfoCard">
+                            <mat-chip-listbox aria-label="Types">
+                                <mat-chip-option *ngFor="let move of pokemon?.moves">{{move}}</mat-chip-option>
+                            </mat-chip-listbox>
+                        </div>
+                    </div>
+                    <!-- <p>{{pokemon.height}}</p>
+                    <p>{{pokemon.weight}}</p> -->
+                </div>
+        
+
+            </div>
         </div>
     </div>
 </div>

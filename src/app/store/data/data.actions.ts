@@ -10,7 +10,7 @@ export enum DataActionTypes {
   SetPokemonTypes = '[Data] Set PokemonTypes Data',
   SetFilteredPokemons = '[Data] Set Filtered Pokemons Data',
   DeleteFilteredPokemons = '[Data] Delete Filtered Pokemons Data',
-  AddDetailedPokemon = '[Data] Delete Detailed Pokemons Data',
+  AddDetailedPokemon = '[Data] Add Detailed Pokemons Data',
 }
 
 export const setPokemonsAction = createAction(

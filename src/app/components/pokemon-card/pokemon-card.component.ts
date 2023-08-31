@@ -9,7 +9,7 @@ import { IPokemon } from 'src/app/models/internals/pokemons.model';
   animations: [shakeAnimation]
 })
 export class PokemonCardComponent {
-  @Input() public pokemon!: IPokemon |undefined;
+  @Input() public pokemon!: IPokemon | undefined;
   @Input() public isLoading!: boolean;
 
   animationActive = false;

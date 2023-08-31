@@ -5,6 +5,7 @@ import { SkeletonDirective } from 'src/app/directives/skeleton/skeleton.directiv
 import { routesMock } from 'src/app/modules/routing/routing.mock';
 import { RouterTestingModule } from '@angular/router/testing';
 import { Router } from '@angular/router';
+import { PokemonIdDirective } from 'src/app/directives/pokemonId/pokemon-id.directive';
 
 describe('PokemonCardComponent', () => {
   let component: PokemonCardComponent;
@@ -12,7 +13,7 @@ describe('PokemonCardComponent', () => {
   let router: Router;
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PokemonCardComponent, SkeletonDirective],
+      declarations: [PokemonCardComponent, SkeletonDirective, PokemonIdDirective],
       imports: [RouterTestingModule.withRoutes(routesMock)]
     });
     fixture = TestBed.createComponent(PokemonCardComponent);

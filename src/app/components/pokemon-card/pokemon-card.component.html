@@ -6,7 +6,16 @@
 >
 
   <div class="PokemonCard_Image">
-    <img appSkeleton [active]="isLoading" [isImage]="true" [width]="'100%'" [height]="'100%'" mat-card-image src={{pokemon?.image}} alt="Photo of a Shiba Inu">
+    <img 
+      appSkeleton 
+      [active]="isLoading" 
+      [isImage]="true" 
+      [width]="'100%'" 
+      [height]="'100%'"
+      mat-card-image 
+      src={{pokemon?.images?.normal}} 
+      alt="Photo of a Shiba Inu"
+     >
   </div>
   <div class="PokemonCard_Info">
     <p id="pokemonNumber" 
@@ -28,7 +37,11 @@
   </p>
 
     <div class="PokemonCard_Types">
-      <app-pokemon-type-pill [pokemonType]="type" [loading]="isLoading" *ngFor="let type of pokemon?.types"></app-pokemon-type-pill>
+      <app-pokemon-type-pill 
+        [pokemonType]="type" 
+        [loading]="isLoading" 
+        *ngFor="let type of pokemon?.types"
+      ></app-pokemon-type-pill>
     </div>
   </div>
 </div>

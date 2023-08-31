@@ -36,39 +36,99 @@ const getPokemonsResponseMock: IPokemons = {
   currentPage: 0,
   data: [
     {
+      id: 1,
       name: 'pokemonName_1',
-      image: 'pokemonImage_1',
-      weight: 1,
+      images: {
+        normal: 'pokemonNormalImage_1',
+        shiny: 'pokemonShinyImage_1'
+      },      weight: 1,
       height: 1,
-      types: []
+      types: [],
+      moves: [],
+      stats: {
+        specialAttack: 1,
+        specialDefense: 2,
+        defense: 3,
+        attack: 4,
+        hp: 5,
+        speed: 6
+      }
     },
     {
+      id: 2,
       name: 'pokemonName_2',
-      image: 'pokemonImage_2',
-      weight: 2,
+      images: {
+        normal: 'pokemonNormalImage_2',
+        shiny: 'pokemonShinyImage_2'
+      },      weight: 2,
       height: 2,
-      types: []
+      types: [],
+      moves: [],
+      stats: {
+        specialAttack: 1,
+        specialDefense: 2,
+        defense: 3,
+        attack: 4,
+        hp: 5,
+        speed: 6
+      }
     },
     {
+      id: 3,
       name: 'pokemonName_3',
-      image: 'pokemonImage_3',
-      weight: 3,
+      images: {
+        normal: 'pokemonNormalImage_3',
+        shiny: 'pokemonShinyImage_3'
+      },      weight: 3,
       height: 3,
-      types: []
+      types: [],
+      moves: [],
+      stats: {
+        specialAttack: 1,
+        specialDefense: 2,
+        defense: 3,
+        attack: 4,
+        hp: 5,
+        speed: 6
+      }
     },
     {
+      id: 4,
       name: 'pokemonName_4',
-      image: 'pokemonImage_4',
-      weight: 4,
+      images: {
+        normal: 'pokemonNormalImage_4',
+        shiny: 'pokemonShinyImage_4'
+      },      weight: 4,
       height: 4,
-      types: []
+      types: [],
+      moves: [],
+      stats: {
+        specialAttack: 1,
+        specialDefense: 2,
+        defense: 3,
+        attack: 4,
+        hp: 5,
+        speed: 6
+      }
     },
     {
+      id: 5,
       name: 'pokemonName_5',
-      image: 'pokemonImage_5',
-      weight: 5,
+      images: {
+        normal: 'pokemonNormalImage_5',
+        shiny: 'pokemonShinyImage_5'
+      },      weight: 5,
       height: 5,
-      types: []
+      types: [],
+      moves: [],
+      stats: {
+        specialAttack: 1,
+        specialDefense: 2,
+        defense: 3,
+        attack: 4,
+        hp: 5,
+        speed: 6
+      }
     }
   ]
 }
@@ -101,25 +161,64 @@ const getFilteredPokemonsResponseMock: IFilteredPokemons = {
   byType: 'byTypeTestFilter',
   data: [
     {
+      id: 1,
       name: 'pokemonName_1',
-      image: 'pokemonImage_1',
+      images: {
+        normal: 'pokemonNormalImage_1',
+        shiny: 'pokemonShinyImage_1'
+      },
       weight: 1,
       height: 1,
-      types: []
+      types: [],
+      moves: [],
+      stats: {
+        specialAttack: 1,
+        specialDefense: 2,
+        defense: 3,
+        attack: 4,
+        hp: 5,
+        speed: 6
+      }
     },
     {
+      id: 2,
       name: 'pokemonName_2',
-      image: 'pokemonImage_2',
+      images: {
+        normal: 'pokemonNormalImage_2',
+        shiny: 'pokemonShinyImage_2'
+      },
       weight: 2,
       height: 2,
-      types: []
+      types: [],
+      moves: [],
+      stats: {
+        specialAttack: 1,
+        specialDefense: 2,
+        defense: 3,
+        attack: 4,
+        hp: 5,
+        speed: 6
+      }
     },
     {
+      id: 3,
       name: 'pokemonName_3',
-      image: 'pokemonImage_3',
+      images: {
+        normal: 'pokemonNormalImage_3',
+        shiny: 'pokemonShinyImage_3'
+      },
       weight: 3,
       height: 3,
-      types: []
+      types: [],
+      moves: [],
+      stats: {
+        specialAttack: 1,
+        specialDefense: 2,
+        defense: 3,
+        attack: 4,
+        hp: 5,
+        speed: 6
+      }
     },
   ]
 }
