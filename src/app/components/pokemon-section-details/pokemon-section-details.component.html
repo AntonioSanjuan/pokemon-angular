@@ -1,14 +1,6 @@
 <div class="PokemonSectionDetails_Maincontainer">
     <div class="PokemonSectionDetails_ContentContainer">
-        <div class="PokemonSectionDetails_GoBack">
-            <button
-                mat-raised-button
-                color="warn"
-                [routerLink]="['/home']"
-                >
-                    <mat-icon>arrow_back</mat-icon>
-            </button>
-        </div>
+        <app-go-back></app-go-back>
         <div class="PokemonSectionDetails_PokemonContainer" *ngIf="(pokemonDetails$ | async)?.data as pokemonDetailsAlias">
             <div class="PokemonSectionDetails_PokemonDetails" *ngIf="pokemonDetailsAlias[0] as pokemon; else showEmptyPokemon">
                 <div class="PokemonSectionDetails_PokemonHeader">

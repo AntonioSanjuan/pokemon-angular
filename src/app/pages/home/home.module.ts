@@ -22,6 +22,7 @@ import { UsePokemonTypesModule } from 'src/app/hooks/usePokemonTypes/usePokemonT
 import { UseDetailedPokemonsModule } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service.module';
 import { PokemonIdDirective } from 'src/app/directives/pokemonId/pokemon-id.directive';
 import { PokemonStatsComponent } from 'src/app/components/pokemon-stats/pokemon-stats.component';
+import { GoBackComponent } from 'src/app/components/common/go-back/go-back.component';
 
 const routes: Routes = [
   {
@@ -36,7 +37,7 @@ const routes: Routes = [
 const directives = [SkeletonDirective, IntersectionObserverDirective, PokemonTypePillDirective, PokemonIdDirective]
 
 @NgModule({
-  declarations: [HomeComponent, PokemonSection, PokemonSectionDetails, PokemonListComponent, PokemonStatsComponent, PokemonListFilterComponent, PokemonCardComponent, PokemonTypePillComponent, ...directives],
+  declarations: [HomeComponent, PokemonSection, PokemonSectionDetails, PokemonListComponent, GoBackComponent , PokemonStatsComponent, PokemonListFilterComponent, PokemonCardComponent, PokemonTypePillComponent, ...directives],
   imports: [
     SharedModule,
     UsePokemonsModule,
