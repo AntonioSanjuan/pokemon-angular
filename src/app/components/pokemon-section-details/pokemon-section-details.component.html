@@ -1,6 +1,14 @@
 <div class="PokemonSectionDetails_Maincontainer">
     <div class="PokemonSectionDetails_ContentContainer">
-        <app-go-back></app-go-back>
+        <div class="PokemonSectionDetails_Header">
+            <app-go-back></app-go-back>
+            <button
+                mat-raised-button 
+                color="warn"
+                id="comparePokemon"
+            >Compare</button>
+        </div>
+
         <div class="PokemonSectionDetails_PokemonContainer" *ngIf="(pokemonDetails$ | async)?.data as pokemonDetailsAlias">
             <div class="PokemonSectionDetails_PokemonDetails" *ngIf="pokemonDetailsAlias[0] as pokemon; else showEmptyPokemon">
                 <div class="PokemonSectionDetails_PokemonHeader">

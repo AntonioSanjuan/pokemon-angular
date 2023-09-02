@@ -22,6 +22,12 @@
         width: 80%;
     }
 
+    .PokemonSectionDetails_Header {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        width: 100%;  
+    }
     .PokemonSectionDetails_PokemonContainer {
         display: flex;
         flex-direction: column;

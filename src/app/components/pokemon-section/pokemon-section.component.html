@@ -13,7 +13,11 @@
             </div>
         </div>
         <div class="PokemonSection_Filter">
-            <app-pokemon-list-filter></app-pokemon-list-filter>
+            <app-pokemon-list-filter
+                [filteredPokemons]="(filteredPokemons$ | async) ?? undefined"
+                (filterByNameEvent)="useFilterPokemons.getByNameOrIdPokemons($event)"
+                (filterByTypeEvent)="useFilterPokemons.getByTypePokemons($event)">
+            </app-pokemon-list-filter>
         </div>
 
         <div class="PokemonSection_List">

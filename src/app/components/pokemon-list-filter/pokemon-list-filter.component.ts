@@ -1,9 +1,8 @@
-import { Component, OnDestroy, OnInit } from '@angular/core';
-import { Subscription } from 'rxjs';
+import { Component, Input, Output, EventEmitter, OnChanges } from '@angular/core';
 import { collapseAnimation } from 'src/app/animations/collapse/collapse.animation';
 import { rotateAnimation } from 'src/app/animations/rotate/rotate.animation';
-import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
 import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service';
+import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
 
 @Component({
   selector: 'app-pokemon-list-filter',
@@ -11,31 +10,26 @@ import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.s
   styleUrls: ['./pokemon-list-filter.component.scss'],
   animations: [collapseAnimation, rotateAnimation]
 })
-export class PokemonListFilterComponent implements OnInit, OnDestroy {
+export class PokemonListFilterComponent implements OnChanges {
   constructor(
     public usePokemonTypes: UsePokemonTypes, 
-    public useFilteredPokemons: UseFilterPokemons
   ) {}
+  @Input() filteredPokemons: IFilteredPokemons | undefined;
+  @Output() filterByNameEvent: EventEmitter<string> = new EventEmitter<string>();
+  @Output() filterByTypeEvent: EventEmitter<string> = new EventEmitter<string>();
 
-  private subscriptions: Subscription[] = []
   collapsed = true;
   filterByName!: string;
 
-  ngOnInit(): void {
-    this.subscriptions.push(this.useFilteredPokemons.filteredPokemons$.subscribe((filteredPokemons) => {
-      if(filteredPokemons) {
-        this.collapsed = false;
+ ngOnChanges() {
+    if(this.filteredPokemons) {
+      this.collapsed = false;
+
+      if(this.filteredPokemons.byName) {
+        this.filterByName = this.filteredPokemons.byName
       }
-      this.filterByName = filteredPokemons?.byName ||''
-
-    }))
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach(subscription => {
-      subscription.unsubscribe()
-    });
-  }
+    }
+   }	
 
   public toggle(): void {
     this.collapsed = !this.collapsed;
