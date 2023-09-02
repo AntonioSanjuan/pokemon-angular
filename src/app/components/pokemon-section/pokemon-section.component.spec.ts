@@ -2,7 +2,7 @@ import { ComponentFixture, TestBed } from '@angular/core/testing';
 
 import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 import { UsePokemonsMock, UsePokemonsMockReset } from 'src/app/hooks/usePokemons/usePokemons.service.mock';
-import { PokemonListFilterComponent } from '../pokemon-list-filter/pokemon-list-filter.component';
+import { PokemonFilterComponent } from '../pokemon-filter/pokemon-filter.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { PokemonTypePillDirective } from 'src/app/directives/pokemonTypeColor/pokemon-type-pill.directive';
 import { IntersectionObserverDirective } from 'src/app/directives/intersectionObserver/intersectionObserver.directive';
@@ -23,7 +23,7 @@ describe('PokemonSection', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PokemonSection, PokemonListComponent, PokemonListFilterComponent, PokemonTypePillDirective, IntersectionObserverDirective],
+      declarations: [PokemonSection, PokemonListComponent, PokemonFilterComponent, PokemonTypePillDirective, IntersectionObserverDirective],
       imports: [SharedModule],
       providers: [
         {

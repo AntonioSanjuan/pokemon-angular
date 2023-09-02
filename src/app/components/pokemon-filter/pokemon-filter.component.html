@@ -1,24 +1,24 @@
-<div class="PokemonListFilter_MainContainer">
+<div class="PokemonFilter_MainContainer">
 
-    <div class="PokemonListFilter_FilterContainer" [@collapse]="collapsed">
-        <div class="PokemonListFilter_Filter">
-            <div class="PokemonListFilter_FilterHeader">
+    <div class="PokemonFilter_FilterContainer" [@collapse]="collapsed">
+        <div class="PokemonFilter_Filter">
+            <div class="PokemonFilter_FilterHeader">
                 <h2>Filtra por tipo</h2>
             </div>
-            <div class="PokemonListFilter_FilterContent">
-                <div class="PokemonListFilter_FilterType"  
+            <div class="PokemonFilter_FilterContent">
+                <div class="PokemonFilter_FilterType"  
                 *ngFor="let pokemonType of (usePokemonTypes.pokemonTypes$ | async)?.data" 
                 (click)="filterByTypeEvent.emit(pokemonType.name)">
                     <app-pokemon-type-pill [pokemonType]="pokemonType"></app-pokemon-type-pill>
                 </div>
             </div>
         </div>
-        <div class="PokemonListFilter_Filter">
-            <div class="PokemonListFilter_FilterHeader">
+        <div class="PokemonFilter_Filter">
+            <div class="PokemonFilter_FilterHeader">
                 <h2>Filtra por nombre o id</h2>
             </div>
-            <div class="PokemonListFilter_FilterContent">
-                <div class="PokemonListFilter_FilterName">
+            <div class="PokemonFilter_FilterContent">
+                <div class="PokemonFilter_FilterName">
                     <mat-form-field class="example-full-width">
                         <mat-label>Pokemon name/id</mat-label>
                             <input matInput 
@@ -38,7 +38,7 @@
             </div>
         </div>
     </div>
-    <div class="PokemonListFilter_ActionsContainer">
+    <div class="PokemonFilter_ActionsContainer">
         <button 
             [@rotate]="!collapsed"
             (click)="toggle()"

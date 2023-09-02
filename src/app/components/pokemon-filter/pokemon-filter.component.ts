@@ -5,12 +5,12 @@ import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.s
 import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
 
 @Component({
-  selector: 'app-pokemon-list-filter',
-  templateUrl: './pokemon-list-filter.component.html',
-  styleUrls: ['./pokemon-list-filter.component.scss'],
+  selector: 'app-pokemon-filter',
+  templateUrl: './pokemon-filter.component.html',
+  styleUrls: ['./pokemon-filter.component.scss'],
   animations: [collapseAnimation, rotateAnimation]
 })
-export class PokemonListFilterComponent implements OnChanges {
+export class PokemonFilterComponent implements OnChanges {
   constructor(
     public usePokemonTypes: UsePokemonTypes, 
   ) {}

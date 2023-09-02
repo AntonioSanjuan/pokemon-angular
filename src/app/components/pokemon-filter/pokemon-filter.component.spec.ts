@@ -1,6 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { PokemonListFilterComponent } from './pokemon-list-filter.component';
+import { PokemonFilterComponent } from './pokemon-filter.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service';
 import { UsePokemonTypesMock, UsePokemonTypesMockReset } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service.mock';
@@ -8,13 +8,13 @@ import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPoke
 import { UseFilterPokemonsMock, UseFilterPokemonsMockReset } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service.mock';
 import { By } from '@angular/platform-browser';
 
-describe('PokemonListFilterComponent', () => {
-  let component: PokemonListFilterComponent;
-  let fixture: ComponentFixture<PokemonListFilterComponent>;
+describe('PokemonFilterComponent', () => {
+  let component: PokemonFilterComponent;
+  let fixture: ComponentFixture<PokemonFilterComponent>;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PokemonListFilterComponent],
+      declarations: [PokemonFilterComponent],
       imports: [SharedModule],
       providers: [
         {
@@ -27,7 +27,7 @@ describe('PokemonListFilterComponent', () => {
         }
       ]
     });
-    fixture = TestBed.createComponent(PokemonListFilterComponent);
+    fixture = TestBed.createComponent(PokemonFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
 
