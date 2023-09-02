@@ -15,6 +15,7 @@ import { RouterTestingModule } from '@angular/router/testing';
 import { routesMock } from 'src/app/modules/routing/routing.mock';
 import { ActivatedRoute } from '@angular/router';
 import { IDetailedPokemons } from 'src/app/models/internals/detailedPokemons.model';
+import { GoBackComponent } from '../common/go-back/go-back.component';
 
 describe('PokemonSectionDetails', () => {
   let component: PokemonSectionDetails;
@@ -23,7 +24,7 @@ describe('PokemonSectionDetails', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PokemonSectionDetails, PokemonListComponent, PokemonListFilterComponent, PokemonTypePillDirective, IntersectionObserverDirective],
+      declarations: [PokemonSectionDetails, GoBackComponent ,PokemonListComponent, PokemonListFilterComponent, PokemonTypePillDirective, IntersectionObserverDirective],
       imports: [
         SharedModule,
         RouterTestingModule.withRoutes(routesMock)
