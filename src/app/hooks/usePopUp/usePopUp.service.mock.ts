@@ -1,17 +1,11 @@
-import { of } from "rxjs"
-import { mockGetter } from "src/app/utils/tests/commonMocks";
-import { UsePopUp } from "./usePopU.service";
-import { PopUpStatus } from "src/app/models/internals/common/popUpStatus.model";
+import { UsePopUp } from "./usePopUp.service";
 
 const openAddPokemonComparisonSpy = jest.fn()
 
-export const UseFilterPokemonsMock: Partial<UsePopUp> = {
+export const UsePopUpMock: Partial<UsePopUp> = {
   openAddPokemonComparison: openAddPokemonComparisonSpy,
-  popUpStatus$: of<PopUpStatus>("closed"),
 }
 
-export const UseFilterPokemonsMockReset = () => {
+export const UsePopUpMockReset = () => {
   openAddPokemonComparisonSpy.mockReset()
-
-  mockGetter(UseFilterPokemonsMock, "popUpStatus$", of<PopUpStatus>("closed"))
 }

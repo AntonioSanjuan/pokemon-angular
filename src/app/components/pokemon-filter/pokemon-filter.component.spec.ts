@@ -7,6 +7,7 @@ import { UsePokemonTypesMock, UsePokemonTypesMockReset } from 'src/app/hooks/use
 import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
 import { UseFilterPokemonsMock, UseFilterPokemonsMockReset } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service.mock';
 import { By } from '@angular/platform-browser';
+import { PokemonTypePillComponent } from '../pokemon-type-pill/pokemon-type-pill.component';
 
 describe('PokemonFilterComponent', () => {
   let component: PokemonFilterComponent;
@@ -14,7 +15,10 @@ describe('PokemonFilterComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PokemonFilterComponent],
+      declarations: [
+        PokemonFilterComponent,
+        PokemonTypePillComponent
+      ],
       imports: [SharedModule],
       providers: [
         {

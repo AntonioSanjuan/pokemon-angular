@@ -2,12 +2,10 @@ import { Injectable } from '@angular/core';
 import { DataState } from 'src/app/store/data/models/data.state';
 import { Store } from '@ngrx/store';
 import { PokeApiService } from '../../services/poke-api/poke-api.service';
-import { BehaviorSubject, Observable, forkJoin, of } from "rxjs";
+import { BehaviorSubject, Observable } from "rxjs";
 import { finalize, take, tap, map, switchMap } from 'rxjs/operators';
 import { selectDetailedPokemonsByName, selectDetailedPokemons } from 'src/app/store/data/data.selectors';
 import { IDetailedPokemons } from 'src/app/models/internals/detailedPokemons.model';
-import { IPokemon } from 'src/app/models/internals/pokemons.model';
-import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
 import { addDetailedPokemonAction } from 'src/app/store/data/data.actions';
 
 @Injectable()

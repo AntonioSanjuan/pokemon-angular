@@ -1,0 +1,51 @@
+:host {
+    width: 100%;
+    display: flex;
+}
+
+.PokemonInfo_MainContainer {
+    display: flex;
+    flex-direction: column;
+    margin-bottom: 20px;
+    gap: 10px;
+    align-items: flex-start;
+    flex-wrap: wrap;
+
+    margin-top: 20px;
+
+    .PokemonInfo_PokemonData {
+        display: flex;
+        flex-direction: row;
+        width: 100%;
+        gap: 10px;
+        .PokemonInfo_PokemonTypes,
+        .PokemonInfo_PokemonBasics{
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+    
+            padding: 15px;
+            background-color: #30a7d7;
+            border-radius: 15px;
+
+            width: calc(50% - 30px - 5px);
+
+            .PokemonInfo_InfoCard {
+                display: flex;
+                flex-direction: row;
+                gap: 5px;
+            }
+        }
+    }
+
+    .PokemonInfo_PokemonMoves {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+
+        padding: 15px;
+        background-color: #30a7d7;
+        border-radius: 15px;
+
+    }
+}

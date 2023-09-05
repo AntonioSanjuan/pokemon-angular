@@ -1,40 +1,19 @@
 <div class="PokemonDetails_MainContainer">
-    <div class="PokemonDetails_PokemonHeader">
-        <h2>Name: {{pokemon.name}}</h2>
-    </div>
-    <div class="PokemonDetails_PokemonBasicInfo">
-        <img 
+    <div class="PokemonDetails_Header">
+        <div class="PokemonDetails_PokemonHeader" *ngFor="let pokemon of pokemons.data">
+            <h2>Name: {{pokemon.name}}</h2>
+            <img 
             mat-card-image 
             src={{pokemon.images.normal}} 
             alt="Photo pokemon"
         >
-        <app-pokemon-stats [data]="pokemon"></app-pokemon-stats>
+        </div>
     </div>
-    <div class="PokemonDetails_PokemonExtraInfo">
-        <div class="PokemonDetails_PokemonTypes">
-            <h2>Types:</h2>
-            <div class="PokemonDetails_InfoCard">
-                <app-pokemon-type-pill 
-                    [pokemonType]="type" 
-                    *ngFor="let type of pokemon.types"
-                ></app-pokemon-type-pill>
-            </div>
+    <app-pokemon-stats [pokemons]="pokemons.data"></app-pokemon-stats>
 
-        </div>
-        <div class="PokemonDetails_PokemonData">
-            <h2>Data:</h2>
-            <p>Height: {{pokemon.height}}</p>
-            <p>Weight: {{pokemon.weight}}</p>
-        </div>
-        <div class="PokemonDetails_PokemonMoves">
-            <h2>Moves:</h2>
-            <div class="PokemonDetails_InfoCard">
-                <mat-chip-listbox aria-label="Types">
-                    <mat-chip-option *ngFor="let move of pokemon.moves">{{move}}</mat-chip-option>
-                </mat-chip-listbox>
-            </div>
-        </div>
-        <!-- <p>{{pokemon.height}}</p>
-        <p>{{pokemon.weight}}</p> -->
-    </div>
+    <mat-tab-group>
+        <mat-tab *ngFor="let pokemon of pokemons.data" label="{{pokemon.name}}">
+            <app-pokemon-info [pokemon]="pokemon"></app-pokemon-info>
+        </mat-tab>
+      </mat-tab-group>
 </div>

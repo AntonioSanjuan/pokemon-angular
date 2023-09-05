@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
-import { ActivatedRoute, ActivationStart, Router } from '@angular/router';
-import { UsePopUp } from 'src/app/hooks/usePopUp/usePopU.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { UsePopUp } from 'src/app/hooks/usePopUp/usePopUp.service';
 import { IDetailedPokemons } from 'src/app/models/internals/detailedPokemons.model';
 import { IPokemon } from 'src/app/models/internals/pokemons.model';
 
@@ -14,7 +14,7 @@ export class PokemonSectionDetails {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private readonly router: Router,
+    private router: Router,
     private usePopUp: UsePopUp
   ) {
         this.pokemonDetails = this.activatedRoute.snapshot.data['pokemonsDeailsResolver'] 
@@ -24,9 +24,15 @@ export class PokemonSectionDetails {
         })
   }
 
-  public isComparingSwitch() {
-    this.usePopUp.openAddPokemonComparison()
+  public addPokemonComparison() {
+    this.usePopUp.openAddPokemonComparison().subscribe((pokemon: IPokemon) => {
+      this.router.navigate([`${this.router.url}-vs-${pokemon.name}`], { replaceUrl: true });
+    })
   }
 
+  public removePokemonComparison() {
+    const newRoute = this.router.url.split('-vs-')[0]
+    this.router.navigate([newRoute], { replaceUrl: true });
 
+  }
 }

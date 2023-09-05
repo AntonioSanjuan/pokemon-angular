@@ -1,5 +1,5 @@
 import { NgModule } from '@angular/core';
-import { UsePopUp } from './usePopU.service';
+import { UsePopUp } from './usePopUp.service';
 
 @NgModule({
   providers: [

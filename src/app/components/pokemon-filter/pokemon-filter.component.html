@@ -7,8 +7,8 @@
             </div>
             <div class="PokemonFilter_FilterContent">
                 <div class="PokemonFilter_FilterType"  
-                *ngFor="let pokemonType of (usePokemonTypes.pokemonTypes$ | async)?.data" 
-                (click)="filterByTypeEvent.emit(pokemonType.name)">
+                    *ngFor="let pokemonType of (usePokemonTypes.pokemonTypes$ | async)?.data" 
+                    (click)="filterByTypeEvent.emit(pokemonType.name)">
                     <app-pokemon-type-pill [pokemonType]="pokemonType"></app-pokemon-type-pill>
                 </div>
             </div>

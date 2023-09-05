@@ -1,6 +1,9 @@
-<div class="addNewPokemonComparison_MainContainer">
+<div 
+    class="AddNewPokemonComparison_MainContainer"
+    id="rootObserver"
+>
     <app-pokemon-filterable-list
-        (onPokemonClick)="addNewPokemonComparison($event)"
+        (onPokemonClick)="compareWith($event)"
     >
     </app-pokemon-filterable-list>
 </div>

@@ -27,14 +27,15 @@ import { PokemonDetailsComponent } from 'src/app/components/pokemon-details/poke
 import { PokemonFilterableListComponent } from 'src/app/components/pokemon-filterable-list/pokemon-filterable-list.component';
 import { AddPokemonComparisonComponent } from 'src/app/components/common/popUps/add-pokemon-comparison/add-pokemon-comparison.component';
 import { UsePopUpModule } from 'src/app/hooks/usePopUp/usePopUp.service.module';
+import { PokemonInfoComponent } from 'src/app/components/pokemon-info/pokemon-info.component';
 
 const routes: Routes = [
   {
     path: '',
     component: HomeComponent,
     children: [
-      { path: '', component: PokemonSection, providers: [UsePokemons, UsePokemonTypes, UseFilterPokemons, UseDetailedPokemons], resolve: {pokemonsSectionResolver: pokemonSectionResolver}},
-      { path: ':pokemonName', component: PokemonSectionDetails, providers: [UsePokemons, UsePokemonTypes, UseFilterPokemons, UseDetailedPokemons], resolve: {pokemonsDeailsResolver: pokemonSectionDetailsResolver}}
+      { path: '', component: PokemonSection, resolve: {pokemonsSectionResolver: pokemonSectionResolver}},
+      { path: ':pokemonName', component: PokemonSectionDetails, resolve: {pokemonsDeailsResolver: pokemonSectionDetailsResolver}}
     ],
   },
 ];
@@ -50,7 +51,8 @@ const components = [
   PokemonFilterComponent, 
   PokemonCardComponent, 
   PokemonTypePillComponent,
-  AddPokemonComparisonComponent
+  AddPokemonComparisonComponent,
+  PokemonInfoComponent
 ]
 const directives = [
   SkeletonDirective, 

@@ -14,7 +14,6 @@ import { IPokemon } from 'src/app/models/internals/pokemons.model';
 export class PokemonSection {
   public filteredPokemons$: Observable<IFilteredPokemons | undefined>
   constructor(
-    public usePokemons: UsePokemons, 
     public useFilterPokemons: UseFilterPokemons,
     private readonly router: Router,
 

@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { IPokemon } from 'src/app/models/internals/pokemons.model';
+import { IDetailedPokemons } from 'src/app/models/internals/detailedPokemons.model';
 
 @Component({
   selector: 'app-pokemon-details',
@@ -7,6 +7,6 @@ import { IPokemon } from 'src/app/models/internals/pokemons.model';
   styleUrls: ['./pokemon-details.component.scss']
 })
 export class PokemonDetailsComponent {
-  @Input() pokemon!: IPokemon;
+  @Input() pokemons!: IDetailedPokemons;
 
 }

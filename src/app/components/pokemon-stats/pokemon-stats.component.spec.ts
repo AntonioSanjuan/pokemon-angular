@@ -11,6 +11,11 @@ describe('PokemonStatsComponent', () => {
   let inputPokemonData: IPokemon
   let fixture: ComponentFixture<PokemonStatsComponent>;
 
+  let getRadarChartOptionsSpy: jest.SpyInstance;
+  const getRadarChartOptionsOutput: Partial<IChartOptions> = {
+    series: []
+  };
+
   beforeEach(() => {
     inputPokemonData = {
       id: 1,
@@ -38,26 +43,32 @@ describe('PokemonStatsComponent', () => {
       declarations: [PokemonStatsComponent],
       imports: [SharedModule]
     });
+
+    getRadarChartOptionsSpy = jest.spyOn(ChartOptionsFactory, 'getRadarChartOptions').mockReturnValue(getRadarChartOptionsOutput as IChartOptions)
+
+    
     fixture = TestBed.createComponent(PokemonStatsComponent);
     component = fixture.componentInstance;
-    component.data = inputPokemonData;
+    component.pokemons = [inputPokemonData];
 
     fixture.detectChanges();
-
   });
 
   it('should create', () => {
     expect(component).toBeTruthy();
   });
 
-  it('initially should request ChartOptionsFactory.getRadarChartOptions', () => {
-    const getRadarChartOptionsOutput: Partial<IChartOptions> = {
-      series: []
-    };
-    const getRadarChartOptionsSpy = jest.spyOn(ChartOptionsFactory, 'getRadarChartOptions').mockReturnValue(getRadarChartOptionsOutput as IChartOptions)
-
-    component.ngOnInit()
-    expect(getRadarChartOptionsSpy).toHaveBeenCalledWith([inputPokemonData]);
+  it('once onChanges is triggered, ChartOptionsFactory.getRadarChartOptions should be requested', () => {
+    const newPokemonSut = [
+      {
+        ...inputPokemonData,
+        id: 2
+      }
+    ]
+    component.pokemons = newPokemonSut
+    component.ngOnChanges()
+    
+    expect(getRadarChartOptionsSpy).toHaveBeenCalledWith(newPokemonSut);
     expect(component.chartOptions).toEqual(getRadarChartOptionsOutput as IChartOptions);
   });
 });

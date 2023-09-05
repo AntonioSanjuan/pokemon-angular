@@ -3,24 +3,27 @@
         <div class="PokemonSectionDetails_Header">
             <app-go-back></app-go-back>
             <button
-                (click)="isComparingSwitch()"
+                (click)="addPokemonComparison()"
                 mat-raised-button 
                 color="warn"
-                id="comparePokemon"
-                [disabled]="pokemonDetails?.data?.length == 2"
-            >Compare</button>
+                id="addComparisonButton"
+                *ngIf="pokemonDetails?.data?.length === 1"
+            >
+                Add comparison
+            </button>
+            <button
+                (click)="removePokemonComparison()"
+                mat-raised-button 
+                color="warn"
+                id="removeComparisonButton"
+                *ngIf="pokemonDetails?.data?.length === 2"
+            >
+            Remove comparison
+        </button>
         </div>
 
-        <div class="PokemonSectionDetails_PokemonContainer" *ngIf="pokemonDetails?.data as pokemonDetailsAlias">
-            <div class="PokemonSectionDetails_PokemonDetails" *ngFor="let pokemonDetailsAliasEl of pokemonDetailsAlias">
-                    <app-pokemon-details [pokemon]="pokemonDetailsAliasEl"></app-pokemon-details>
-            </div>
-            <!-- <div id="rootObserver" class="PokemonSectionDetails_PokemonList" *ngIf="isComparing">
-                <app-pokemon-filterable-list
-                    (onPokemonClick)="addNewPokemonComparison($event)"
-                >
-                </app-pokemon-filterable-list>
-            </div> -->
+        <div class="PokemonSectionDetails_PokemonContainer" *ngIf="pokemonDetails">
+            <app-pokemon-details [pokemons]="pokemonDetails"></app-pokemon-details>
         </div>
     </div>
 </div>

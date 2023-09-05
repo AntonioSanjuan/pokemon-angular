@@ -18,7 +18,12 @@ describe('PokemonListComponent', () => {
 
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PokemonListComponent, PokemonFilterComponent, PokemonTypePillDirective, IntersectionObserverDirective],
+      declarations: [
+        PokemonListComponent, 
+        PokemonFilterComponent, 
+        PokemonTypePillDirective, 
+        IntersectionObserverDirective
+      ],
       imports: [SharedModule],
       providers: [
         {

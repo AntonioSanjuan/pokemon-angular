@@ -1,6 +1,6 @@
 <div class="PokemonStats_MainContainer">
-  <div class="PokemonStats_ContentContainer" *ngIf="chartOptions">
     <apx-chart
+    *ngIf="chartOptions"
         [series]="chartOptions.series"
         [chart]="chartOptions.chart"
         [xaxis]="chartOptions.xaxis"
@@ -9,5 +9,4 @@
         [fill]="chartOptions.fill"
         [title]="chartOptions.title"
   ></apx-chart>
-  </div>
 </div>

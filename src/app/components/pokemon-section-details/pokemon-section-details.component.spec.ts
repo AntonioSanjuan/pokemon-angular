@@ -1,12 +1,10 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PokemonFilterComponent } from '../pokemon-filter/pokemon-filter.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { PokemonTypePillDirective } from 'src/app/directives/pokemonTypeColor/pokemon-type-pill.directive';
 import { IntersectionObserverDirective } from 'src/app/directives/intersectionObserver/intersectionObserver.directive';
 import { PokemonListComponent } from '../pokemon-list/pokemon-list.component';
 import { PokemonSectionDetails } from './pokemon-section-details.component';
-import { Observable, of } from 'rxjs';
 import { UseDetailedPokemons } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service';
 import { UseDetailedPokemonsMock, UseDetailedPokemonsMockReset } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service.mock';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -17,6 +15,9 @@ import { GoBackComponent } from '../common/go-back/go-back.component';
 import { PokemonDetails } from 'src/app/models/internals/common/pokemonDetailed.model';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
 import { PokemonStatsComponent } from '../pokemon-stats/pokemon-stats.component';
+import { UsePopUp } from 'src/app/hooks/usePopUp/usePopUp.service';
+import { UsePopUpMock, UsePopUpMockReset } from 'src/app/hooks/usePopUp/usePopUp.service.mock';
+import { PokemonInfoComponent } from '../pokemon-info/pokemon-info.component';
 
 describe('PokemonSectionDetails', () => {
   let component: PokemonSectionDetails;
@@ -49,7 +50,17 @@ describe('PokemonSectionDetails', () => {
   } as IDetailedPokemons
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PokemonSectionDetails, GoBackComponent ,PokemonListComponent, PokemonDetailsComponent, PokemonFilterComponent, PokemonStatsComponent, PokemonTypePillDirective, IntersectionObserverDirective],
+      declarations: [
+        PokemonSectionDetails, 
+        GoBackComponent ,
+        PokemonListComponent, 
+        PokemonDetailsComponent, 
+        PokemonFilterComponent, 
+        PokemonStatsComponent,
+        PokemonInfoComponent,
+        PokemonTypePillDirective, 
+        IntersectionObserverDirective
+      ],
       imports: [
         SharedModule,
         RouterTestingModule.withRoutes(routesMock)
@@ -58,6 +69,10 @@ describe('PokemonSectionDetails', () => {
         {
           provide: UseDetailedPokemons,
           useValue: UseDetailedPokemonsMock
+        },
+        {
+          provide: UsePopUp,
+          useValue: UsePopUpMock
         },
         {
           provide: ActivatedRoute,
@@ -78,6 +93,7 @@ describe('PokemonSectionDetails', () => {
 
   afterEach(() => {
     UseDetailedPokemonsMockReset();
+    UsePopUpMockReset();
   })
   
   it('should create', () => {

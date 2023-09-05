@@ -1,5 +1,5 @@
-import { Component, Inject } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component } from '@angular/core';
+import { MatDialogRef } from '@angular/material/dialog';
 import { IPokemon } from 'src/app/models/internals/pokemons.model';
 
 @Component({
@@ -9,10 +9,10 @@ import { IPokemon } from 'src/app/models/internals/pokemons.model';
 })
 export class AddPokemonComparisonComponent {
   constructor(
-    private readonly router: Router,
+    public dialogRef: MatDialogRef<AddPokemonComparisonComponent>
   ) {}
-  public addNewPokemonComparison(pokemon: IPokemon) {
-    this.router.navigate([`${this.router.url}-vs-${pokemon.name}`], { replaceUrl: true });
-  }
 
+  public compareWith(pokemon: IPokemon) {
+    this.dialogRef.close(pokemon)
+  }
 }
