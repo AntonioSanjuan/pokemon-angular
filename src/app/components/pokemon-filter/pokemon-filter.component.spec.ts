@@ -31,9 +31,13 @@ describe('PokemonFilterComponent', () => {
     component = fixture.componentInstance;
     fixture.detectChanges();
 
+
+  });
+
+  afterEach(() => {
     UseFilterPokemonsMockReset();
     UsePokemonTypesMockReset();
-  });
+  })
 
   it('should create', () => {
     expect(component).toBeTruthy();

@@ -23,6 +23,10 @@ import { UseDetailedPokemonsModule } from 'src/app/hooks/useDetailedPokemons/use
 import { PokemonIdDirective } from 'src/app/directives/pokemonId/pokemon-id.directive';
 import { PokemonStatsComponent } from 'src/app/components/pokemon-stats/pokemon-stats.component';
 import { GoBackComponent } from 'src/app/components/common/go-back/go-back.component';
+import { PokemonDetailsComponent } from 'src/app/components/pokemon-details/pokemon-details.component';
+import { PokemonFilterableListComponent } from 'src/app/components/pokemon-filterable-list/pokemon-filterable-list.component';
+import { AddPokemonComparisonComponent } from 'src/app/components/common/popUps/add-pokemon-comparison/add-pokemon-comparison.component';
+import { UsePopUpModule } from 'src/app/hooks/usePopUp/usePopUp.service.module';
 
 const routes: Routes = [
   {
@@ -34,16 +38,39 @@ const routes: Routes = [
     ],
   },
 ];
-const directives = [SkeletonDirective, IntersectionObserverDirective, PokemonTypePillDirective, PokemonIdDirective]
+const components = [    
+  HomeComponent, 
+  PokemonSection, 
+  PokemonDetailsComponent, 
+  PokemonFilterableListComponent, 
+  PokemonSectionDetails, 
+  PokemonListComponent, 
+  GoBackComponent , 
+  PokemonStatsComponent, 
+  PokemonFilterComponent, 
+  PokemonCardComponent, 
+  PokemonTypePillComponent,
+  AddPokemonComparisonComponent
+]
+const directives = [
+  SkeletonDirective, 
+  IntersectionObserverDirective, 
+  PokemonTypePillDirective, 
+  PokemonIdDirective
+]
 
 @NgModule({
-  declarations: [HomeComponent, PokemonSection, PokemonSectionDetails, PokemonListComponent, GoBackComponent , PokemonStatsComponent, PokemonFilterComponent, PokemonCardComponent, PokemonTypePillComponent, ...directives],
+  declarations: [
+    ...components, 
+    ...directives
+  ],
   imports: [
     SharedModule,
     UsePokemonsModule,
     UseFilteredPokemonsModule,
     UseDetailedPokemonsModule,
     UsePokemonTypesModule,
+    UsePopUpModule,
     RouterModule.forChild(routes),
   ],
   exports: [SharedModule, ...directives],

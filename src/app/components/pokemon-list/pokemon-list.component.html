@@ -1,4 +1,4 @@
-<div class="PokemonList_MainContainer">
+<div class="PokemonList_MainContainer" id="scrollArea">
     <div class="PokemonList_Container">
         <div class="PokemonList_ContentContainer" 
             appIntersectionObserver 
@@ -7,6 +7,7 @@
             [active]="infiniteListScroll">
             <div  class="PokemonList_List" 
                 *ngFor="let pokemon of pokemons"
+                (click)="onPokemonClick.emit(pokemon)"
             >
                 <app-pokemon-card [pokemon]="pokemon" [isLoading]="loading"></app-pokemon-card>
             </div>

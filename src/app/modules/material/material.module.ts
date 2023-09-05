@@ -4,8 +4,16 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import {MatInputModule} from '@angular/material/input';
 import {MatChipsModule} from '@angular/material/chips';
+import {MatDialogModule} from '@angular/material/dialog';
 
-const modules = [MatCardModule, MatIconModule, MatButtonModule, MatInputModule, MatChipsModule]
+const modules = [
+  MatCardModule, 
+  MatIconModule, 
+  MatButtonModule, 
+  MatInputModule, 
+  MatChipsModule,
+  MatDialogModule
+]
 
 
 @NgModule({

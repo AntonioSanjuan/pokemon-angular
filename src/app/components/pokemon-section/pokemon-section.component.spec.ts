@@ -43,12 +43,12 @@ describe('PokemonSection', () => {
     fixture = TestBed.createComponent(PokemonSection);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    UsePokemonsMockReset();
-    UseFilterPokemonsMockReset();
-
   });
 
+  afterEach(() => {
+    UsePokemonsMockReset();
+    UseFilterPokemonsMockReset();
+  })
   it('should create', () => {
     expect(component).toBeTruthy();
   });

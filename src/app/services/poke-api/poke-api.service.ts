@@ -124,18 +124,23 @@ export class PokeApiService {
     )
   }
 
-  public getDetailedPokemon(pokemonName: string): Observable<IDetailedPokemons> {
-    
-    return this.getRawPokemonsByName(pokemonName).pipe(
-        catchError(() => {
-          return of<PokemonDto | undefined>(undefined)
-        }),
-        map((rawPokemon: PokemonDto | undefined) => {
-            const output = this.detailedPokemonsAdapt.adapt({
-                data: rawPokemon ? [this.pokemonAdapt.adapt(rawPokemon)] : []
-            })
-            return output;
-        })
-    )
+  public getDetailedPokemon(pokemonNames: string[]): Observable<IDetailedPokemons> {
+    return forkJoin(
+      pokemonNames.map((pokemonName: string) => {
+        return this.getRawPokemonsByName(pokemonName).pipe(
+          catchError((error) => {
+            return of<PokemonDto>()
+
+          }),
+        )
+      })
+    ).pipe(
+      map((rawPokemons: PokemonDto[] | undefined) => {
+          const output = this.detailedPokemonsAdapt.adapt({
+              data: rawPokemons ? rawPokemons.map((rawPokemon) => { return this.pokemonAdapt.adapt(rawPokemon)}) : []
+          })
+          return output;
+      })
+  )
   }
 }

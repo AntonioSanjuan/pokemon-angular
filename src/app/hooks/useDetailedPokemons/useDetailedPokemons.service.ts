@@ -2,9 +2,9 @@ import { Injectable } from '@angular/core';
 import { DataState } from 'src/app/store/data/models/data.state';
 import { Store } from '@ngrx/store';
 import { PokeApiService } from '../../services/poke-api/poke-api.service';
-import { BehaviorSubject, Observable, of } from "rxjs";
-import { finalize, take, tap, map } from 'rxjs/operators';
-import { selectDetailedPokemon, selectDetailedPokemons } from 'src/app/store/data/data.selectors';
+import { BehaviorSubject, Observable, forkJoin, of } from "rxjs";
+import { finalize, take, tap, map, switchMap } from 'rxjs/operators';
+import { selectDetailedPokemonsByName, selectDetailedPokemons } from 'src/app/store/data/data.selectors';
 import { IDetailedPokemons } from 'src/app/models/internals/detailedPokemons.model';
 import { IPokemon } from 'src/app/models/internals/pokemons.model';
 import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
@@ -29,18 +29,23 @@ export class UseDetailedPokemons {
       })
   }
 
-  private getStoredDetailedPokemon(pokemonName: string): IPokemon | undefined { 
-    return this.detailedPokemonsObj.value?.data.find((detailedPokemon) => {
-      return detailedPokemon.name === pokemonName
+  private getNonStoredDetailedPokemons(pokemonNames: string[]): string[] { 
+    return pokemonNames.filter((pokemonName) => {
+      return !this.detailedPokemonsObj.value?.data.find((detailedPokemon) => {
+        return detailedPokemon.name === pokemonName
+      })
     })
+
+
+
   }
 
-  private fetchFromStoreDetailedPokemons(pokemonName: string): Observable<IDetailedPokemons | undefined> {
-    return this.store.select(selectDetailedPokemon(pokemonName))
+  private fetchFromStoreDetailedPokemons(pokemonNames: string[]): Observable<IDetailedPokemons | undefined> {
+    return this.store.select(selectDetailedPokemonsByName(pokemonNames))
   }
 
-  private fetchFromServiceDetailedPokemon(pokemonName: string): Observable<IDetailedPokemons | undefined> {
-    return this.pokemonService.getDetailedPokemon(pokemonName).pipe(
+  private fetchFromServiceDetailedPokemon(pokemonNames: string[]): Observable<IDetailedPokemons | undefined> {
+    return this.pokemonService.getDetailedPokemon(pokemonNames).pipe(
       take(1),
       map((detailedPokemons: IDetailedPokemons) => {
         return detailedPokemons
@@ -48,12 +53,13 @@ export class UseDetailedPokemons {
     )
   }
 
-  public getDetailedPokemon(pokemonName: string): Observable<IDetailedPokemons | undefined> {
+  public getDetailedPokemon(pokemonNames: string[]): Observable<IDetailedPokemons | undefined> {
     this.loadingObj.next(true)
 
-    return (!!this.getStoredDetailedPokemon(pokemonName)
-    ? this.fetchFromStoreDetailedPokemons(pokemonName)
-    : this.fetchFromServiceDetailedPokemon(pokemonName).pipe(
+    const nonStoredDetailedPokemons = this.getNonStoredDetailedPokemons(pokemonNames)
+    return (nonStoredDetailedPokemons.length === 0
+    ? this.fetchFromStoreDetailedPokemons(pokemonNames)
+    : this.fetchFromServiceDetailedPokemon(nonStoredDetailedPokemons).pipe(
       tap((detailedPokemons: IDetailedPokemons  | undefined) => {
         //save it into storage
         if(detailedPokemons) {
@@ -62,6 +68,9 @@ export class UseDetailedPokemons {
           ));
         }
       }),
+      switchMap(() => {
+        return this.fetchFromStoreDetailedPokemons(pokemonNames)
+    }),
     )).pipe(
       finalize(() => {
         this.loadingObj.next(false);

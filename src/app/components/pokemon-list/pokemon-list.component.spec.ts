@@ -38,12 +38,14 @@ describe('PokemonListComponent', () => {
     fixture = TestBed.createComponent(PokemonListComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
+  });
 
+  afterEach(() => {
     UsePokemonsMockReset();
     UseFilterPokemonsMockReset();
     UsePokemonTypesMockReset()
-  });
-
+  })
+  
   it('should create', () => {
     expect(component).toBeTruthy();
   });

@@ -30,18 +30,24 @@
     }
     .PokemonSectionDetails_PokemonContainer {
         display: flex;
-        flex-direction: column;
+        flex-direction: row;
         align-items: center;
         height: 100%;
         width: 100%;
 
-
+        .PokemonSectionDetails_PokemonList {
+            display: flex;
+            width: 100%;
+            overflow-y: scroll;
+            height: 100vh;
+        }
         .PokemonSectionDetails_PokemonDetails {
             display: flex;
             flex-direction: column;
             align-items: center;
             height: 100%;
             width: 100%;
+
 
             .PokemonSectionDetails_PokemonBasicInfo {
                 display: flex;
@@ -92,28 +98,11 @@
                 }
                 
             }
+            
+            
         }
     }
 
 }
 
-@media only screen and (min-device-width: 320px) and (max-device-width: 480px) {
-    .PokemonSectionDetails_Maincontainer {
-        .PokemonSectionDetails_PokemonContainer {
-            .PokemonSectionDetails_PokemonDetails {
-                .PokemonSectionDetails_PokemonBasicInfo {
-                    flex-direction: column;
-                    gap: 50px;
-                }
-                .PokemonSectionDetails_PokemonExtraInfo {
-                    gap: 50px;
 
-                    .PokemonSectionDetails_PokemonTypes,
-                    .PokemonSectionDetails_PokemonData {
-                        width: 100%
-                }
-                }
-            }
-        }
-    }
-}

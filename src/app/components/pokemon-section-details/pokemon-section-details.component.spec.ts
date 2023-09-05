@@ -1,30 +1,55 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { UsePokemonsMockReset } from 'src/app/hooks/usePokemons/usePokemons.service.mock';
 import { PokemonFilterComponent } from '../pokemon-filter/pokemon-filter.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { PokemonTypePillDirective } from 'src/app/directives/pokemonTypeColor/pokemon-type-pill.directive';
 import { IntersectionObserverDirective } from 'src/app/directives/intersectionObserver/intersectionObserver.directive';
-import { UseFilterPokemonsMockReset } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service.mock';
 import { PokemonListComponent } from '../pokemon-list/pokemon-list.component';
 import { PokemonSectionDetails } from './pokemon-section-details.component';
 import { Observable, of } from 'rxjs';
 import { UseDetailedPokemons } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service';
-import { UseDetailedPokemonsMock } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service.mock';
+import { UseDetailedPokemonsMock, UseDetailedPokemonsMockReset } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service.mock';
 import { RouterTestingModule } from '@angular/router/testing';
 import { routesMock } from 'src/app/modules/routing/routing.mock';
 import { ActivatedRoute } from '@angular/router';
 import { IDetailedPokemons } from 'src/app/models/internals/detailedPokemons.model';
 import { GoBackComponent } from '../common/go-back/go-back.component';
+import { PokemonDetails } from 'src/app/models/internals/common/pokemonDetailed.model';
+import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
+import { PokemonStatsComponent } from '../pokemon-stats/pokemon-stats.component';
 
 describe('PokemonSectionDetails', () => {
   let component: PokemonSectionDetails;
   let fixture: ComponentFixture<PokemonSectionDetails>;
-  const pokemonNameParam = 'pokemonNameParamTest';
-
+  const pokemonsDeailsResolver = {
+    data: [
+      {
+        id: 1,
+        name: 'pokemonName_1',
+        images: {
+          normal: 'pokemonNormalImage_1',
+          shiny: 'pokemonShinyImage_1'
+        },      weight: 1,
+        height: 1,
+        types: [],
+        moves: [
+          'move0',
+          'move1'
+        ],
+        stats: {
+          specialAttack: 1,
+          specialDefense: 2,
+          defense: 3,
+          attack: 4,
+          hp: 5,
+          speed: 6
+        }
+      },
+    ]
+  } as IDetailedPokemons
   beforeEach(() => {
     TestBed.configureTestingModule({
-      declarations: [PokemonSectionDetails, GoBackComponent ,PokemonListComponent, PokemonFilterComponent, PokemonTypePillDirective, IntersectionObserverDirective],
+      declarations: [PokemonSectionDetails, GoBackComponent ,PokemonListComponent, PokemonDetailsComponent, PokemonFilterComponent, PokemonStatsComponent, PokemonTypePillDirective, IntersectionObserverDirective],
       imports: [
         SharedModule,
         RouterTestingModule.withRoutes(routesMock)
@@ -38,8 +63,8 @@ describe('PokemonSectionDetails', () => {
           provide: ActivatedRoute,
           useValue: {
             snapshot: {
-              params: {
-                pokemonName: pokemonNameParam
+              data: {
+                pokemonsDeailsResolver: pokemonsDeailsResolver
               }
             }
           },
@@ -49,20 +74,13 @@ describe('PokemonSectionDetails', () => {
     fixture = TestBed.createComponent(PokemonSectionDetails);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-    UsePokemonsMockReset();
-    UseFilterPokemonsMockReset();
-
   });
 
+  afterEach(() => {
+    UseDetailedPokemonsMockReset();
+  })
+  
   it('should create', () => {
     expect(component).toBeTruthy();
-  });
-
-  it('initially should request ChartOptionsFactory.getRadarChartOptions', () => {
-    const getDetailedPokemonOutput: Observable<IDetailedPokemons | undefined> = of({} as IDetailedPokemons)
-    const getDetailedPokemonSpy = jest.spyOn(UseDetailedPokemonsMock, 'getDetailedPokemon').mockReturnValue(getDetailedPokemonOutput)
-
-    expect(getDetailedPokemonSpy).toHaveBeenCalledWith(pokemonNameParam);
   });
 });

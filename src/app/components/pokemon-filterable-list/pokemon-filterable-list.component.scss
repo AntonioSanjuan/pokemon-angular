@@ -1,0 +1,47 @@
+:host {
+    width: 100%;
+}
+
+.PokemonFilterableList_MainContainer {
+    .PokemonFilterableList_Header {
+        display: flex;
+        justify-content: center;
+
+        background-color: #616161;
+        width: 100%;
+
+        padding: 20px 0px;
+        color: #ffff;
+
+        .PokemonFilterableList_FilterInfo {
+            display: flex;
+            justify-content:center;
+            flex-direction: column;
+
+            margin-bottom: 10px;
+        }
+    }
+
+    .PokemonFilterableList_Filter {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+        width: 100%;
+    }
+
+    .PokemonFilterableList_ContentContainer {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        justify-content: center;
+        align-items: flex-start;
+        justify-content: space-around;
+        padding: 60px 20px;
+        background-color: #ffff;
+        height: 100%;
+        gap: 20px;
+        width: 80%;
+    }
+}
+
+

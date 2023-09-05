@@ -1,7 +1,7 @@
 import { inject } from "@angular/core";
 import { ActivatedRouteSnapshot, ResolveFn, RouterStateSnapshot } from "@angular/router";
 import { UsePokemons } from "src/app/hooks/usePokemons/usePokemons.service";
-import { Observable, catchError, of, forkJoin } from "rxjs";
+import { Observable, catchError, of, forkJoin, tap } from "rxjs";
 import { IPokemons } from "src/app/models/internals/pokemons.model";
 import { UsePokemonTypes } from "src/app/hooks/usePokemonTypes/usePokemonTypes.service";
 import { IPokemonTypes } from "src/app/models/internals/pokemonTypes.model";
@@ -36,9 +36,10 @@ export const pokemonSectionDetailsResolver: ResolveFn<any> =
         state: RouterStateSnapshot,
         useDetailedPokemons: UseDetailedPokemons = inject(UseDetailedPokemons)
     ): Observable<IDetailedPokemons|undefined> => {
-        return useDetailedPokemons.getDetailedPokemon(route.params['pokemonName']).pipe(
+        const detailedPokemonNames = (route.params['pokemonName'] as string)?.split('-vs-')
+        return useDetailedPokemons.getDetailedPokemon(detailedPokemonNames).pipe(
             catchError((error) => {
                 return of(undefined)
-            }) 
+            })
         )
 };

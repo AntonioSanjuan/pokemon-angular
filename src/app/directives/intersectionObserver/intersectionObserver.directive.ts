@@ -35,7 +35,7 @@ import {
     createAndObserve () {
 
       const options: IntersectionObserverInit = {
-        root: null,
+        root: document.querySelector('#rootObserver'),
         rootMargin: `-${100 + this.offset}% 0px ${this.offset}% 0px`,
         threshold: 0,
       }

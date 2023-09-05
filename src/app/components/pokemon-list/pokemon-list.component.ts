@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, EventEmitter, Input, Output } from '@angular/core';
 import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 import { IPokemon } from 'src/app/models/internals/pokemons.model';
 
@@ -13,6 +13,7 @@ export class PokemonListComponent {
   @Input() public pokemons!: IPokemon[] | undefined;
   @Input() public infiniteListScroll: boolean = false;
   @Input() public loading: boolean = false;
+  @Output() public onPokemonClick: EventEmitter<IPokemon> = new EventEmitter<IPokemon>();
 
   public isIntersecting(intersecting: boolean) {
     if(this.infiniteListScroll && intersecting ) {

@@ -30,12 +30,13 @@ export const selectDetailedPokemons = createSelector(
   (state: DataState): IDetailedPokemons | undefined => state.detailedPokemons
 );
 
-export const selectDetailedPokemon = (pokemonName: string) => createSelector(
+export const selectDetailedPokemonsByName = (pokemonNames: string[]) => createSelector(
   selectDataState,
   (state: DataState): IDetailedPokemons | undefined => {
     return {
       ...state.detailedPokemons,
-      data: state.detailedPokemons?.data.filter((detailedPokemon) => { return detailedPokemon.name === pokemonName})
+      data: state.detailedPokemons?.data.filter((detailedPokemon) => { 
+        return pokemonNames.includes(detailedPokemon.name)})
     } as IDetailedPokemons | undefined;
   }  
 );

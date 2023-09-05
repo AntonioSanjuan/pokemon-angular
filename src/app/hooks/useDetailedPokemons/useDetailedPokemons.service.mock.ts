@@ -9,7 +9,7 @@ export const UseDetailedPokemonsMock: Partial<UseDetailedPokemons> = {
   loading$: of(false),
 }
 
-export const UseFilterPokemonsMockReset = () => {
+export const UseDetailedPokemonsMockReset = () => {
   getDetailedPokemonSpy.mockReset()
 
   mockGetter(UseDetailedPokemonsMock, "loading$", of(false))

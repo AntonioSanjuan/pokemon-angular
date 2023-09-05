@@ -4,25 +4,22 @@ import { Observable } from 'rxjs';
 import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
 import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
+import { Output, EventEmitter } from '@angular/core';
 import { IPokemon } from 'src/app/models/internals/pokemons.model';
 
 @Component({
-  selector: 'app-pokemon-section',
-  templateUrl: './pokemon-section.component.html',
-  styleUrls: ['./pokemon-section.component.scss'],
+  selector: 'app-pokemon-filterable-list',
+  templateUrl: './pokemon-filterable-list.component.html',
+  styleUrls: ['./pokemon-filterable-list.component.scss']
 })
-export class PokemonSection {
+export class PokemonFilterableListComponent {
   public filteredPokemons$: Observable<IFilteredPokemons | undefined>
   constructor(
     public usePokemons: UsePokemons, 
     public useFilterPokemons: UseFilterPokemons,
-    private readonly router: Router,
-
   ) {
     this.filteredPokemons$ = this.useFilterPokemons.filteredPokemons$
   }
 
-  public goToPokemonDetails(pokemon: IPokemon) {
-    this.router.navigate([`/home/${pokemon?.name}`]);
-  }
+  @Output() public onPokemonClick: EventEmitter<IPokemon> = new EventEmitter<IPokemon>();
 }
