@@ -18,6 +18,7 @@ import { PokemonStatsComponent } from '../pokemon-stats/pokemon-stats.component'
 import { UsePopUp } from 'src/app/hooks/usePopUp/usePopUp.service';
 import { UsePopUpMock, UsePopUpMockReset } from 'src/app/hooks/usePopUp/usePopUp.service.mock';
 import { PokemonInfoComponent } from '../pokemon-info/pokemon-info.component';
+import { HomeModule } from 'src/app/pages/home/home.module';
 
 describe('PokemonSectionDetails', () => {
   let component: PokemonSectionDetails;
@@ -53,23 +54,14 @@ describe('PokemonSectionDetails', () => {
       declarations: [
         PokemonSectionDetails, 
         GoBackComponent ,
-        PokemonListComponent, 
         PokemonDetailsComponent, 
-        PokemonFilterComponent, 
-        PokemonStatsComponent,
-        PokemonInfoComponent,
-        PokemonTypePillDirective, 
-        IntersectionObserverDirective
       ],
       imports: [
         SharedModule,
+        HomeModule,
         RouterTestingModule.withRoutes(routesMock)
       ],
       providers: [
-        {
-          provide: UseDetailedPokemons,
-          useValue: UseDetailedPokemonsMock
-        },
         {
           provide: UsePopUp,
           useValue: UsePopUpMock

@@ -3,7 +3,7 @@ import { UsePopUp } from "./usePopUp.service";
 const openAddPokemonComparisonSpy = jest.fn()
 
 export const UsePopUpMock: Partial<UsePopUp> = {
-  openAddPokemonComparison: openAddPokemonComparisonSpy,
+  open: openAddPokemonComparisonSpy,
 }
 
 export const UsePopUpMockReset = () => {

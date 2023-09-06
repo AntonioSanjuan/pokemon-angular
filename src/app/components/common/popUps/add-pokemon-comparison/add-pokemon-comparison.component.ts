@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { MatDialogRef } from '@angular/material/dialog';
+import { UsePopUp } from 'src/app/hooks/usePopUp/usePopUp.service';
+import { BasePopUp } from 'src/app/models/internals/common/popUp.model';
 import { IPokemon } from 'src/app/models/internals/pokemons.model';
 
 @Component({
@@ -7,12 +9,21 @@ import { IPokemon } from 'src/app/models/internals/pokemons.model';
   templateUrl: './add-pokemon-comparison.component.html',
   styleUrls: ['./add-pokemon-comparison.component.scss']
 })
-export class AddPokemonComparisonComponent {
+export class AddPokemonComparisonComponent extends BasePopUp implements OnInit {
   constructor(
+    public usePopUp: UsePopUp,
     public dialogRef: MatDialogRef<AddPokemonComparisonComponent>
-  ) {}
+  ) {
+    super()
+  }
+
+  public ngOnInit() {
+    console.log("data init", this.popUpData?.id)
+  }
+
 
   public compareWith(pokemon: IPokemon) {
-    this.dialogRef.close(pokemon)
+    this.usePopUp.close(this.popUpData?.id, pokemon)
+    // this.dialogRef.close(pokemon)
   }
 }

@@ -1,6 +1,6 @@
 import { Component } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
-import { UsePopUp } from 'src/app/hooks/usePopUp/usePopUp.service';
+import { PopUpType, UsePopUp } from 'src/app/hooks/usePopUp/usePopUp.service';
 import { IDetailedPokemons } from 'src/app/models/internals/detailedPokemons.model';
 import { IPokemon } from 'src/app/models/internals/pokemons.model';
 
@@ -25,8 +25,10 @@ export class PokemonSectionDetails {
   }
 
   public addPokemonComparison() {
-    this.usePopUp.openAddPokemonComparison().subscribe((pokemon: IPokemon) => {
-      this.router.navigate([`${this.router.url}-vs-${pokemon.name}`], { replaceUrl: true });
+    this.usePopUp.open<IPokemon>(PopUpType.addPokemonComparison).subscribe((pokemon: IPokemon | undefined) => {
+      if(pokemon) {
+        this.router.navigate([`${this.router.url}-vs-${pokemon.name}`], { replaceUrl: true });
+      }
     })
   }
 
