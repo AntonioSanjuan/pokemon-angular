@@ -9,16 +9,12 @@ import { IPokemon } from 'src/app/models/internals/pokemons.model';
   templateUrl: './add-pokemon-comparison.component.html',
   styleUrls: ['./add-pokemon-comparison.component.scss']
 })
-export class AddPokemonComparisonComponent extends BasePopUp implements OnInit {
+export class AddPokemonComparisonComponent extends BasePopUp {
   constructor(
     public usePopUp: UsePopUp,
     public dialogRef: MatDialogRef<AddPokemonComparisonComponent>
   ) {
     super()
-  }
-
-  public ngOnInit() {
-    console.log("data init", this.popUpData?.id)
   }
 
 
