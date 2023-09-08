@@ -1,11 +1,14 @@
 import { UsePopUp } from "./usePopUp.service";
 
-const openAddPokemonComparisonSpy = jest.fn()
+const openSpy = jest.fn()
+const closeSpy = jest.fn()
 
 export const UsePopUpMock: Partial<UsePopUp> = {
-  open: openAddPokemonComparisonSpy,
+  open: openSpy,
+  close: closeSpy
 }
 
 export const UsePopUpMockReset = () => {
-  openAddPokemonComparisonSpy.mockReset()
+  openSpy.mockReset()
+  closeSpy.mockReset()
 }

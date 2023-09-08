@@ -1,8 +1,12 @@
 import { Component } from '@angular/core';
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { UsePopUp } from './usePopUp.service';
+import { PopUpType, UsePopUp } from './usePopUp.service';
 import { AddPokemonComparisonComponent } from 'src/app/components/common/popUps/add-pokemon-comparison/add-pokemon-comparison.component';
 import { MatDialog } from '@angular/material/dialog';
+import { ScrollStrategyOptions } from '@angular/cdk/overlay';
+import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/compiler';
+import { take, pipe } from 'rxjs';
 
 @Component({})
 class DummyComponent {
@@ -17,16 +21,15 @@ describe('UsePopUp', () => {
     TestBed.configureTestingModule({
       declarations: [
         DummyComponent,
-        AddPokemonComparisonComponent
+        AddPokemonComparisonComponent,
       ],
       providers: [
         UsePopUp,
-        {
-          provide: MatDialog,
-          useValue: {}
-        }
+        MatDialog,
+        ScrollStrategyOptions,
       ],
-      imports: []
+      imports: [SharedModule],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     }).compileComponents();
 
     fixture = TestBed.createComponent(DummyComponent);
@@ -38,83 +41,17 @@ describe('UsePopUp', () => {
     expect(component).toBeTruthy();
   });
 
-  // it('loading$ should be false by default', () => {
-  //   component.useFilterPokemons.loading$.pipe(take(1)).subscribe((loading) => {
-  //     expect(loading).toBeFalsy()
-  //   })
-  // });
-
-  // it('filteredPokemons$ should be undefined by default', () => {
-  //   component.useFilterPokemons.filteredPokemons$.pipe(take(1)).subscribe((filteredPokemons) => {
-  //     expect(filteredPokemons).toBeUndefined()
-  //   })
-  // });
-
-  // it('filteredPokemons$ should has the last stored pokemons state', () => {
-  //   //set storage
-  //   const storedFilteredPokemons = {
-  //     data: [
-  //       {} as IPokemon,
-  //       {} as IPokemon,
-  //     ]
-  //   } as IFilteredPokemons ;
-
-  //   store.overrideSelector(selectFilteredPokemons, storedFilteredPokemons);
-  //   store.refreshState();
-  //   fixture.detectChanges()
+  it('close dialog should trigger observable with closed data', (done) => {
+    const outputSut = 'outputTest'
+    const openedDialog = component.usePopUp.open<string>(PopUpType.addPokemonComparison)
     
-  //   component.useFilterPokemons.filteredPokemons$.pipe(take(1)).subscribe((filteredPokemons) => {
-  //     expect(filteredPokemons).toEqual(storedFilteredPokemons)
-  //   })
-  // });
+    openedDialog.pipe(take(5)).subscribe((resp) => {
+      expect(resp).toEqual(outputSut)
+      done()
+    })
 
-  // it('filteredPokemons$ should be always the last storedFilteredPokemons', (done) => {
-  //   const byNameFilterSut: string = 'byNameFilterTest';
+    component.usePopUp.close(PopUpType.addPokemonComparison, outputSut)
 
-  //   //set storage
-  //   const storedFilteredPokemons = {
-  //     byName: byNameFilterSut,
-  //     data: [
-  //       {} as IPokemon,
-  //       {} as IPokemon,
-  //     ]
-  //   } as IFilteredPokemons ;
-
-
-  //   store.overrideSelector(selectFilteredPokemons, storedFilteredPokemons);
-  //   store.refreshState();
-  //   fixture.detectChanges()
-
-  //   component.useFilterPokemons.filteredPokemons$.pipe(take(1)).subscribe((filteredPokemons: IFilteredPokemons | undefined) => {
-  //     expect(filteredPokemons).toEqual(storedFilteredPokemons)
-  //     done()
-  //   })
-  // });
-
-  // it('getByNamePokemons should fetch from service if it exists but doesnt match the previous stored filter', (done) => {
-  //   const byNameFilterSut: string = 'byNameFilterTest';
-
-  //   //set storage
-  //   const storedFilteredPokemons = {
-  //     byName: 'asdasd',
-  //     data: [
-  //       {} as IPokemon,
-  //       {} as IPokemon,
-  //     ]
-  //   } as IFilteredPokemons ;
-
-  //   const getFilteredPokemonsByNameSpy = jest.spyOn(PokeApiServiceMock, "getFilteredPokemonsByName")
-
-  //   store.overrideSelector(selectFilteredPokemons, storedFilteredPokemons);
-  //   store.refreshState();
-  //   fixture.detectChanges()
-
-  //   component.useFilterPokemons.getByNameOrIdPokemons(byNameFilterSut);
-
-  //   component.useFilterPokemons.filteredPokemons$.pipe(take(5)).subscribe((filteredPokemons: IFilteredPokemons | undefined) => {
-  //     expect(getFilteredPokemonsByNameSpy).toHaveBeenCalledWith(byNameFilterSut)
-  //     done()
-  //   })
-  // });
+  });
 
 })

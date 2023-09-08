@@ -23,21 +23,20 @@ export class UsePopUp {
     private readonly sso: ScrollStrategyOptions
   ) {}
 
-  public close(id: string, output?: unknown) {
+  public close(id: string, output?: unknown): void {
     const popUpToCloseIndex = this.openedPopUps.findIndex((openedPopUp) => {
       return openedPopUp.id === id
     })
 
     if(popUpToCloseIndex !== -1) {
       const popUpToClose = this.openedPopUps[popUpToCloseIndex]
-
       popUpToClose?.data.close(output)
       this.openedPopUps.splice(popUpToCloseIndex, 1)
     }
   }
 
   public open<T>(popUpType: PopUpType): Observable<T | undefined> {
-    const newDialogId: string = '1';
+    const newDialogId: string = popUpType;
     const newDialogConfig: MatDialogConfig = {
       id: newDialogId,
       width: '50vw',
@@ -58,7 +57,7 @@ export class UsePopUp {
     }
 
     const popUp: PopUp<T> = { 
-      id: newDialog.id,
+      id: newDialogId,
       data: newDialog
     }
     this.openedPopUps.push(popUp)

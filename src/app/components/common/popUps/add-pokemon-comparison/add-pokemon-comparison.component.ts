@@ -12,7 +12,6 @@ import { IPokemon } from 'src/app/models/internals/pokemons.model';
 export class AddPokemonComparisonComponent extends BasePopUp {
   constructor(
     public usePopUp: UsePopUp,
-    public dialogRef: MatDialogRef<AddPokemonComparisonComponent>
   ) {
     super()
   }
@@ -20,6 +19,5 @@ export class AddPokemonComparisonComponent extends BasePopUp {
 
   public compareWith(pokemon: IPokemon) {
     this.usePopUp.close(this.popUpData?.id, pokemon)
-    // this.dialogRef.close(pokemon)
   }
 }

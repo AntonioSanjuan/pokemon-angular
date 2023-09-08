@@ -7,10 +7,7 @@ import { PokemonFilterComponent } from '../pokemon-filter/pokemon-filter.compone
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { PokemonTypePillDirective } from 'src/app/directives/pokemonTypeColor/pokemon-type-pill.directive';
 import { IntersectionObserverDirective } from 'src/app/directives/intersectionObserver/intersectionObserver.directive';
-import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service';
-import { UsePokemonTypesMock, UsePokemonTypesMockReset } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service.mock';
-import { UseFilterPokemonsMock, UseFilterPokemonsMockReset } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service.mock';
-import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
+import { PokemonCardComponent } from '../pokemon-card/pokemon-card.component';
 
 describe('PokemonListComponent', () => {
   let component: PokemonListComponent;
@@ -20,23 +17,14 @@ describe('PokemonListComponent', () => {
     TestBed.configureTestingModule({
       declarations: [
         PokemonListComponent, 
-        PokemonFilterComponent, 
-        PokemonTypePillDirective, 
+        PokemonCardComponent,
         IntersectionObserverDirective
       ],
       imports: [SharedModule],
       providers: [
         {
-          provide: UseFilterPokemons,
-          useValue: UseFilterPokemonsMock
-        },
-        {
           provide: UsePokemons,
           useValue: UsePokemonsMock
-        },
-        {
-          provide: UsePokemonTypes,
-          useValue: UsePokemonTypesMock
         },
       ]
     });
@@ -47,8 +35,6 @@ describe('PokemonListComponent', () => {
 
   afterEach(() => {
     UsePokemonsMockReset();
-    UseFilterPokemonsMockReset();
-    UsePokemonTypesMockReset()
   })
   
   it('should create', () => {

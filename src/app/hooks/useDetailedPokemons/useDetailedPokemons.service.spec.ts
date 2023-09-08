@@ -6,11 +6,12 @@ import { PokeApiServiceMock, PokeApiServiceMockInitialize } from 'src/app/servic
 import { MockStore, provideMockStore } from '@ngrx/store/testing';
 import { AppRootState } from 'src/app/store/store';
 import { IPokemon, IPokemons } from 'src/app/models/internals/pokemons.model';
-import { selectFilteredPokemons, selectPokemons } from 'src/app/store/data/data.selectors';
+import { selectDetailedPokemons, selectDetailedPokemonsByName, selectFilteredPokemons, selectPokemons } from 'src/app/store/data/data.selectors';
 import { first, last, take } from 'rxjs/operators';
 import { of } from 'rxjs';
 import { addPokemonsAction, setPokemonsAction } from 'src/app/store/data/data.actions';
 import { IFilteredPokemons } from 'src/app/models/internals/filteredPokemons.model';
+import { IDetailedPokemons } from 'src/app/models/internals/detailedPokemons.model';
 
 @Component({})
 class DummyComponent {
@@ -31,9 +32,13 @@ describe('UsePokemons', () => {
           initialState: undefined,
           selectors: [
             {
-              selector: selectFilteredPokemons,
+              selector: selectDetailedPokemons,
               value: undefined
-            }
+            },
+            // {
+            //   selector: selectDetailedPokemonsByName,
+            //   value: undefined
+            // }
           ]
         }),
         { 
@@ -66,77 +71,58 @@ describe('UsePokemons', () => {
     })
   });
 
-  // it('filteredPokemons$ should be undefined by default', () => {
-  //   component.useDetailedPokemons.detailedPokemons$.pipe(take(1)).subscribe((filteredPokemons) => {
-  //     expect(filteredPokemons).toBeUndefined()
-  //   })
-  // });
+  it('getDetailedPokemon should return from storage detailed pokemon if its stored', () => {
+    const detailedPokemonNameSut = 'detailedPokemonNameTest'
+    const detailedPokemonSut = {
+      name: detailedPokemonNameSut
+    } as IPokemon
 
-  // it('filteredPokemons$ should has the last stored pokemons state', () => {
-  //   //set storage
-  //   const storedFilteredPokemons = {
-  //     data: [
-  //       {} as IPokemon,
-  //       {} as IPokemon,
-  //     ]
-  //   } as IFilteredPokemons ;
+    //set storage
+    const storedDetailedPokemons = {
+      data: [
+        detailedPokemonSut,
+        {} as IPokemon,
+      ]
+    } as IDetailedPokemons ;
 
-  //   store.overrideSelector(selectFilteredPokemons, storedFilteredPokemons);
-  //   store.refreshState();
-  //   fixture.detectChanges()
+    store.overrideSelector(selectDetailedPokemons, storedDetailedPokemons);
+    store.refreshState();
+    fixture.detectChanges()
     
-  //   component.useDetailedPokemons.detailedPokemons$.pipe(take(1)).subscribe((filteredPokemons) => {
-  //     expect(filteredPokemons).toEqual(storedFilteredPokemons)
-  //   })
-  // });
+    component.useDetailedPokemons.getDetailedPokemon([detailedPokemonNameSut]).pipe(take(1)).subscribe((detailedPokemons) => {
+      expect(detailedPokemons).toEqual({
+        data: [detailedPokemonSut]
+      } as IDetailedPokemons)
+    })
+  });
 
-  // it('filteredPokemons$ should be always the last storedFilteredPokemons', (done) => {
-  //   const byNameFilterSut: string = 'byNameFilterTest';
+  it('getDetailedPokemon should request from service detailed pokemon if its !stored', () => {
+    const detailedPokemonNameSut = 'detailedPokemonNameTest'
+    const detailedPokemonSut = {
+      data: [
+        {
+          name: detailedPokemonNameSut
+        } as IPokemon
+      ]
+    } as IDetailedPokemons
 
-  //   //set storage
-  //   const storedFilteredPokemons = {
-  //     byName: byNameFilterSut,
-  //     data: [
-  //       {} as IPokemon,
-  //       {} as IPokemon,
-  //     ]
-  //   } as IFilteredPokemons ;
+    //set storage
+    const storedDetailedPokemons = {
+      data: [
+        {} as IPokemon,
+        {} as IPokemon,
+      ]
+    } as IDetailedPokemons ;
 
+    store.overrideSelector(selectDetailedPokemons, storedDetailedPokemons);
+    store.refreshState();
+    fixture.detectChanges()
+    
+    const getDetailedPokemonSpy = jest.spyOn(PokeApiServiceMock, 'getDetailedPokemon').mockReturnValue(of(detailedPokemonSut))
 
-  //   store.overrideSelector(selectFilteredPokemons, storedFilteredPokemons);
-  //   store.refreshState();
-  //   fixture.detectChanges()
-
-  //   component.useDetailedPokemons.getDetailedPokemon().pipe(take(1)).subscribe((filteredPokemons: IFilteredPokemons | undefined) => {
-  //     expect(filteredPokemons).toEqual(storedFilteredPokemons)
-  //     done()
-  //   })
-  // });
-
-  // it('getByNamePokemons should fetch from service if it exists but doesnt match the previous stored filter', (done) => {
-  //   const byNameFilterSut: string = 'byNameFilterTest';
-
-  //   //set storage
-  //   const storedFilteredPokemons = {
-  //     byName: 'asdasd',
-  //     data: [
-  //       {} as IPokemon,
-  //       {} as IPokemon,
-  //     ]
-  //   } as IFilteredPokemons ;
-
-  //   const getFilteredPokemonsByNameSpy = jest.spyOn(PokeApiServiceMock, "getFilteredPokemonsByName")
-
-  //   store.overrideSelector(selectFilteredPokemons, storedFilteredPokemons);
-  //   store.refreshState();
-  //   fixture.detectChanges()
-
-  //   component.useDetailedPokemons.getDetailedPokemon(byNameFilterSut);
-
-  //   component.useDetailedPokemons.detailedPokemons$.pipe(take(5)).subscribe((filteredPokemons: IFilteredPokemons | undefined) => {
-  //     expect(getFilteredPokemonsByNameSpy).toHaveBeenCalledWith(byNameFilterSut)
-  //     done()
-  //   })
-  // });
-
+    component.useDetailedPokemons.getDetailedPokemon([detailedPokemonNameSut]).pipe(take(1)).subscribe((detailedPokemons) => {
+      expect(getDetailedPokemonSpy).toHaveBeenCalledWith(detailedPokemonNameSut)
+      expect(detailedPokemons).toEqual(detailedPokemonSut)
+    })
+  });
 })

@@ -33,9 +33,6 @@ export class UseDetailedPokemons {
         return detailedPokemon.name === pokemonName
       })
     })
-
-
-
   }
 
   private fetchFromStoreDetailedPokemons(pokemonNames: string[]): Observable<IDetailedPokemons | undefined> {

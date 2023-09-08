@@ -8,5 +8,4 @@ import { IDetailedPokemons } from 'src/app/models/internals/detailedPokemons.mod
 })
 export class PokemonDetailsComponent {
   @Input() pokemons!: IDetailedPokemons;
-
 }

@@ -24,7 +24,7 @@ export class PokemonSectionDetails {
         })
   }
 
-  public addPokemonComparison() {
+  public addPokemonComparison(): void {
     this.usePopUp.open<IPokemon>(PopUpType.addPokemonComparison).subscribe((pokemon: IPokemon | undefined) => {
       if(pokemon) {
         this.router.navigate([`${this.router.url}-vs-${pokemon.name}`], { replaceUrl: true });
@@ -32,7 +32,7 @@ export class PokemonSectionDetails {
     })
   }
 
-  public removePokemonComparison() {
+  public removePokemonComparison(): void {
     const newRoute = this.router.url.split('-vs-')[0]
     this.router.navigate([newRoute], { replaceUrl: true });
 

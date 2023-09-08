@@ -8,7 +8,7 @@ import { IPokemon } from 'src/app/models/internals/pokemons.model';
   styleUrls: ['./pokemon-list.component.scss'],
 })
 export class PokemonListComponent {
-  constructor(public usePokemons: UsePokemons) {}
+  constructor(private usePokemons: UsePokemons) {}
   
   @Input() public pokemons!: IPokemon[] | undefined;
   @Input() public infiniteListScroll: boolean = false;

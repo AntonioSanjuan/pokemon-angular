@@ -14,7 +14,11 @@ export let RouterMock = {
 export const routesMock: Routes =   [
     {
         path: 'home',
-        component: DummyComponent
+        component: DummyComponent,
+        children: [
+            { path: '', component: DummyComponent},
+            { path: ':id', component: DummyComponent}
+        ]
     },
     {
         path: 'about',

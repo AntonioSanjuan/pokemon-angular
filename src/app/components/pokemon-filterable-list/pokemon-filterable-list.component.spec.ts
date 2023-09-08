@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { PokemonFilterableListComponent } from './pokemon-filterable-list.component';
 import { UsePokemonsMock, UsePokemonsMockReset } from 'src/app/hooks/usePokemons/usePokemons.service.mock';
 import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
@@ -14,6 +13,7 @@ import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.s
 import { UsePokemonTypesMock, UsePokemonTypesMockReset } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service.mock';
 import { PokemonListComponent } from '../pokemon-list/pokemon-list.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
+import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { IntersectionObserverDirective } from 'src/app/directives/intersectionObserver/intersectionObserver.directive';
 
 describe('PokemonFilterableListComponent', () => {
@@ -44,7 +44,8 @@ describe('PokemonFilterableListComponent', () => {
           provide: UseFilterPokemons,
           useValue: UseFilterPokemonsMock
         },
-      ]
+      ],
+      schemas: [CUSTOM_ELEMENTS_SCHEMA]
     });
     fixture = TestBed.createComponent(PokemonFilterableListComponent);
     component = fixture.componentInstance;

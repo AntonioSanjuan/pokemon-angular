@@ -2,7 +2,6 @@ import { Component, DebugElement } from '@angular/core'
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 import { By } from '@angular/platform-browser';
 import { IntersectionObserverDirective } from './intersectionObserver.directive';
-import { CommonModule } from '@angular/common';
 
 let sutActive: boolean = false
 let sutOffset: number = 0

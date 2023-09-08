@@ -1,8 +1,13 @@
 
 <div class="PokemonFilterableList_MainContainer">
     <div class="PokemonFilterableList_Header">
-        <div class="PokemonFilterableList_FilterInfo" *ngIf="!!(useFilterPokemons.filteredPokemons$ | async)">
-            <h3>filtro actual: {{(useFilterPokemons.filteredPokemons$ | async)?.byName || (useFilterPokemons.filteredPokemons$ | async)?.byType}}</h3>
+        <div class="PokemonFilterableList_FilterInfo" 
+            *ngIf="!!(useFilterPokemons.filteredPokemons$ | async)"
+        >
+            <h3>
+                filtro actual: {{(useFilterPokemons.filteredPokemons$ | async)?.byName || 
+                    (useFilterPokemons.filteredPokemons$ | async)?.byType}}
+            </h3>
             <button
                 mat-raised-button 
                 color="warn"

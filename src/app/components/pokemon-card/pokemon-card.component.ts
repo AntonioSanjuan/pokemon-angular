@@ -12,7 +12,7 @@ export class PokemonCardComponent {
   @Input() public pokemon!: IPokemon | undefined;
   @Input() public isLoading!: boolean;
 
-  animationActive = false;
+  public animationActive = false;
 
   public toggle(): void {
     this.animationActive = !this.animationActive;

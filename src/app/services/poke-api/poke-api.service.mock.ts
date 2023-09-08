@@ -13,6 +13,9 @@ const getPokemonTypesSpy = jest.fn((): Observable<IPokemonTypes> => {
 const getFilteredPokemonsByTypeSpy = jest.fn((): Observable<IFilteredPokemons> => {
   return of(getFilteredPokemonsResponseMock)
 })
+const getDetailedPokemonSpy = jest.fn((): Observable<IFilteredPokemons> => {
+  return of(getFilteredPokemonsResponseMock)
+})
 const getFilteredPokemonsByNameSpy = jest.fn((): Observable<IFilteredPokemons> => {
   return of(getFilteredPokemonsResponseMock)
 })
@@ -20,6 +23,7 @@ const getFilteredPokemonsByNameSpy = jest.fn((): Observable<IFilteredPokemons> =
 export const PokeApiServiceMock: Partial<PokeApiService> = {
   getPokemons: getPokemonsSpy,
   getPokemonTypes: getPokemonTypesSpy,
+  getDetailedPokemon: getDetailedPokemonSpy,
   getFilteredPokemonsByType: getFilteredPokemonsByTypeSpy,
   getFilteredPokemonsByName: getFilteredPokemonsByNameSpy
 }
@@ -27,6 +31,7 @@ export const PokeApiServiceMock: Partial<PokeApiService> = {
 export const PokeApiServiceMockInitialize = () => {
   getPokemonsSpy.mockReturnValue(of(getPokemonsResponseMock))
   getPokemonTypesSpy.mockReturnValue(of(getPokemonTypesResponseMock))
+  getDetailedPokemonSpy.mockReturnValue(of(getFilteredPokemonsResponseMock))
   getFilteredPokemonsByTypeSpy.mockReturnValue(of(getFilteredPokemonsResponseMock))
   getFilteredPokemonsByNameSpy.mockReturnValue(of(getFilteredPokemonsResponseMock))
 }

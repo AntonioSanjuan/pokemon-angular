@@ -4,7 +4,6 @@ import { PokemonFilterComponent } from './pokemon-filter.component';
 import { SharedModule } from 'src/app/modules/shared/shared.module';
 import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service';
 import { UsePokemonTypesMock, UsePokemonTypesMockReset } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service.mock';
-import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
 import { UseFilterPokemonsMock, UseFilterPokemonsMockReset } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service.mock';
 import { By } from '@angular/platform-browser';
 import { PokemonTypePillComponent } from '../pokemon-type-pill/pokemon-type-pill.component';
@@ -24,22 +23,15 @@ describe('PokemonFilterComponent', () => {
         {
           provide: UsePokemonTypes,
           useValue: UsePokemonTypesMock
-        },
-        {
-          provide: UseFilterPokemons,
-          useValue: UseFilterPokemonsMock
         }
       ]
     });
     fixture = TestBed.createComponent(PokemonFilterComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
-
-
   });
 
   afterEach(() => {
-    UseFilterPokemonsMockReset();
     UsePokemonTypesMockReset();
   })
 

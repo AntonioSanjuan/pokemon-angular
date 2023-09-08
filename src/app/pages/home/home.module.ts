@@ -7,17 +7,13 @@ import { PokemonListComponent } from 'src/app/components/pokemon-list/pokemon-li
 import { PokemonCardComponent } from 'src/app/components/pokemon-card/pokemon-card.component';
 import { SkeletonDirective } from 'src/app/directives/skeleton/skeleton.directive';
 import { pokemonSectionDetailsResolver, pokemonSectionResolver } from './home.component.resolvers';
-import { UsePokemons } from 'src/app/hooks/usePokemons/usePokemons.service';
 import { IntersectionObserverDirective } from 'src/app/directives/intersectionObserver/intersectionObserver.directive';
-import { UsePokemonTypes } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service';
 import { PokemonFilterComponent } from 'src/app/components/pokemon-filter/pokemon-filter.component';
 import { PokemonTypePillDirective } from 'src/app/directives/pokemonTypeColor/pokemon-type-pill.directive';
 import { PokemonTypePillComponent } from 'src/app/components/pokemon-type-pill/pokemon-type-pill.component';
 import { UseFilteredPokemonsModule } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service.module';
-import { UseFilterPokemons } from 'src/app/hooks/useFilterPokemons/useFilterPokemons.service';
 import { PokemonSection } from 'src/app/components/pokemon-section/pokemon-section.component';
 import { PokemonSectionDetails } from 'src/app/components/pokemon-section-details/pokemon-section-details.component';
-import { UseDetailedPokemons } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service';
 import { UsePokemonTypesModule } from 'src/app/hooks/usePokemonTypes/usePokemonTypes.service.module';
 import { UseDetailedPokemonsModule } from 'src/app/hooks/useDetailedPokemons/useDetailedPokemons.service.module';
 import { PokemonIdDirective } from 'src/app/directives/pokemonId/pokemon-id.directive';

@@ -3,10 +3,10 @@
         <div class="PokemonDetails_PokemonHeader" *ngFor="let pokemon of pokemons.data">
             <h2>Name: {{pokemon.name}}</h2>
             <img 
-            mat-card-image 
-            src={{pokemon.images.normal}} 
-            alt="Photo pokemon"
-        >
+                mat-card-image 
+                src={{pokemon.images.normal}} 
+                alt="Photo pokemon"
+            >
         </div>
     </div>
     <app-pokemon-stats [pokemons]="pokemons.data"></app-pokemon-stats>
