@@ -4,7 +4,6 @@ import { By } from '@angular/platform-browser';
 import { PokemonTypePillDirective } from './pokemon-type-pill.directive';
 
 function rgbToHex(rgb: string) {
-    console.log("rgb", rgb)
     // Verificar si el valor de entrada tiene el formato correcto
     const match = rgb.match(/^rgb\((\d+),\s*(\d+),\s*(\d+)\)$/);
     
